@@ -32,7 +32,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
-import CalendarIcon from "@/public/icons/calendar.svg";
+import CalendarIcon from "@/public/icons/Calendar.svg";
 import { format } from "date-fns";
 import {
   DropdownMenu,

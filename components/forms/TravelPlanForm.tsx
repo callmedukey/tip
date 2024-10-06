@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import CalendarIcon from "@/public/icons/calendar.svg";
+import CalendarIcon from "@/public/icons/Calendar.svg";
 
 import { TravelPlanFormSchema } from "@/definitions/zod";
 import { Button } from "../ui/button";
