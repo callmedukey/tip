@@ -65,6 +65,7 @@ const MobileMenu = () => {
                   ? "text-murrey underline underline-offset-4"
                   : ""
               )}
+              prefetch={false}
               onClick={() => setOpen(false)}
             >
               {nav.name}

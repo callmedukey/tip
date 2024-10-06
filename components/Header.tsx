@@ -24,7 +24,7 @@ const Header = () => {
         />
       </Link>
       <nav className="items-center gap-8 hidden lg:flex font-normal text-[1.125rem]">
-        <Link href="/my-travel">My Travel</Link>
+        <Link href="/my-travel" prefetch={false}>My Travel</Link>
         <Link href="/">Partner Hotels</Link>
         <Link href="/">Experience by TIP</Link>
         <Link href="/">{"What's next"}</Link>
