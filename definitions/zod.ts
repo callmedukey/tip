@@ -1,0 +1,70 @@
+import { z } from "zod";
+
+export const MainPageFormSchema = z.object({
+  city: z.string().min(1, { message: "City is required" }),
+  from: z.date().nullable(),
+  to: z.date().nullable(),
+  adults: z.coerce.number().min(0),
+  infants: z.coerce.number().min(0),
+  purpose: z.string().min(1, { message: "Purpose is required" }),
+});
+
+export const FinalFormSchema = z.object({
+  options: z.array(z.string()),
+  extra: z.string().optional(),
+});
+
+export const RequestFormSchema = z.object({
+  city: z.string().min(1, { message: "City is required" }),
+  from: z.date().nullable(),
+  to: z.date().nullable(),
+  adults: z.coerce.number().min(0),
+  infants: z.coerce.number().min(0),
+  purpose: z.string().min(1, { message: "Purpose is required" }),
+  options: z.array(z.string()),
+  extra: z.string().optional(),
+  packageType: z.enum(["all-inclusive", "custom"]),
+});
+
+export const TravelSummaryFormItemSchema = z.object({
+  label: z.string().min(1, { message: "라벨은 필수입니다." }).trim(),
+  value: z.string().min(1, { message: "값은 필수입니다." }).trim(),
+});
+
+export const TravelSummaryFormSchema = z.object({
+  json: z
+    .array(TravelSummaryFormItemSchema)
+    .min(1, { message: "비어있습니다." }),
+});
+
+export const TravelPlanFormSchema = z.object({
+  json: z
+    .array(
+      z.object({
+        date: z.date({ message: "날짜는 필수입니다." }),
+        day: z.string({ message: "요일은 필수입니다." }).trim(),
+        time: z.string({ message: "시간은 필수입니다." }).trim(),
+        placeName: z
+          .string({ message: "장소명은 필수입니다." })
+          .min(1, { message: "장소명은 필수입니다." })
+          .trim(),
+        longitude: z
+          .string({ message: "경도는 필수입니다." })
+          .min(1, { message: "경도는 필수입니다." })
+          .trim(),
+        latitude: z
+          .string({ message: "위도는 필수입니다." })
+          .min(1, { message: "위도는 필수입니다." })
+          .trim(),
+      })
+    )
+    .min(1, { message: "비어있습니다." }),
+});
+
+export const AdminQuoteFormSchema = z.object({
+  price: z.coerce.number().min(0),
+  currency: z.string().min(1, { message: "통화는 필수입니다." }).max(3, {
+    message: "통화는 3자 이하여야 합니다.",
+  }),
+  link: z.string({ message: "링크는 필수입니다." }),
+});

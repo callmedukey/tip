@@ -1,0 +1,103 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
+}
+
+enum AccountType {
+  Business
+  Leisure
+  Admin
+}
+
+enum PackageType {
+  all_inclusive
+  custom
+}
+
+enum Purpose {
+  leisure
+  business
+}
+
+enum UserLevel {
+  tip_white
+  tip_blue
+  tip_black
+  tip_gold
+}
+
+enum EditRequestType {
+  normal
+  emergency
+  cancelation
+}
+
+model User {
+  id             String      @id @default(uuid())
+  email          String      @unique
+  password       String
+  name           String
+  phoneNumber    String
+  birthday       DateTime
+  gender         String
+  extra          String?
+  businessNumber String?
+  accountType    AccountType
+  requests       Request[]
+
+  moneySpent Int       @default(0)
+  userLevel  UserLevel @default(tip_white)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Request {
+  id Int @id @default(autoincrement())
+
+  canceled Boolean @default(false)
+
+  city        String
+  from        DateTime
+  to          DateTime
+  adults      Int
+  infants     Int
+  purpose     Purpose
+  packageType PackageType
+  options     String[]
+  extra       String?
+  price       Int?
+  currency    String?
+  paid        Boolean     @default(false)
+  quoteLink   String?
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  confirmed Boolean @default(false)
+
+  summary    Json?
+  travelPlan Json?
+
+  editRequests EditRequest[]
+}
+
+model EditRequest {
+  id        Int     @id @default(autoincrement())
+  request   Request @relation(fields: [requestId], references: [id])
+  requestId Int
+
+  content String
+
+  editRequestType EditRequestType
+
+  completed Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
