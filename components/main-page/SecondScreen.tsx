@@ -7,6 +7,7 @@ import StretchedGreece from "@/public/stretched-greece.png";
 import Greece from "@/public/greece.png";
 import { Button } from "../ui/button";
 import { ArrowLeft } from "lucide-react";
+
 const SecondScreen = ({
   setState,
   returnToFirstScreen,
