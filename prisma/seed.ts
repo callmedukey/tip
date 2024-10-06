@@ -20,7 +20,7 @@ async function main() {
       phoneNumber: "010-1234-5678",
       birthday: new Date("1990-01-01"),
       gender: "Female",
-      password: await bcrypt.hash("admin2024!@", 10),
+      password: await bcrypt.hash("admin2024@@", 10),
     },
   });
 }
