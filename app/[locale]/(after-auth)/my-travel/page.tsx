@@ -8,6 +8,10 @@ import MyTravelHistoryItems from "@/components/user/MyTravelHistoryItems";
 const page = async () => {
   const session = await verifySession();
 
+  if (!session) {
+    redirect("/login");
+  }
+
   const user = await prisma.user.findUnique({
     where: {
       id: session?.userId,
