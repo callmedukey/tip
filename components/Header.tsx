@@ -27,7 +27,7 @@ const Header = () => {
         <Link href="/my-travel">My Travel</Link>
         <Link href="/">Partner Hotels</Link>
         <Link href="/">Experience by TIP</Link>
-        <Link href="/">What's next</Link>
+        <Link href="/">{"What's next"}</Link>
       </nav>
       <Auth_HeaderMenu />
     </header>
