@@ -26,7 +26,7 @@ const FirstScreen = () => {
   });
 
   const locale = useLocale();
-  
+
   const [initialState, setInitialState] = useState<Record<
     string,
     string | number | Date

@@ -7,6 +7,9 @@ import StretchedGreece from "@/public/stretched-greece.png";
 import Greece from "@/public/greece.png";
 import { Button } from "../ui/button";
 import { ArrowLeft } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { useRouter } from "@/i18n/routing";
+import { useEffect } from "react";
 
 const SecondScreen = ({
   setState,
@@ -15,6 +18,8 @@ const SecondScreen = ({
   setState: (state: "all_inclusive" | "custom") => void;
   returnToFirstScreen: () => void;
 }) => {
+  const [session] = useAuth();
+  const router = useRouter();
   const handleClick = (string: "all_inclusive" | "custom") => {
     setState(string);
   };
@@ -65,7 +70,13 @@ const SecondScreen = ({
             <Button
               className="bg-white text-[#88003F] rounded-full px-16 lg:px-8 mt-12 mb-0 z-20 text-[0.75rem] hover:bg-white/90 lg:font-normal font-medium"
               type="button"
-              onClick={() => handleClick("all_inclusive")}
+              onClick={() => {
+                if (!session) {
+                  router.push("/login");
+                } else {
+                  handleClick("all_inclusive");
+                }
+              }}
             >
               Book Now
             </Button>
@@ -100,7 +111,13 @@ const SecondScreen = ({
             <Button
               className="bg-white text-[#036DBA] rounded-full px-16 lg:px-8 mt-12 mb-0 z-20 text-[0.75rem] hover:bg-white/90"
               type="button"
-              onClick={() => handleClick("custom")}
+              onClick={() => {
+                if (!session) {
+                  router.push("/login");
+                } else {
+                  handleClick("custom");
+                }
+              }}
             >
               Book Now
             </Button>
