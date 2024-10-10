@@ -27,6 +27,10 @@ const AdminQuoteForm = () => {
     },
   });
   const onSubmit = async (data: z.infer<typeof AdminQuoteFormSchema>) => {
+    if (data.price <= 0) {
+      return alert("Price needs to be above 0.");
+    }
+
     const response = await issueQuote({
       ...data,
       requestId: requestId as string,
@@ -36,7 +40,7 @@ const AdminQuoteForm = () => {
       return alert(response.error);
     }
 
-    alert("견적을 보냈습니다");
+    alert("Quote has been sent.");
   };
 
   return (

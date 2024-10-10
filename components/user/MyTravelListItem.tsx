@@ -94,7 +94,7 @@ const MyTravelListItem = ({
               My travel
             </h2>
 
-            {request.price && (
+            {request.price && request.price > 0 && (
               <Link
                 href={`/my-travel/details?id=${request.id}`}
                 className="flex items-center lg:gap-2 gap-3 lg:no-underline underline underline-offset-4 lg:text-accountGrayText text-egyptianBlue lg:text-[1.5rem] font-medium"
@@ -168,18 +168,21 @@ const MyTravelListItem = ({
             </div>
           </div>
           <div className="items-center justify-end lg:gap-8 lg:flex-row flex-col lg:mt-0 mt-16 gap-6 hidden lg:flex">
-            {request.price && request.currency && request.quoteLink && (
-              <QuoteInvoiceModal
-                price={request.price}
-                currency={request.currency}
-                paid={request.paid}
-                invoiceUrl={request.quoteLink}
-              >
-                <button className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
-                  See quote
-                </button>
-              </QuoteInvoiceModal>
-            )}
+            {request.price &&
+              request.price > 0 &&
+              request.currency &&
+              request.quoteLink && (
+                <QuoteInvoiceModal
+                  price={request.price}
+                  currency={request.currency}
+                  paid={request.paid}
+                  invoiceUrl={request.quoteLink}
+                >
+                  <button className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
+                    See quote
+                  </button>
+                </QuoteInvoiceModal>
+              )}
             <button className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
               Cancel
             </button>
@@ -192,18 +195,21 @@ const MyTravelListItem = ({
               requestId={request.id.toString()}
             />
             <div className="flex items-center justify-end lg:gap-8 lg:flex-row flex-col lg:mt-0 mt-16 gap-6 lg:hidden">
-              {request.price && request.currency && request.quoteLink && (
-                <QuoteInvoiceModal
-                  price={request.price}
-                  currency={request.currency}
-                  paid={request.paid}
-                  invoiceUrl={request.quoteLink}
-                >
-                  <button className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
-                    See quote2
-                  </button>
-                </QuoteInvoiceModal>
-              )}
+              {request.price &&
+                request.price > 0 &&
+                request.currency &&
+                request.quoteLink && (
+                  <QuoteInvoiceModal
+                    price={request.price}
+                    currency={request.currency}
+                    paid={request.paid}
+                    invoiceUrl={request.quoteLink}
+                  >
+                    <button className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
+                      See quote2
+                    </button>
+                  </QuoteInvoiceModal>
+                )}
               <button className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
                 Cancel
               </button>
@@ -213,18 +219,21 @@ const MyTravelListItem = ({
         {!request.paid && (
           <>
             <div className="flex items-center justify-end lg:gap-8 lg:flex-row flex-col lg:mt-0 mt-16 gap-6 lg:hidden">
-              {request.price && request.currency && request.quoteLink && (
-                <QuoteInvoiceModal
-                  price={request.price}
-                  currency={request.currency}
-                  paid={request.paid}
-                  invoiceUrl={request.quoteLink}
-                >
-                  <button className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
-                    See quote
-                  </button>
-                </QuoteInvoiceModal>
-              )}
+              {request.price &&
+                request.price > 0 &&
+                request.currency &&
+                request.quoteLink && (
+                  <QuoteInvoiceModal
+                    price={request.price}
+                    currency={request.currency}
+                    paid={request.paid}
+                    invoiceUrl={request.quoteLink}
+                  >
+                    <button className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
+                      See quote
+                    </button>
+                  </QuoteInvoiceModal>
+                )}
               <button className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
                 Cancel
               </button>
