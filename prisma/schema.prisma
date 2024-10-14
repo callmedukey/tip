@@ -70,6 +70,7 @@ model Request {
   packageType PackageType
   options     String[]
   extra       String?
+  
   price       Int?
   currency    String?
   paid        Boolean     @default(false)

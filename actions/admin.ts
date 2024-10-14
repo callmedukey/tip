@@ -148,3 +148,35 @@ export const cancelRequest = async ({ requestId }: { requestId: string }) => {
     return { error: "서버에서 업데이트 오류입니다" };
   }
 };
+
+
+export const togglePaid = async ({
+  id,
+  currentStatus,
+}: {
+  id: string;
+  currentStatus: boolean;
+}) => {
+  try {
+    const updatedRequest = await prisma.request.update({
+      where: {
+        id: +id,
+      },
+      data: {
+        paid: !currentStatus,
+      },
+    });
+
+    if (!updatedRequest) {
+      return { message: "Error updating paid status" };
+    }
+
+    
+    revalidatePath("/[locale]/admin/manage-orders", "page");
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    return { message: "Server Error - Updating Paid Status" };
+  }
+};
