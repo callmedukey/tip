@@ -15,15 +15,24 @@ import { Button } from "../ui/button";
 import { issueQuote } from "@/actions/admin";
 import { useSearchParams } from "next/navigation";
 
-const AdminQuoteForm = () => {
+const AdminQuoteForm = ({
+  price,
+  currency,
+  paymentLink,
+}: {
+  price: number | null;
+  currency: string | null;
+  paymentLink: string | null;
+}) => {
   const searchParams = useSearchParams();
   const requestId = searchParams.get("id");
+
   const form = useForm<z.infer<typeof AdminQuoteFormSchema>>({
     resolver: zodResolver(AdminQuoteFormSchema),
     defaultValues: {
-      price: "" as unknown as number,
-      currency: "",
-      link: "",
+      price: price as number,
+      currency: currency as string,
+      link: paymentLink as string,
     },
   });
   const onSubmit = async (data: z.infer<typeof AdminQuoteFormSchema>) => {

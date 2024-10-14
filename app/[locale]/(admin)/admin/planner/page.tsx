@@ -1,18 +1,26 @@
+import { verifySession } from "@/actions/session";
 import AdminQuoteForm from "@/components/forms/AdminQuoteForm";
 import AdminRequestCancelButton from "@/components/forms/AdminRequestCancelButton";
 import TravelPlanForm from "@/components/forms/TravelPlanForm";
 import TravelSummaryForm from "@/components/forms/TravelSummaryForm";
 import { packageOptionsKR } from "@/definitions/packages";
 import { SummaryArray, TravelPlanArray } from "@/definitions/request-details";
+import { redirect } from "@/i18n/routing";
 import { generateOrderNumber } from "@/lib/generateOrderNumber";
 import prisma from "@/lib/prisma";
 import { formatDateToKR, formatDateToUTC } from "@/lib/time-formmater";
+
+export const dynamic = "force-dynamic";
 
 const AdminPlannerPage = async ({
   searchParams,
 }: {
   searchParams: { id: string };
 }) => {
+  const session = await verifySession();
+  if (!session || !session.userId || session.accountType !== "Admin") {
+    return redirect("/login");
+  }
   const orderId = searchParams.id;
 
   const order = await prisma.request.findUnique({
@@ -135,7 +143,11 @@ const AdminPlannerPage = async ({
         <div className="mt-12">
           <h2 className="text-xl font-bold">견적</h2>
         </div>
-        <AdminQuoteForm />
+        <AdminQuoteForm
+          price={order.price}
+          currency={order.currency}
+          paymentLink={order.quoteLink}
+        />
         <div className="mt-12">
           <AdminRequestCancelButton />
         </div>
