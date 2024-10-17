@@ -36,11 +36,11 @@ const page  = async ({params:{userId}}:{params:{
  </li>
 
 <li>
-    <p>Phone Number:{user.phoneNumber}</p>
+    Phone Number:{user.phoneNumber}
 </li>
 
 <li>
-    <p>birthday:{formatDateToKR(user.birthday)} </p>
+    birthday:{formatDateToKR(user.birthday)}
    </li> 
 
 <li>
