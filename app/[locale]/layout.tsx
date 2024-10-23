@@ -11,7 +11,6 @@ import {
 import localFont from "next/font/local";
 import HeaderCushion from "@/components/HeaderCushion";
 import AuthContextProvider from "@/components/context/AuthContext";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ReactQueryContext from "@/components/context/ReactQueryContext";
 const Inter = InterFont({
   subsets: ["latin"],

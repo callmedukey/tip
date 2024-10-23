@@ -1,7 +1,6 @@
 import { verifySession } from "@/actions/session";
 import { redirect } from "@/i18n/routing";
 import { generateOrderNumber } from "@/lib/generateOrderNumber";
-import prisma from "@/lib/prisma";
 
 const RequestDetailPage = async ({
   params,

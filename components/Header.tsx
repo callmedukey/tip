@@ -1,6 +1,5 @@
 import Logo from "@/public/logo.png";
 import Image from "next/image";
-
 import { Link } from "@/i18n/routing";
 import MobileMenu from "./layout/MobileMenu";
 import Auth_HeaderMenu from "./layout/Auth_HeaderMenu";
@@ -24,7 +23,9 @@ const Header = () => {
         />
       </Link>
       <nav className="items-center gap-8 hidden lg:flex font-normal text-[1.125rem]">
-        <Link href="/my-travel" prefetch={false}>My Travel</Link>
+        <Link href="/my-travel" prefetch={false}>
+          My Travel
+        </Link>
         <Link href="/">Partner Hotels</Link>
         <Link href="/">Experience by TIP</Link>
         <Link href="/">{"What's next"}</Link>

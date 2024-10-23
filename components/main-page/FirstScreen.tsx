@@ -1,7 +1,5 @@
 "use client";
-import MobileLogo from "@/public/mobile-logo.png";
-import TIP from "@/public/TIP.svg";
-import TIPI from "@/public/I.svg";
+import Logo from "@/public/logo.svg";
 import Image from "next/image";
 import MainPageForm from "../forms/MainPageForm";
 import { useCallback, useState } from "react";
@@ -82,24 +80,20 @@ const FirstScreen = () => {
 
   return (
     <div className={cn(wrapperClassName, "relative isolate min-h-[60rem]")}>
-      {
-        <div className="flex flex-col absolute top-24 mx-auto text-center lg:hidden">
-          {locale === "ko" && <h2 className="text-white">{t("stressText")}</h2>}
-          <Image
-            src={MobileLogo}
-            alt="Mobile Logo"
-            width={539}
-            height={273}
-            className={cn(
-              "h-auto w-[12rem] mx-auto",
-              locale === "ko" && "mt-10"
-            )}
-          />
-          <h1 className="text-center text-[0.75rem] mt-6 font-medium text-white">
-            Travel in your Pocket <br /> for your best memories
-          </h1>
-        </div>
-      }
+      <div className="flex flex-col absolute top-16 mx-auto text-center lg:hidden">
+        {locale === "ko" && <h2 className="text-white">{t("stressText")}</h2>}
+        <Image
+          src={Logo}
+          alt="Mobile Logo"
+          width={539}
+          height={273}
+          className={cn("h-auto w-[12rem] mx-auto", locale === "ko" && "mt-10")}
+        />
+        <h1 className="text-center text-[0.75rem] mt-6 font-medium text-white">
+          Travel in your Pocket <br /> for your best memories
+        </h1>
+      </div>
+
       <MainPageForm setState={setInitialState} />
       {locale === "ko" && (
         <h2 className="text-white mt-[calc(var(--header-height)*4.5)] self-start text-[1.5rem] text-center absolute hidden lg:block">
@@ -107,18 +101,12 @@ const FirstScreen = () => {
         </h2>
       )}
       <Image
-        src={TIP}
-        alt="TIP"
-        width={580}
-        height={400}
-        className="absolute h-60 hidden lg:block"
-      />
-      <Image
-        src={TIPI}
-        alt="TIP"
-        width={43.5}
-        height={43.5}
-        className="absolute h-60 hidden lg:block"
+        priority
+        alt="Logo"
+        src={Logo}
+        width={99}
+        height={99}
+        className="outline absolute size-[600px]"
       />
       <h1 className="text-center text-[2.5rem] font-medium self-end mb-72 text-white hidden lg:block">
         Travel in your Pocket <br /> for your best memories

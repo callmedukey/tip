@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { generateOrderNumber } from "@/lib/generateOrderNumber";
 import TogglePaidButton from "@/components/admin/manage-orders/TogglePaidButton";
+import { SquareArrowOutUpRight } from "lucide-react";
 
 const ManageOrdersPage = async () => {
   const session = await verifySession();
@@ -72,7 +73,7 @@ const ManageOrdersPage = async () => {
                 </TableCell>
                 <TableCell>
                   <Link href={`/admin/planner?id=${request.id.toString()}`}>
-                    상세보기
+                    <SquareArrowOutUpRight />
                   </Link>
                 </TableCell>
               </TableRow>
