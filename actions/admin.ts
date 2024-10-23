@@ -4,6 +4,8 @@ import { SummaryArray, TravelPlanArray } from "@/definitions/request-details";
 import prisma from "@/lib/prisma";
 import { verifySession } from "./session";
 import { revalidatePath } from "next/cache";
+import { dateToUTC } from "@/lib/time-formmater";
+import type { AccountType, UserLevel } from "@prisma/client";
 
 export const saveRequestSummary = async ({
   summary,
@@ -96,6 +98,7 @@ export const issueQuote = async ({
         id: +requestId,
       },
       data: {
+        status: "invoiced",
         price: price,
         currency: currency,
         quoteLink: link,
@@ -149,7 +152,6 @@ export const cancelRequest = async ({ requestId }: { requestId: string }) => {
   }
 };
 
-
 export const togglePaid = async ({
   id,
   currentStatus,
@@ -164,6 +166,7 @@ export const togglePaid = async ({
       },
       data: {
         paid: !currentStatus,
+        paidAt: !currentStatus == true ? dateToUTC(new Date()) : null,
       },
     });
 
@@ -171,12 +174,124 @@ export const togglePaid = async ({
       return { message: "Error updating paid status" };
     }
 
-    
     revalidatePath("/[locale]/admin/manage-orders", "page");
 
     return { success: true };
   } catch (error) {
     console.log(error);
     return { message: "Server Error - Updating Paid Status" };
+  }
+};
+
+export const sendRequestToCustomer = async ({
+  requestId,
+}: {
+  requestId: string;
+}) => {
+  try {
+    const session = await verifySession();
+    if (!session || !session.userId || session.accountType !== "Admin") {
+      return { error: "Unauthorized Access" };
+    }
+
+    const updatedRequest = await prisma.request.update({
+      where: {
+        id: +requestId,
+      },
+      data: {
+        status: "awaitingResponse",
+      },
+    });
+    if (!updatedRequest) {
+      return { message: "Error updating request status" };
+    }
+    revalidatePath("/[locale]/admin/planner", "page");
+    revalidatePath("/[locale]/admin/new-request", "page");
+    revalidatePath("/[locale]/my-travel", "page");
+    revalidatePath("/[locale]/admin/manage-orders", "page");
+    revalidatePath("/[locale]/admin/update-request", "page");
+
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { message: "Server Error - Sending Request to Customer" };
+  }
+};
+
+export const updateUserLevel = async ({
+  userId,
+  newLevel,
+}: {
+  userId: string;
+  newLevel: UserLevel;
+}) => {
+try {
+    const session = await verifySession();
+    if (!session || !session.userId || session.accountType !== "Admin") {
+      return { error: "Unauthorized Access" };
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: {
+      id: userId
+      },
+      data: {
+        userLevel: newLevel,
+      },
+    });
+
+
+    if (!updatedUser) {
+      return { message: "Error updating user level" };
+    }
+
+    revalidatePath("/[locale]/admin/manage-orders", "page");
+    revalidatePath("/[locale]/admin/manage-users", "page");
+    revalidatePath("/[locale]/admin/new-request", "page");
+
+    return { success: true };
+
+  } catch (error) {
+    console.error(error);
+    return { message: "Server Error - Updating User Level" };
+  }
+};
+
+export const updateAccountType = async ({
+  userId,
+  newAccountType,
+}: {
+  userId: string;
+  newAccountType: AccountType;
+}) => {
+  try {
+    const session = await verifySession();
+    if (!session || !session.userId || session.accountType !== "Admin") {
+      return { error: "Unauthorized Access" };
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        accountType: newAccountType,
+      },
+    });
+
+    if (!updatedUser) {
+      return { message: "Error updating account type" };
+    }
+
+    revalidatePath("/[locale]/admin/manage-users/[userId]", "page");
+    revalidatePath("/[locale]/admin/manage-users", "page");
+    revalidatePath("/[locale]/admin/new-request", "page");
+    revalidatePath("/[locale]/admin/update-request", "page");
+    revalidatePath("/[locale]/admin/manage-orders", "page");
+
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { message: "Server Error - Updating Account Type" };
   }
 };

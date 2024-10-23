@@ -108,7 +108,7 @@ const MyTravelHistoryItems = () => {
                 </div>
               )}
 
-              {history.price && (
+              {history.status !== "pending" && (
                 <div className="self-end flex-1 text-right flex justify-end">
                   <Link
                     href={`/my-travel/details?id=${history.id}`}

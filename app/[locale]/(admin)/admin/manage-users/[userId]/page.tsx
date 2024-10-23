@@ -9,10 +9,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { generateOrderNumber } from "@/lib/generateOrderNumber";
-import { redirect } from "@/i18n/routing";
+import { Link, redirect } from "@/i18n/routing";
 import { verifySession } from "@/actions/session";
-import { formatDateToKR } from "@/lib/time-formmater";
+import { dateToLocalFormatted, formatDateToKR } from "@/lib/time-formmater";
 import { userLevelObject } from "@/lib/parseUserLevel";
+import UpdateAccountType from "../_components/UpdateAccountType";
+import TogglePaidButton from "@/components/admin/manage-orders/TogglePaidButton";
+import { SquareArrowOutUpRight } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +46,9 @@ const ManageSingelUserPage = async ({
 
   return (
     <div className="text-white max-w-screen-8xl mx-auto">
+      <div className="flex justify-end mb-6">
+        <UpdateAccountType accountType={user.accountType} userId={userId} />
+      </div>
       <div className="bg-white text-black p-4 rounded-md">
         <ul className="space-y-4">
           <li>
@@ -92,22 +98,49 @@ const ManageSingelUserPage = async ({
             <p>User Level : {userLevelObject[user.userLevel]} </p>
           </li>
         </ul>
+        <div className="mt-4">
+          <div>Extra:</div>
+          <div className="bg-gray-300  p-2 rounded-md">
+            {user.extra?.trim() ?? "없음"}
+          </div>
+        </div>
       </div>
       <div className="bg-white rounded-md mt-12 relative text-black min-h-[50rem] max-h-[50rem] overflow-y-auto">
         <Table className="text-black">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px] font-bold">Requests</TableHead>
+          <TableHeader className="">
+            <TableRow className="">
+              <TableHead className="w-[100px] font-bold">주문번호</TableHead>
+              <TableHead className="font-bold">도시</TableHead>
+              <TableHead className="font-bold">결제 금액</TableHead>
+              <TableHead className="">결제 여뷰</TableHead>
+              <TableHead className="">결제일</TableHead>
+              <TableHead className=""></TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {user?.requests.map((request) => (
+          <TableBody className=" text-black max-h-[500px] overflow-y-auto">
+            {user.requests.map((request, index) => (
               <TableRow key={request.id}>
-                <TableCell>{generateOrderNumber(request.id)} </TableCell>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{request.price}</TableCell>
-                <TableCell> {request.paid} </TableCell>
+                <TableCell>{generateOrderNumber(request.id)}</TableCell>
+                <TableCell>{request.city.join(", ")}</TableCell>
+                <TableCell>
+                  {request.price} {request.currency}
+                </TableCell>
+                <TableCell>
+                  <TogglePaidButton
+                    id={request.id.toString()}
+                    paidStatus={request.paid}
+                  />
+                </TableCell>
+                <TableCell>
+                  {request.paidAt
+                    ? dateToLocalFormatted(request.paidAt.toISOString())
+                    : "결제 안됨"}
+                </TableCell>
+                <TableCell>
+                  <Link href={`/admin/planner?id=${request.id.toString()}`}>
+                    <SquareArrowOutUpRight />
+                  </Link>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

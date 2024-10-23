@@ -24,6 +24,17 @@ enum Purpose {
   business
 }
 
+enum RequestStatus {
+  pending
+  awaitingResponse
+  initialEditing
+  confirmed
+  invoiced
+  paid
+  editing
+  canceled
+}
+
 enum UserLevel {
   tip_white
   tip_blue
@@ -55,14 +66,17 @@ model User {
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   extraRequests ExtraRequests[]
+
+  @@index([email])
+  @@index([name])
 }
 
 model Request {
   id Int @id @default(autoincrement())
 
-  canceled Boolean @default(false)
-
-  city        String
+  canceled    Boolean       @default(false)
+  status      RequestStatus @default(pending)
+  city        String[]
   from        DateTime
   to          DateTime
   adults      Int
@@ -74,12 +88,13 @@ model Request {
 
   price     Int?
   currency  String?
-  paid      Boolean  @default(false)
+  paid      Boolean   @default(false)
+  paidAt    DateTime?
   quoteLink String?
-  user      User     @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
   userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   confirmed Boolean @default(false)
 

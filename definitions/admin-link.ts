@@ -12,6 +12,10 @@ export const adminLinks = [
     label: "주문 관리",
   },
   {
+    href: "/manage-sales",
+    label: "매출관리",
+  },
+  {
     href: "/manage-users",
     label: "회원관리",
   },

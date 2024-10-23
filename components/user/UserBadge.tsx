@@ -31,7 +31,7 @@ const UserBadge = ({
   const white = "bg-white text-[#A3A3A3]";
   const blue = "bg-[#1564EC] text-white";
   const black = "bg-[#000000] text-white";
-  const gold = "bg-[#FFD700] text-[#DFBB1C]";
+  const gold = "bg-[#FFD700] text-black";
 
   switch (userLevel) {
     case "tip_white":

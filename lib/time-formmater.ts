@@ -35,6 +35,21 @@ export const formatDateToUTC = (userDate: Date): string => {
     .toISO() as string;
 };
 
+export const dateToUTC = (userDate: Date) => {
+  return formatDateToUserLocal(userDate).toUTC().toISO();
+};
+
+export const dateToLocal = (userDate: string) => {
+  return formatDateToUserLocal(new Date(userDate)).toISO();
+};
+
+export const dateToLocalFormatted = (userDate: string) => {
+  return format(
+    formatDateToUserLocal(new Date(userDate)).toISO() as string,
+    "yyyy/MM/dd HH:mm"
+  );
+};
+
 export const formatDateToDestinationTimezone = (
   userDate: Date,
   destinationTimezone: string

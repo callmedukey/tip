@@ -94,7 +94,7 @@ const MyTravelListItem = ({
               My travel
             </h2>
 
-            {request.price && request.price > 0 ? (
+            {request.status !== "pending" ? (
               <Link
                 href={`/my-travel/details?id=${request.id}`}
                 className="flex items-center lg:gap-2 gap-3 lg:no-underline underline underline-offset-4 lg:text-accountGrayText text-egyptianBlue lg:text-[1.5rem] font-medium"
@@ -126,12 +126,12 @@ const MyTravelListItem = ({
               alt="My travel plane"
               className="max-w-[6rem] xl:max-w-[10rem] w-full h-auto flex-1 shrink-0 lg:block hidden"
             />
-            <div className="flex flex-col gap-2 flex-1 lg:items-start">
+            <div className="flex flex-col gap-2 flex-1 ">
               <p className="text-formText text-base lg:text-[1.25rem] font-medium">
                 Destination
               </p>
               <p className="text-[0.75rem] lg:text-base text-accountGrayText">
-                {request.city}
+                {request.city.join(", ")}
               </p>
             </div>
             <div className="flex flex-col gap-2 flex-1 lg:items-end shrink-0">

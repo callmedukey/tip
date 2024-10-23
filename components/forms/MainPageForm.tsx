@@ -38,12 +38,16 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useLocalStorage } from "usehooks-ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { initFormWithSession } from "@/actions/main-page";
 import { formatDateToUTC } from "@/lib/time-formmater";
+import { Checkbox } from "@radix-ui/react-checkbox";
+import type { DateRange } from "react-day-picker";
 
 const MainPageForm = ({
   setState,
@@ -57,26 +61,21 @@ const MainPageForm = ({
     initializeWithValue: false,
   });
 
+  const [date, setDate] = useState<DateRange>({
+    from: undefined,
+    to: undefined,
+  });
+
   const form = useForm<z.infer<typeof MainPageFormSchema>>({
     resolver: zodResolver(MainPageFormSchema),
     defaultValues: {
-      city: "",
-      from: null,
-      to: null,
+      city: [],
       adults: 0,
       infants: 0,
       purpose: "",
     },
   });
 
-  const setTravelFrom = (date: Date | null) => {
-    form.setValue("from", date);
-  };
-  const setTravelTo = (date: Date | null) => {
-    form.setValue("to", date);
-  };
-  form.watch("to");
-  form.watch("from");
   form.watch("adults");
   form.watch("infants");
   form.watch("purpose");
@@ -87,12 +86,12 @@ const MainPageForm = ({
       return;
     }
 
-    if (!data.from) {
+    if (!date.from) {
       alert("Please select a From date");
       return;
     }
 
-    if (!data.to) {
+    if (!date.to) {
       alert("Please select a To date");
       return;
     }
@@ -107,17 +106,17 @@ const MainPageForm = ({
       return;
     }
 
-    if (!new Date(data?.from) || !new Date(data?.to)) {
+    if (!new Date(date.from) || !new Date(date.to)) {
       alert("Please select a From date and To date");
       return;
     }
 
-    if (data.from < new Date()) {
+    if (date.from < new Date()) {
       alert("From date must be after today");
       return;
     }
 
-    if (data.to && data.from && data.to <= data.from) {
+    if (date.to && date.from && date.to <= date.from) {
       alert("To date must be after From date");
       return;
     }
@@ -126,8 +125,8 @@ const MainPageForm = ({
     await initFormWithSession();
     setState({
       ...data,
-      from: formatDateToUTC(data.from),
-      to: formatDateToUTC(data.to),
+      from: formatDateToUTC(date.from),
+      to: formatDateToUTC(date.to),
     });
   };
 
@@ -141,56 +140,81 @@ const MainPageForm = ({
     }
   }, [savedInitialData]);
 
+  form.watch("city");
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="absolute max-w-[calc(100vw-2rem)] mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-6 py-4 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
       >
-        <FormField
-          control={form.control}
-          name="city"
-          render={({ field }) => (
-            <FormItem className="relative isolate flex items-center gap-2 my-auto border-b  lg:border-r lg:border-b-0 h-12 border-dashed w-full lg:w-fit">
-              <FormLabel className="shrink-0">
-                <Image
-                  src={LocationIcon}
-                  height={32}
-                  width={32}
-                  className=""
-                  alt="Location Pin"
-                />
-                <span className="sr-only">City</span>
-              </FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger className="!mt-0 !pt-0 !pb-0 border-none shadow-none min-w-[10rem] focus:ring-0">
-                    <SelectValue
-                      placeholder="City"
-                      className="!mt-0 !pt-0 !mb-0 !pb-0 shadow-none"
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent position="popper" className="mt-8">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex items-center gap-2 max-w-[10rem] min-w-[10rem] w-full overflow-x-auto">
+            <Image
+              src={LocationIcon}
+              height={32}
+              width={32}
+              className=""
+              alt="Location Pin"
+            />
+            {form.getValues("city").length > 0
+              ? form.getValues("city").join(", ")
+              : "City"}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="max-h-[20rem] overflow-y-auto scrollbar-hide mt-8 w-fit">
+            <FormField
+              control={form.control}
+              name="city"
+              render={() => (
+                <FormItem className="flex flex-col py-2">
                   {serviceCities.map((city) => (
-                    <SelectItem key={city} value={city}>
-                      {" "}
-                      {city}{" "}
-                    </SelectItem>
+                    <DropdownMenuItem key={city} asChild>
+                      <FormField
+                        control={form.control}
+                        name="city"
+                        render={({ field }) => {
+                          return (
+                            <FormItem
+                              key={city}
+                              className="flex flex-row items-start space-x-3 space-y-0 hover:opacity-60 py-2"
+                            >
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value?.includes(city)}
+                                  className=""
+                                  onCheckedChange={(checked) => {
+                                    return checked
+                                      ? field.onChange([...field.value, city])
+                                      : field.onChange(
+                                          field.value?.filter(
+                                            (value) => value !== city
+                                          )
+                                        );
+                                  }}
+                                />
+                              </FormControl>
+                              <FormLabel className="font-normal hover:bg-opacity-60">
+                                {city}
+                              </FormLabel>
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    </DropdownMenuItem>
                   ))}
-                </SelectContent>
-              </Select>
-            </FormItem>
-          )}
-        />
+                </FormItem>
+              )}
+            />
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         <div className="flex items-center lg:px-4 py-4 lg:py-0 border-b lg:border-r lg:border-b-0 border-dashed self-stretch">
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant={"outline"}
                 className={cn(
-                  "justify-start text-left font-normal outline-none border-none ring-0 focus:outline-none shadow-none flex items-center gap-6 lg:gap-2  w-[8rem] hover:bg-transparent pl-1 lg:pl-4"
-                  // !searchDate && "text-muted-foreground"
+                  "justify-center text-base text-left font-normal outline-none min-w-[20rem] border-none ring-0 focus:outline-none shadow-none flex items-center gap-6 lg:gap-2  w-[8rem] hover:bg-transparent pl-1 lg:pl-4"
                 )}
               >
                 <Image
@@ -200,55 +224,30 @@ const MainPageForm = ({
                   height={24}
                   className="-translate-y-0.5"
                 />
-                {form.getValues("from") ? (
-                  format(form.getValues("from") as Date, "yyyy-MM-dd")
+                {date.from ? (
+                  format(date.from, "yyyy-MM-dd")
                 ) : (
                   <span>From</span>
                 )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 mt-8" align="start">
-              <Calendar
-                mode="single"
-                selected={new Date(form.getValues("from") as Date) || undefined}
-                onSelect={(day) => setTravelFrom(day || null)}
-              />
-            </PopoverContent>
-          </Popover>
-          <Image
-            src={PlaneIcon}
-            alt="Plane"
-            width={24}
-            height={24}
-            className="mx-auto lg:mx-6"
-          />
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant={"outline"}
-                className={cn(
-                  "justify-start lg:justify-start text-left font-normal outline-none border-none ring-0 focus:outline-none shadow-none flex items-center gap-2 w-[8rem] hover:bg-transparent"
-                )}
-              >
+
                 <Image
-                  src={CalendarIcon}
-                  alt="Calendar"
+                  src={PlaneIcon}
+                  alt="Plane"
                   width={24}
                   height={24}
-                  className="-translate-y-0.5"
+                  className="mx-auto lg:mx-6"
                 />
-                {form.getValues("to") ? (
-                  format(form.getValues("to") as Date, "yyyy-MM-dd")
-                ) : (
-                  <span>To</span>
-                )}
+                <span>{date.to ? format(date.to, "yyyy-MM-dd") : "To"}</span>
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0 mt-8" align="start">
               <Calendar
-                mode="single"
-                selected={new Date(form.getValues("to") as Date) || undefined}
-                onSelect={(day) => setTravelTo(day || null)}
+                mode="range"
+                selected={date}
+                onSelect={setDate}
+                numberOfMonths={2}
+                timeZone="UTC"
+                required
               />
             </PopoverContent>
           </Popover>

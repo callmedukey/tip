@@ -1,9 +1,7 @@
 import { z } from "zod";
 
 export const MainPageFormSchema = z.object({
-  city: z.string().min(1, { message: "City is required" }),
-  from: z.date().nullable(),
-  to: z.date().nullable(),
+  city: z.array(z.string()),
   adults: z.coerce.number().min(0),
   infants: z.coerce.number().min(0),
   purpose: z.string().min(1, { message: "Purpose is required" }),

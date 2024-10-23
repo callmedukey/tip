@@ -41,7 +41,7 @@ export const submitRequest = async (data: any) => {
     return { error: "Failed to create request" };
   }
 
-  revalidatePath("/[locale]/admin/new-request");
+  revalidatePath("/[locale]/admin/new-request", "page");
 
   return { success: "Request created successfully" };
 };

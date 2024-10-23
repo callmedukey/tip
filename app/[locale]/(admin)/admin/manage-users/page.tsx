@@ -13,12 +13,31 @@ import { Link, redirect } from "@/i18n/routing";
 import { formatDateToKR } from "@/lib/time-formmater";
 import { userLevelObject } from "@/lib/parseUserLevel";
 import { SquareArrowOutUpRight } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import UpdateUserLevelButton from "@/components/admin-update/updateUserLevelButton";
+import UpdateMoneySpentButton from "@/components/admin-update/updateMoneySpentButton"; // Import the component
+import { UserLevel } from "@prisma/client";
+import UpdateUserLevel from "./_components/UpdateUserLevel";
 
 const Page = async () => {
   const session = await verifySession();
   if (!session || !session.userId || session.accountType !== "Admin") {
     return redirect("/login");
   }
+
   const users = await prisma.user.findMany({
     where: {},
     select: {
@@ -30,7 +49,6 @@ const Page = async () => {
       gender: true,
       birthday: true,
     },
-
     orderBy: { createdAt: "desc" },
   });
 
@@ -53,7 +71,12 @@ const Page = async () => {
               <TableRow key={user.id}>
                 <TableCell className="min-w-[20rem]">{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{userLevelObject[user.userLevel]}</TableCell>
+                <TableCell>
+                  <UpdateUserLevel
+                    userLevel={user.userLevel}
+                    userId={user.id}
+                  />
+                </TableCell>
                 <TableCell>
                   {user.gender} {formatDateToKR(user.birthday)}{" "}
                 </TableCell>

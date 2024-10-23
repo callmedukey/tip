@@ -13,6 +13,7 @@ import {
 import { generateOrderNumber } from "@/lib/generateOrderNumber";
 import TogglePaidButton from "@/components/admin/manage-orders/TogglePaidButton";
 import { SquareArrowOutUpRight } from "lucide-react";
+import { dateToLocalFormatted } from "@/lib/time-formmater";
 
 const ManageOrdersPage = async () => {
   const session = await verifySession();
@@ -23,10 +24,8 @@ const ManageOrdersPage = async () => {
 
   const requests = await prisma.request.findMany({
     where: {
-      canceled: false,
-      NOT: {
-        price: null,
-        currency: null,
+      status: {
+        not: "pending",
       },
     },
     include: {
@@ -53,6 +52,7 @@ const ManageOrdersPage = async () => {
               <TableHead className="font-bold">이메일</TableHead>
               <TableHead className="font-bold">결제 금액</TableHead>
               <TableHead className="">결제 여뷰</TableHead>
+              <TableHead className="">결제일</TableHead>
               <TableHead className=""></TableHead>
             </TableRow>
           </TableHeader>
@@ -70,6 +70,11 @@ const ManageOrdersPage = async () => {
                     id={request.id.toString()}
                     paidStatus={request.paid}
                   />
+                </TableCell>
+                <TableCell>
+                  {request.paidAt
+                    ? dateToLocalFormatted(request.paidAt.toISOString())
+                    : "결제 안됨"}
                 </TableCell>
                 <TableCell>
                   <Link href={`/admin/planner?id=${request.id.toString()}`}>

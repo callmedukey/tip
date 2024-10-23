@@ -9,6 +9,7 @@ import { redirect } from "@/i18n/routing";
 import { generateOrderNumber } from "@/lib/generateOrderNumber";
 import prisma from "@/lib/prisma";
 import { formatDateToKR, formatDateToUTC } from "@/lib/time-formmater";
+import PlannerSaveAndSend from "./_components/PlannerSaveAndSend";
 
 export const dynamic = "force-dynamic";
 
@@ -44,7 +45,6 @@ const AdminPlannerPage = async ({
       </div>
     );
   }
-
   return (
     <div className="max-w-screen-8xl mx-auto text-white font-medium">
       <h1 className="text-2xl font-bold text-center">여행 플래너</h1>
@@ -62,8 +62,12 @@ const AdminPlannerPage = async ({
           <div>{order.user.email}</div>
         </div>
         <div className="flex gap-2 mt-4">
-          <div>여행스타일:</div>
-          <div>{order.user?.extra ?? "lorem*30"}</div>
+          <div>계정 여행스타일:</div>
+        </div>
+        <div className="mt-2 bg-gray-300 p-2 rounded-md max-w-md">
+          {order.user.extra && order.user.extra !== ""
+            ? order.user.extra
+            : "계정 여행스타일 없음"}
         </div>
         <div className="mt-12">
           <h2 className="text-xl font-bold">수정 요청 사항</h2>
@@ -94,12 +98,16 @@ const AdminPlannerPage = async ({
           </div>
         </div>
         <div className="flex gap-2 mt-4">
-          <div>여행스타일:</div>
-          <div>{order.user?.extra ?? "lorem*30"}</div>
+          <div>주문 여행스타일:</div>
+        </div>
+        <div className="mt-2 bg-gray-300 p-2 rounded-md max-w-md">
+          {order.extra && order.extra !== ""
+            ? order.extra
+            : "추가 여행스타일 없음"}
         </div>
         <div className="flex gap-2 mt-4">
           <div>도시:</div>
-          <div>{order.city}</div>
+          <div>{order.city.join(", ")}</div>
         </div>
         <div className="flex gap-2 mt-4">
           <div>인원:</div>
@@ -140,6 +148,7 @@ const AdminPlannerPage = async ({
           <h2 className="text-xl font-bold">여행 일정</h2>
         </div>
         <TravelPlanForm plan={order.travelPlan as unknown as TravelPlanArray} />
+        <PlannerSaveAndSend />
         <div className="mt-12">
           <h2 className="text-xl font-bold">견적</h2>
         </div>

@@ -23,8 +23,7 @@ const AdminNewRequestPage = async () => {
 
   const requests = await prisma.request.findMany({
     where: {
-      price: null,
-      canceled: false,
+      status: "pending",
     },
     include: {
       user: {
