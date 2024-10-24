@@ -18,7 +18,6 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const fetchSession = async () => {
       const session = await getSession();
-      console.log(session);
       if (session) {
         setSession(session);
       }

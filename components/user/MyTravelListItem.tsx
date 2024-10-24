@@ -10,6 +10,7 @@ import { Skeleton } from "../ui/skeleton";
 import { cn } from "@/lib/utils";
 import MyTravelListFinalRequestChangeBox from "./MyTravelListFinalRequestChangeBox";
 import QuoteInvoiceModal from "../modals/QuoteInvoiceModal";
+import MyTravelListItemShareButton from "./MyTravelListItemShareButton";
 
 const MyTravelListItem = ({
   request,
@@ -168,6 +169,10 @@ const MyTravelListItem = ({
             </div>
           </div>
           <div className="items-center justify-end lg:gap-8 lg:flex-row flex-col lg:mt-0 mt-16 gap-6 hidden lg:flex">
+            <MyTravelListItemShareButton
+              requestId={request.id.toString()}
+              sharedLink={request.sharedLink}
+            />
             {request.price &&
             request.price > 0 &&
             request.currency &&
@@ -195,6 +200,10 @@ const MyTravelListItem = ({
               requestId={request.id.toString()}
             />
             <div className="flex items-center justify-end lg:gap-8 lg:flex-row flex-col lg:mt-0 mt-16 gap-6 lg:hidden">
+              <MyTravelListItemShareButton
+                requestId={request.id.toString()}
+                sharedLink={request.sharedLink}
+              />
               {request.price &&
               request.price > 0 &&
               request.currency &&
@@ -219,6 +228,10 @@ const MyTravelListItem = ({
         {!request.paid && (
           <>
             <div className="flex items-center justify-end lg:gap-8 lg:flex-row flex-col lg:mt-0 mt-16 gap-6 lg:hidden">
+              <MyTravelListItemShareButton
+                requestId={request.id.toString()}
+                sharedLink={request.sharedLink}
+              />
               {request.price &&
               request.price > 0 &&
               request.currency &&
@@ -234,6 +247,7 @@ const MyTravelListItem = ({
                   </button>
                 </QuoteInvoiceModal>
               ) : null}
+
               <button className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
                 Cancel
               </button>

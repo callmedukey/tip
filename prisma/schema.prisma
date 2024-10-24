@@ -104,6 +104,8 @@ model Request {
   coupon   Coupon? @relation(fields: [couponId], references: [id])
   couponId String?
 
+  sharedLink String? @unique
+
   editRequests  EditRequest[]
   extraRequests ExtraRequests[]
 }

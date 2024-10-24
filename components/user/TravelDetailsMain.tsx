@@ -1,10 +1,5 @@
 "use client";
-import {
-  GoogleMap,
-  LoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import MyTravelPlane from "@/public/my-travel-plane.png";
 import DaySelectIcon from "@/public/select-day.png";
 import Image from "next/image";
@@ -18,6 +13,7 @@ import { JsonArray } from "@prisma/client/runtime/library";
 import { parsePrisma } from "@/lib/parsePrisma";
 import { TravelPlan } from "@/definitions/request-details";
 import { cn } from "@/lib/utils";
+import TravelDetailAddress from "@/app/[locale]/(after-auth)/my-travel/details/_components/TravelDetailAddress";
 
 interface TravelDetailsMainProps extends Request {
   editRequests: EditRequest[];
@@ -203,20 +199,7 @@ const TravelDetailsMain = ({
         </aside>
         <section className="w-full px-4 space-y-4">
           {selectedMarker && (
-            <div className="bg-[#F1EFEC] w-full rounded-[2rem] p-6 flex gap-4 items-center">
-              <Image
-                src={DaySelectIcon}
-                width={348}
-                height={320}
-                placeholder="blur"
-                quality={100}
-                alt="Day select icon"
-                className="max-w-[100px] w-full h-auto shrink-0 rounded-[1rem]"
-              />
-              <p className="text-[1.875rem] font-medium text-[#404040]">
-                {selectedMarker?.placeName}
-              </p>
-            </div>
+            <TravelDetailAddress selectedMarker={selectedMarker} />
           )}
 
           <div className="bg-[#F1EFEC] w-full rounded-[2rem] relative h-full min-h-[min(50vh,500px)] max-h-[20rem]">
@@ -241,23 +224,9 @@ const TravelDetailsMain = ({
                     key={index + marker.longitude}
                     position={{ lat: marker.latitude, lng: marker.longitude }}
                     onClick={() => setSelectedMarker(marker)}
+                    label={(index + 1).toString()}
                   />
                 ))}
-
-                {selectedMarker && (
-                  <InfoWindow
-                    position={{
-                      lat: selectedMarker.latitude,
-                      lng: selectedMarker.longitude,
-                    }}
-                  >
-                    <div className="p-2">
-                      <h2 className="font-bold text-lg text-blue-600">
-                        {selectedMarker.placeName}
-                      </h2>
-                    </div>
-                  </InfoWindow>
-                )}
               </GoogleMap>
             )}
           </div>

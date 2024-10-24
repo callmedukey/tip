@@ -12,6 +12,7 @@ import localFont from "next/font/local";
 import HeaderCushion from "@/components/HeaderCushion";
 import AuthContextProvider from "@/components/context/AuthContext";
 import ReactQueryContext from "@/components/context/ReactQueryContext";
+import GoogleProvider from "@/components/context/GoogleProvider";
 const Inter = InterFont({
   subsets: ["latin"],
   display: "swap",
@@ -47,25 +48,26 @@ export default async function Layout({
       <body
         className={`${Inter.variable} ${Pretendard.variable} ${NotoSansKr.variable} antialiased relative isolated bg-white break-keep lg:min-h-[min(100vh,80rem)]`}
       >
-        <Image
-          src={BackgroundImage}
-          alt="Cloud Background"
-          fill
-          quality={100}
-          priority
-          placeholder="blur"
-          className="object-cover object-bottom lg:object-[100%_35%] 2xl:object-[100%_50%] -z-10"
-        />
-
-        <ReactQueryContext>
-          <NextIntlClientProvider messages={messages}>
-            <AuthContextProvider>
-              <Header />
-              <HeaderCushion />
-              {children}
-            </AuthContextProvider>
-          </NextIntlClientProvider>
-        </ReactQueryContext>
+        <GoogleProvider>
+          <Image
+            src={BackgroundImage}
+            alt="Cloud Background"
+            fill
+            quality={100}
+            priority
+            placeholder="blur"
+            className="object-cover object-bottom lg:object-[100%_35%] 2xl:object-[100%_50%] -z-10"
+          />{" "}
+          <ReactQueryContext>
+            <NextIntlClientProvider messages={messages}>
+              <AuthContextProvider>
+                <Header />
+                <HeaderCushion />
+                {children}
+              </AuthContextProvider>
+            </NextIntlClientProvider>
+          </ReactQueryContext>
+        </GoogleProvider>
       </body>
     </html>
   );
