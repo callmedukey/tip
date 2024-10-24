@@ -34,6 +34,7 @@ const AdminPlannerPage = async ({
           password: true,
         },
       },
+      coupon: true,
       editRequests: true,
     },
   });
@@ -152,6 +153,15 @@ const AdminPlannerPage = async ({
         <div className="mt-12">
           <h2 className="text-xl font-bold">견적</h2>
         </div>
+        {order.coupon && (
+          <div className="mt-4">
+            <div className="flex gap-2">
+              <div>쿠폰:</div>
+              <div>{order.coupon.code}</div>
+            </div>
+            <div className="max-w-md">{order.coupon.description}</div>
+          </div>
+        )}
         <AdminQuoteForm
           price={order.price}
           currency={order.currency}
