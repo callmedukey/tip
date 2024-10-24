@@ -17,13 +17,6 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { serviceCities } from "@/definitions/service-cities";
 import LocationIcon from "@/public/icons/location.svg";
 import { MainPageFormSchema } from "@/definitions/zod";
@@ -38,8 +31,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useLocalStorage } from "usehooks-ts";
@@ -146,10 +137,10 @@ const MainPageForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="absolute max-w-[calc(100vw-2rem)] mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-6 py-4 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
+        className="absolute max-w-[calc(100vw-2rem)] mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-2 lg:px-6 py-4 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
       >
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center gap-2 max-w-[10rem] min-w-[10rem] w-full overflow-x-auto">
+          <DropdownMenuTrigger className="flex items-center gap-2 lg:max-w-[10rem] min-w-[10rem] w-full overflow-x-auto border-b lg:border-r lg:border-b-0 border-dashed pb-4 lg:pb-0">
             <Image
               src={LocationIcon}
               height={32}
@@ -161,7 +152,7 @@ const MainPageForm = ({
               ? form.getValues("city").join(", ")
               : "City"}
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="max-h-[20rem] overflow-y-auto scrollbar-hide mt-8 w-fit">
+          <DropdownMenuContent className="max-h-[20rem] overflow-y-auto scrollbar-hide lg:mt-8 lg:w-fit">
             <FormField
               control={form.control}
               name="city"
@@ -214,7 +205,7 @@ const MainPageForm = ({
               <Button
                 variant={"outline"}
                 className={cn(
-                  "justify-center text-base text-left font-normal outline-none min-w-[20rem] border-none ring-0 focus:outline-none shadow-none flex items-center gap-6 lg:gap-2  w-[8rem] hover:bg-transparent pl-1 lg:pl-4"
+                  "justify-center text-base text-left font-normal outline-none lg:min-w-[20rem] min-w-[10rem] border-none ring-0 focus:outline-none shadow-none flex items-center gap-2 sm:gap-4 lg:gap-2 hover:bg-transparent pl-1 lg:pl-4"
                 )}
               >
                 <Image
@@ -240,7 +231,7 @@ const MainPageForm = ({
                 <span>{date.to ? format(date.to, "yyyy-MM-dd") : "To"}</span>
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 mt-8" align="start">
+            <PopoverContent className="w-auto p-0 lg:mt-8" align="start">
               <Calendar
                 mode="range"
                 selected={date}
@@ -254,7 +245,7 @@ const MainPageForm = ({
         </div>
         <div className="flex items-center lg:px-4 pl-1 border-b lg:border-r lg:border-b-0 border-dashed py-6 lg:py-0 w-full lg:w-fit">
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center lg:gap-2 gap-6 w-[8rem] ring-0 focus:ring-0">
+            <DropdownMenuTrigger className="flex items-center lg:gap-2 gap-2 w-[8rem] ring-0 focus:ring-0">
               <Image src={Person} alt="Person Icon" width={24} height={24} />
               {form.getValues("adults") + form.getValues("infants") > 0
                 ? `${
@@ -262,7 +253,7 @@ const MainPageForm = ({
                   } Persons`
                 : "Persons"}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="text-center mt-8">
+            <DropdownMenuContent className="text-center lg:mt-8">
               <DropdownMenuItem
                 asChild
                 onClick={(e) => {
@@ -335,7 +326,7 @@ const MainPageForm = ({
         </div>
         <div className="flex items-center lg:px-4 py-4 lg:py-0 w-full lg:w-fit pl-1 border-b border-dashed lg:border-b-0">
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-6 lg:gap-2 w-[8rem] ring-0 focus:ring-0 capitalize">
+            <DropdownMenuTrigger className="flex items-center gap-2 lg:gap-2 w-[8rem] ring-0 focus:ring-0 capitalize">
               <Image
                 src={PurposeIcon}
                 alt="Purpose Icon"
@@ -346,7 +337,7 @@ const MainPageForm = ({
                 ? form.getValues("purpose")
                 : "Purpose"}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="text-center mt-8">
+            <DropdownMenuContent className="text-center lg:mt-8">
               <DropdownMenuItem
                 onClick={() => form.setValue("purpose", "business")}
               >

@@ -10,6 +10,7 @@ export const MainPageFormSchema = z.object({
 export const FinalFormSchema = z.object({
   options: z.array(z.string()),
   extra: z.string().optional(),
+  code: z.string().optional(),
 });
 
 export const RequestFormSchema = z.object({
@@ -65,4 +66,9 @@ export const AdminQuoteFormSchema = z.object({
     message: "통화는 3자 이하여야 합니다.",
   }),
   link: z.string({ message: "링크는 필수입니다." }),
+});
+
+export const CouponSchema = z.object({
+  code: z.string().min(1, { message: "코드는 필수입니다." }).trim().toUpperCase(),
+  description: z.string().min(1, { message: "설명은 필수입니다." }).trim().toUpperCase(),
 });

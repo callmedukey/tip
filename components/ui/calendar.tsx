@@ -25,7 +25,8 @@ function Calendar({
       className={cn("px-3 sm:py-2 pb-2", className)}
       classNames={{
         root: "relative isolate ",
-        months: "flex items-end space-y-4 sm:space-x-4 sm:space-y-0",
+        months:
+          "flex sm:flex-row flex-col items-end space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
         month_caption: "flex justify-center pt-1 relative items-center",
         caption_label: "text-sm font-medium",

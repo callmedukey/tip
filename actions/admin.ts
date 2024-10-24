@@ -295,3 +295,79 @@ export const updateAccountType = async ({
     return { message: "Server Error - Updating Account Type" };
   }
 };
+
+export const toggleActiveCoupon = async ({
+  couponId,
+  active,
+}: {
+  couponId: string;
+  active: boolean;
+}) => {
+  try {
+    const session = await verifySession();
+    if (!session || !session.userId || session.accountType !== "Admin") {
+      return { error: "Unauthorized Access" };
+    }
+
+    const updatedCoupon = await prisma.coupon.update({
+      where: {
+        id: couponId,
+      },
+      data: {
+        active: !active,
+      },
+    });
+
+    if (!updatedCoupon) {
+      return { message: "Error updating coupon active status" };
+    }
+
+    revalidatePath("/[locale]/admin/coupons", "page");
+
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { message: "Server Error - Toggling Coupon Active Status" };
+  }
+};
+
+
+export const createCoupon = async ({
+  code,
+  description,
+}: {
+  code: string;
+  description: string;
+}) => {
+  try {
+    const session = await verifySession();
+    if (!session || !session.userId || session.accountType !== "Admin") {
+      return { error: "Unauthorized Access" };
+    }
+
+    const existingCoupon = await prisma.coupon.findUnique({
+      where: {
+        code,
+      },
+    });
+
+    if (existingCoupon) {
+      return { message: "Coupon already exists" };
+    }
+
+    const createdCoupon = await prisma.coupon.create({
+      data: {
+        code,
+        description,
+      },
+    });
+    if (!createdCoupon) {
+      return { message: "Error creating coupon" };
+    }
+    revalidatePath("/[locale]/admin/coupons", "page");
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { message: "Server Error - Creating Coupon" };
+  }
+};

@@ -13,10 +13,14 @@ export const adminLinks = [
   },
   {
     href: "/manage-sales",
-    label: "매출관리",
+    label: "매출 관리",
+  },
+  {
+    href: "/coupons",
+    label: "쿠폰 관리",
   },
   {
     href: "/manage-users",
-    label: "회원관리",
+    label: "회원 관리",
   },
 ];

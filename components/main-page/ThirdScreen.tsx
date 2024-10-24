@@ -25,6 +25,7 @@ import SmallAnotherGreece from "@/public/small-another-greece.png";
 import { useLocalStorage } from "usehooks-ts";
 import { submitRequest } from "@/actions/main-page";
 import { useState } from "react";
+import { Input } from "../ui/input";
 
 const ThirdScreen = ({
   setState,
@@ -50,15 +51,13 @@ const ThirdScreen = ({
     defaultValues: {
       options: [],
       extra: "",
+      code: "",
     },
   });
 
   const handleSubmit = async (data: z.infer<typeof FinalFormSchema>) => {
     setSavedInitialData(null);
-    setState({
-      options: data.options,
-      extra: data.extra,
-    });
+
     setLoading(true);
     const response = await submitRequest({
       ...initialState,
@@ -67,6 +66,7 @@ const ThirdScreen = ({
     });
 
     if (response?.error) {
+      setLoading(false);
       return alert(response?.error);
     }
 
@@ -75,6 +75,7 @@ const ThirdScreen = ({
       setState({
         options: data.options,
         extra: data.extra,
+        code: data.code,
       });
     }
   };
@@ -174,6 +175,25 @@ const ThirdScreen = ({
                           className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
                           placeholder="Let us know if you have any other requests."
                           rows={8}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="code"
+                  render={({ field }) => (
+                    <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
+                      <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
+                        Do you have a coupon code?{" "}
+                        <span className="text-egyptianBlue"></span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
+                          placeholder="Enter your coupon code"
                         />
                       </FormControl>
                     </FormItem>
@@ -571,6 +591,25 @@ const ThirdScreen = ({
                           className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
                           placeholder="Let us know if you have any other requests."
                           rows={3}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="code"
+                  render={({ field }) => (
+                    <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
+                      <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
+                        Do you have a coupon code?{" "}
+                        <span className="text-egyptianBlue"></span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
+                          placeholder="Enter your coupon code"
                         />
                       </FormControl>
                     </FormItem>

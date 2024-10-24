@@ -9,7 +9,8 @@ export const initFormWithSession = async () => {
 };
 
 export const submitRequest = async (data: any) => {
-  const session = await verifySession();
+  try {
+    const session = await verifySession();
 
   if (!session || !session.userId) {
     return { error: "You must be logged in to submit a request" };
@@ -24,12 +25,30 @@ export const submitRequest = async (data: any) => {
   if (!user) {
     return { error: "User not found" };
   }
+let couponId;
+  if (data.code) {
+    const coupon = await prisma.coupon.findUnique({
+      where: {
+        code: data.code.trim().toUpperCase(),
+        active: true,
+      },
+    });
+
+    if (!coupon) {
+      return { error: "Invalid coupon code" };
+    }
+
+    couponId = coupon.id;
+  }
 
   const request = await prisma.request
     .create({
       data: {
         ...data,
+        code: undefined,
+        couponId: data.code ? couponId : undefined,
         userId: user.id,
+
       },
     })
     .catch((error) => {
@@ -43,5 +62,10 @@ export const submitRequest = async (data: any) => {
 
   revalidatePath("/[locale]/admin/new-request", "page");
 
-  return { success: "Request created successfully" };
+    return { success: "Request created successfully" };
+  } catch (error) {
+    console.log(error);
+    return { error: "Failed to create request" };
+  }
+  
 };
