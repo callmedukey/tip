@@ -28,6 +28,7 @@ const TravelDetailsPage = async ({
     },
     include: {
       editRequests: true,
+      uploads: true,
     },
   });
 

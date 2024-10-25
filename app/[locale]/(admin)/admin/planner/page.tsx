@@ -10,6 +10,8 @@ import { generateOrderNumber } from "@/lib/generateOrderNumber";
 import prisma from "@/lib/prisma";
 import { formatDateToKR, formatDateToUTC } from "@/lib/time-formmater";
 import PlannerSaveAndSend from "./_components/PlannerSaveAndSend";
+import AdminFileUploads from "./_components/AdminFileUploads";
+import AdminRequestNote from "./_components/AdminRequestNote";
 
 export const dynamic = "force-dynamic";
 
@@ -36,6 +38,7 @@ const AdminPlannerPage = async ({
       },
       coupon: true,
       editRequests: true,
+      uploads: true,
     },
   });
 
@@ -74,11 +77,15 @@ const AdminPlannerPage = async ({
           <h2 className="text-xl font-bold">수정 요청 사항</h2>
         </div>
         {order.editRequests.map((editRequest) => (
-          <div
-            key={editRequest.id}
-            className="mt-6 bg-gray-300 p-2 rounded-md max-w-md"
-          >
-            {editRequest.content}
+          <div key={editRequest.id}>
+            <div className="mt-6 bg-gray-300 p-2 rounded-md max-w-md">
+              {editRequest.content}
+            </div>
+            <span className="text-sm text-gray-500 ml-auto mr-0 block">
+              {formatDateToKR(
+                formatDateToUTC(editRequest.createdAt) as unknown as Date
+              )}
+            </span>
           </div>
         ))}
         {order.editRequests.length === 0 && (
@@ -149,7 +156,8 @@ const AdminPlannerPage = async ({
           <h2 className="text-xl font-bold">여행 일정</h2>
         </div>
         <TravelPlanForm plan={order.travelPlan as unknown as TravelPlanArray} />
-        <PlannerSaveAndSend />
+        <AdminRequestNote requestId={order.id} note={order.adminNotes} />
+        <PlannerSaveAndSend paid={order.paid} />
         <div className="mt-12">
           <h2 className="text-xl font-bold">견적</h2>
         </div>
@@ -167,6 +175,12 @@ const AdminPlannerPage = async ({
           currency={order.currency}
           paymentLink={order.quoteLink}
         />
+        <div className="mt-12">
+          <p className="text-lg font-bold">파일 업로드</p>
+          <div className="mt-4">
+            <AdminFileUploads requestId={order.id} uploads={order.uploads} />
+          </div>
+        </div>
         <div className="mt-12">
           <AdminRequestCancelButton />
         </div>

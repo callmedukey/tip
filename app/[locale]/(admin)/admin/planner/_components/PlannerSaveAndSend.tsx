@@ -4,13 +4,14 @@ import { sendRequestToCustomer } from "@/actions/admin";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 
-const PlannerSaveAndSend = () => {
+const PlannerSaveAndSend = ({ paid }: { paid: boolean }) => {
   const searchParams = useSearchParams();
   const requestId = searchParams.get("id");
 
   const handleSend = async () => {
     const response = await sendRequestToCustomer({
       requestId: requestId as string,
+      paid,
     });
     if (response.error) {
       alert(response.message);

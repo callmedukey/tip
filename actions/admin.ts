@@ -133,6 +133,7 @@ export const cancelRequest = async ({ requestId }: { requestId: string }) => {
       },
       data: {
         canceled: true,
+        status: "canceled",
       },
     });
 
@@ -185,8 +186,10 @@ export const togglePaid = async ({
 
 export const sendRequestToCustomer = async ({
   requestId,
+  paid,
 }: {
   requestId: string;
+  paid: boolean;
 }) => {
   try {
     const session = await verifySession();
@@ -199,7 +202,7 @@ export const sendRequestToCustomer = async ({
         id: +requestId,
       },
       data: {
-        status: "awaitingResponse",
+        status: paid ? "confirmed" : "awaitingResponse",
       },
     });
     if (!updatedRequest) {
@@ -225,7 +228,7 @@ export const updateUserLevel = async ({
   userId: string;
   newLevel: UserLevel;
 }) => {
-try {
+  try {
     const session = await verifySession();
     if (!session || !session.userId || session.accountType !== "Admin") {
       return { error: "Unauthorized Access" };
@@ -233,13 +236,12 @@ try {
 
     const updatedUser = await prisma.user.update({
       where: {
-      id: userId
+        id: userId,
       },
       data: {
         userLevel: newLevel,
       },
     });
-
 
     if (!updatedUser) {
       return { message: "Error updating user level" };
@@ -250,7 +252,6 @@ try {
     revalidatePath("/[locale]/admin/new-request", "page");
 
     return { success: true };
-
   } catch (error) {
     console.error(error);
     return { message: "Server Error - Updating User Level" };
@@ -331,7 +332,6 @@ export const toggleActiveCoupon = async ({
   }
 };
 
-
 export const createCoupon = async ({
   code,
   description,
@@ -369,5 +369,42 @@ export const createCoupon = async ({
   } catch (error) {
     console.error(error);
     return { message: "Server Error - Creating Coupon" };
+  }
+};
+
+export const updateRequestNote = async ({
+  requestId,
+  note,
+}: {
+  requestId: number;
+  note: string;
+}) => {
+  try {
+    const session = await verifySession();
+    if (!session || !session.userId || session.accountType !== "Admin") {
+      return { message: "Unauthorized Access" };
+    }
+
+
+    if (!note.trim() || !requestId){
+      return {message:"Note cannot be empty"}
+    }
+    const updatedRequest = await prisma.request.update({
+      where: {
+        id: requestId,
+      },
+      data: {
+        adminNotes: note.trim(),
+      },
+    });
+
+    if (!updatedRequest) {
+      return { message: "Error updating request note" };
+    }
+    revalidatePath("/[locale]/admin/planner", "page");
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { message: "Server Error - Updating Request Note" };
   }
 };

@@ -72,3 +72,9 @@ export const CouponSchema = z.object({
   code: z.string().min(1, { message: "코드는 필수입니다." }).trim().toUpperCase(),
   description: z.string().min(1, { message: "설명은 필수입니다." }).trim().toUpperCase(),
 });
+
+export const AdminFileUploadsSchema = z.object({
+  file: z.any(),
+  title: z.string().min(1, { message: "파일명은 필수입니다." }).trim(),
+  requestId: z.coerce.number().min(1, { message: "요청 ID는 필수입니다." }),
+});

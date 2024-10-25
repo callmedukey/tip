@@ -86,6 +86,8 @@ model Request {
   options     String[]
   extra       String?
 
+  adminNotes String?
+
   price     Int?
   currency  String?
   paid      Boolean   @default(false)
@@ -105,6 +107,8 @@ model Request {
   couponId String?
 
   sharedLink String? @unique
+
+  uploads Upload[]
 
   editRequests  EditRequest[]
   extraRequests ExtraRequests[]
@@ -148,4 +152,15 @@ model Coupon {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   requests    Request[]
+}
+
+model Upload {
+  id        String   @id @default(uuid())
+  title     String
+  fileType  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  request   Request @relation(fields: [requestId], references: [id])
+  requestId Int
 }

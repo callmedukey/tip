@@ -18,6 +18,7 @@ const TogglePaidButton = ({
 
     if (response?.success) {
       alert("Payment Status Toggled");
+      window.location.reload();
     }
   }
   return (

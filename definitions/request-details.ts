@@ -1,3 +1,5 @@
+import type { RequestStatus } from "@prisma/client";
+
 export type Summary = {
   label: string;
   value: string;
@@ -14,14 +16,17 @@ export type TravelPlan = {
   latitude: string;
 };
 
-export type RequestStatus = "pending" | "initialEditing" | "confirmed" | "invoiced" | "paid";
 
-export const requestStatusObject = {
-  pending: "under review",
-  initialEditing: "initial editing",
-  confirmed: "confirmed",
-  invoiced: "invoiced",
-  paid: "paid",
+export const requestStatusObject: Record<RequestStatus, string> = {
+  pending: "신규",
+  editing: "긴급 수정",
+  awaitingResponse: "대기",
+  confirmed: "승인",
+  invoiced: "결제대기",
+  paid: "결제완료",
+  initialEditing: "결제 전 수정",
+  canceled: "취소"
 };
+
 
 export type TravelPlanArray = TravelPlan[];

@@ -196,9 +196,7 @@ const MyTravelListItem = ({
 
         {request.paid && (
           <>
-            <MyTravelListFinalRequestChangeBox
-              requestId={request.id.toString()}
-            />
+            <MyTravelListFinalRequestChangeBox requestId={request.id} />
             <div className="flex items-center justify-end lg:gap-8 lg:flex-row flex-col lg:mt-0 mt-16 gap-6 lg:hidden">
               <MyTravelListItemShareButton
                 requestId={request.id.toString()}
