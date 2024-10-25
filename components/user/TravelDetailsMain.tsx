@@ -136,7 +136,7 @@ const TravelDetailsMain = ({
         </svg>
         Back
       </button>
-      <div className="grid grid-cols-[auto_1fr] gap-4 mt-4 pb-12">
+      <div className="grid lg:grid-cols-[auto_1fr] gap-4 mt-4 pb-60 lg:pb-12 min-h-[min(50vh,400px)]">
         <aside className="bg-[#F1EFEC] rounded-[2rem] overflow-clip relative max-h-[min(60vh,600px)] overflow-y-auto">
           <div className="py-4 bg-egyptianBlue px-8 flex items-center text-white gap-8 sticky top-0">
             <Image
@@ -245,12 +245,17 @@ const TravelDetailsMain = ({
             </ul>
           )}
         </aside>
-        <section className="w-full px-4 space-y-4">
+        <section className="w-full space-y-4 h-full">
           {selectedMarker && (
             <TravelDetailAddress selectedMarker={selectedMarker} />
           )}
 
-          <div className="bg-[#F1EFEC] w-full rounded-[2rem] relative h-full min-h-[min(50vh,500px)] font-inter">
+          <div
+            className={cn(
+              "bg-[#F1EFEC] w-full rounded-[2rem] relative h-full font-inter isolate min-h-[400px]",
+              selectedMarker && " bg-transparent"
+            )}
+          >
             {!selectedMarker && (
               <div className="p-8">
                 <h1 className="flex items-center gap-4 text-[1.875rem] font-medium mb-24">
@@ -354,12 +359,14 @@ const TravelDetailsMain = ({
                 </div>
               </div>
             )}
+
             {selectedMarker && (
               <GoogleMap
                 mapContainerStyle={{
                   width: "100%",
                   height: "100%",
                   borderRadius: "1rem",
+                  maxHeight: "400px",
                 }}
                 center={{
                   lat: selectedMarker?.latitude,

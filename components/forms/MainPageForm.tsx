@@ -137,7 +137,7 @@ const MainPageForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="absolute max-w-[calc(100vw-2rem)] mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-2 lg:px-6 py-4 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
+        className="absolute max-w-[calc(100vw-2rem)] [@media(max-width:1024px)]:max-w-md mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-2 lg:px-6 py-4 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
       >
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center gap-2 lg:max-w-[10rem] min-w-[10rem] w-full overflow-x-auto border-b lg:border-r lg:border-b-0 border-dashed pb-4 lg:pb-0">
@@ -199,7 +199,7 @@ const MainPageForm = ({
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <div className="flex items-center lg:px-4 py-4 lg:py-0 border-b lg:border-r lg:border-b-0 border-dashed self-stretch">
+        <div className="flex items-center lg:px-4 py-4 lg:py-0 border-b lg:border-r lg:border-b-0 border-dashed self-stretch ">
           <Popover>
             <PopoverTrigger asChild>
               <Button
