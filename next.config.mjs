@@ -10,9 +10,12 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "cms.travelinyourpocket.com",
             },
-            process.env.NODE_ENV === "development" && {
+            process.env.NODE_ENV === "development" ? {
                 protocol: "http",
                 hostname: "localhost",
+            } : {
+                protocol: "https",
+                hostname: "cms.travelinyourpocket.com",
             },
         ],
     },
