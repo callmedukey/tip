@@ -4,6 +4,18 @@ const withNextIntl = createNextIntlPlugin();
  
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    images: {
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "cms.travelinyourpocket.com",
+            },
+            process.env.NODE_ENV === "development" && {
+                protocol: "http",
+                hostname: "localhost",
+            },
+        ],
+    },
     async headers() {
         return [
             {

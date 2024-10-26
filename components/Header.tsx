@@ -26,9 +26,9 @@ const Header = () => {
         <Link href="/my-travel" prefetch={false}>
           My Travel
         </Link>
-        <Link href="/">Partner Hotels</Link>
-        <Link href="/">Experience by TIP</Link>
-        <Link href="/">{"What's next"}</Link>
+        <Link href="/partner-hotels">Partner Hotels</Link>
+        <Link href="/experience-by-tip">Experience by TIP</Link>
+        <Link href="/whats-next">{"What's next"}</Link>
       </nav>
       <Auth_HeaderMenu />
     </header>
