@@ -99,4 +99,20 @@ body {
   .min-screen {
     min-height: calc(100vh - var(--header-height));
   }
+
+  .title-indicator {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -4rem;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 2px;
+      height: 40px;
+      background-color: white;
+    }
+  }
 }

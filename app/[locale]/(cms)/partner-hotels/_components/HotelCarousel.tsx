@@ -45,7 +45,7 @@ const HotelCarousel = ({
                   width={data.leftThumbnail.width}
                   height={data.leftThumbnail.height}
                   quality={100}
-                  className="md:max-w-[10rem] lg:max-w-[15rem] xl:max-w-[20rem] hidden lg:block mx-auto"
+                  className="md:max-w-[10rem] lg:max-w-[15rem] xl:max-w-[20rem] hidden lg:block mx-auto w-full object-contain max-h-[15rem]"
                 />
                 <Image
                   src={getImageUrl(data.centerThumbnail.url)}
@@ -57,7 +57,7 @@ const HotelCarousel = ({
                   width={data.centerThumbnail.width}
                   height={data.centerThumbnail.height}
                   quality={100}
-                  className="md:max-w-[10rem] lg:max-w-[15rem] xl:max-w-[20rem] mx-auto"
+                  className="md:max-w-[10rem] lg:max-w-[15rem] xl:max-w-[20rem] mx-auto w-full object-contain max-h-[15rem]"
                 />
                 <Image
                   src={getImageUrl(data.rightThumbnail.url)}
@@ -69,7 +69,7 @@ const HotelCarousel = ({
                   width={data.rightThumbnail.width}
                   height={data.rightThumbnail.height}
                   quality={100}
-                  className="md:max-w-[10rem] lg:max-w-[15rem] xl:max-w-[20rem] hidden lg:block mx-auto"
+                  className="md:max-w-[10rem] lg:max-w-[15rem] xl:max-w-[20rem] hidden lg:block mx-auto w-full object-contain max-h-[15rem]"
                 />
               </div>
               <div className="flex flex-col gap-4 items-center mt-12 col-span-full">

@@ -2,8 +2,7 @@ import Header from "@/components/Header";
 import { ThemeModeScript } from "flowbite-react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import Image from "next/image";
-import BackgroundImage from "@/public/cloud-background.jpg";
+
 import {
   Inter as InterFont,
   Noto_Sans_KR as NotoSansKrFont,
@@ -13,6 +12,7 @@ import HeaderCushion from "@/components/HeaderCushion";
 import AuthContextProvider from "@/components/context/AuthContext";
 import ReactQueryContext from "@/components/context/ReactQueryContext";
 import GoogleProvider from "@/components/context/GoogleProvider";
+import CloudBg from "./_layout-components/CloudBg";
 const Inter = InterFont({
   subsets: ["latin"],
   display: "swap",
@@ -49,20 +49,12 @@ export default async function Layout({
         className={`${Inter.variable} ${Pretendard.variable} ${NotoSansKr.variable} antialiased relative isolated bg-white break-keep lg:min-h-[min(100vh,80rem)]`}
       >
         <GoogleProvider>
-          <Image
-            src={BackgroundImage}
-            alt="Cloud Background"
-            fill
-            quality={100}
-            priority
-            placeholder="blur"
-            className="object-cover object-bottom lg:object-[100%_35%] 2xl:object-[100%_50%] -z-10"
-          />{" "}
           <ReactQueryContext>
             <NextIntlClientProvider messages={messages}>
               <AuthContextProvider>
                 <Header />
                 <HeaderCushion />
+                <CloudBg />
                 {children}
               </AuthContextProvider>
             </NextIntlClientProvider>

@@ -17,7 +17,7 @@ const HotelCard = async ({ hotel }: { hotel: PartnerHotel }) => {
         quality={100}
         className="rounded-[1rem] w-full h-full object-cover"
       />
-      <p className="text-[1.5rem] font-normal">
+      <p className="text-[1.5rem] font-normal h-24">
         {locale === "en" ? hotel.en_title : hotel.kr_title}
       </p>
       <Link
