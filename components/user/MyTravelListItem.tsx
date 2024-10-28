@@ -95,11 +95,13 @@ const MyTravelListItem = ({
           <div className="flex lg:flex-row flex-col items-center text-center lg:text-left lg:justify-between lg:items-start lg:gap-0 gap-3">
             <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium mb-6">
               My travel{" "}
-              <PDFDownloadLink document={<MyTravelPDF request={request} />}>
-                <span className="underline underline-offset-4 text-sm ml-4">
-                  Download as PDF
-                </span>
-              </PDFDownloadLink>
+              {request.paid && (
+                <PDFDownloadLink document={<MyTravelPDF request={request} />}>
+                  <span className="underline underline-offset-4 text-sm ml-4">
+                    Download as PDF
+                  </span>
+                </PDFDownloadLink>
+              )}
             </h2>
 
             {request.status !== "pending" ? (
