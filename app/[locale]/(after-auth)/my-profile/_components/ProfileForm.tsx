@@ -1,6 +1,5 @@
 "use client";
-import { z } from "zod";
-import { Datepicker } from "flowbite-react";
+import type { User } from "@prisma/client";
 import {
   Form,
   FormControl,
@@ -9,104 +8,54 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { signupSchema } from "@/definitions/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signupSchema } from "@/definitions/auth";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
+import { z } from "zod";
 import { cn } from "@/lib/utils";
-import { Textarea } from "../ui/textarea";
-import { signup } from "@/actions/auth";
-import { useRouter } from "@/i18n/routing";
-
-const SignupForm = () => {
-  const router = useRouter();
+import { Datepicker } from "flowbite-react";
+import { Textarea } from "@/components/ui/textarea";
+import { updateUserProfile } from "@/actions/user";
+const ProfileForm = ({ user }: { user: User }) => {
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      email: "",
-      businessNumber: "",
-      password: "",
-      confirmPassword: "",
-      name: "",
-      phoneNumber: "",
-      birthday: null as unknown as Date,
-      gender: "" as "Male" | "Female" | "Other",
-      accountType: "Leisure",
+      name: user?.name,
+      email: user?.email,
+      phoneNumber: user?.phoneNumber,
+      birthday: user?.birthday,
+      gender: user?.gender as "Male" | "Female" | "Other",
+      extra: user?.extra ?? "",
+      accountType: user?.accountType as "Business" | "Leisure",
+      businessNumber: user?.businessNumber ?? "",
     },
   });
-
   const onSubmit = async (data: z.infer<typeof signupSchema>) => {
-    if (data.phoneNumber === "") {
-      return alert("Please enter a valid phone number");
+    if (data.password !== data.confirmPassword) {
+      alert("Passwords do not match");
+      return;
     }
 
-    if (!data.gender) {
-      return alert("Please select a gender");
-    }
-
-    if (data.birthday === null) {
-      return alert("Please enter a valid birth date");
-    }
-
-    if (data.accountType === "Business" && !data.businessNumber) {
-      return alert("Please enter a valid business number");
-    }
-
-    if (data.accountType !== "Business" && data.businessNumber) {
-      data.businessNumber = "";
-    }
-
-    const response = await signup(data as any);
-
-    if (response?.error) {
-      alert(response?.error);
-    }
+    const response = await updateUserProfile(data);
 
     if (response?.message) {
       alert(response?.message);
-      router.replace("/login");
+    }
+
+    if (response?.success) {
+      alert("Profile updated successfully");
     }
   };
 
-  const onAccountTypeClick = (accountType: "Business" | "Leisure") => {
-    form.setValue("accountType", accountType);
-  };
   const onGenderClick = (gender: "Male" | "Female" | "Other") => {
     form.setValue("gender", gender);
   };
-  form.watch("accountType");
-  form.watch("birthday");
-  form.watch("gender");
   return (
     <Form {...form}>
       <form
-        className="bg-transparent max-w-xl mx-auto mt-12 px-8"
+        className="bg-transparent max-w-xl mx-auto mt-12 px-8 w-full"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="grid sm:grid-cols-2 gap-4">
-          <button
-            className={cn(
-              "w-full bg-white text-[0.75rem]/[100%] py-4",
-              form.getValues("accountType") === "Business" &&
-                "bg-murrey text-white"
-            )}
-            type="button"
-            onClick={() => onAccountTypeClick("Business")}
-          >
-            Business account
-          </button>
-          <button
-            className={cn(
-              "w-full bg-white text-[0.75rem]/[100%] py-4",
-              form.getValues("accountType") === "Leisure" &&
-                "bg-murrey text-white"
-            )}
-            type="button"
-            onClick={() => onAccountTypeClick("Leisure")}
-          >
-            Leisure account
-          </button>
-        </div>
         <fieldset className="flex flex-col gap-12 mt-16">
           <FormField
             control={form.control}
@@ -310,18 +259,12 @@ const SignupForm = () => {
             )}
           />
           <button className="py-4 sm:py-6 px-24 bg-egyptianBlue text-white rounded-full mx-auto flex items-center justify-center">
-            Sign Up
+            Edit
           </button>
-          <p className="text-center text-base">
-            I already have an account!{" "}
-            <Link href="/login" className="underline underline-offset-4">
-              Log in
-            </Link>
-          </p>
         </fieldset>
       </form>
     </Form>
   );
 };
 
-export default SignupForm;
+export default ProfileForm;

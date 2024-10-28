@@ -3,7 +3,8 @@
 import { randomUUID } from "crypto";
 import { verifySession } from "./session";
 import prisma from "@/lib/prisma";
-
+import bcrypt from "bcrypt";
+import { logout } from "./auth";
 export const generateSharedLink = async (requestId: string) => {
   try {
     const session = await verifySession();
@@ -169,5 +170,40 @@ export const submitEmergencyRequest = async (
   } catch (error) {
     console.error(error);
     return { message: "Failed to create edit request" };
+  }
+};
+
+export const updateUserProfile = async (data: any) => {
+  try {
+    const session = await verifySession();
+
+    if (!session || !session.userId) return { message: "Unauthorized" };
+
+    if (data.password !== data.confirmPassword) {
+      return { message: "Passwords do not match" };
+    }
+
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+
+    const updatedUser = await prisma.user.update({
+      where: { id: session.userId },
+      data: {
+        name: data.name,
+        phoneNumber: data.phoneNumber,
+        birthday: data.birthday,
+        gender: data.gender,
+        extra: data.extra,
+        accountType: data.accountType,
+        businessNumber: data.businessNumber,
+        password: hashedPassword,
+      },
+    });
+
+    if (!updatedUser) return { message: "Error updating user profile" };
+
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { message: "Failed to update user profile" };
   }
 };
