@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
 import MyTravelListFinalRequestChangeBox from "./MyTravelListFinalRequestChangeBox";
 import QuoteInvoiceModal from "../modals/QuoteInvoiceModal";
 import MyTravelListItemShareButton from "./MyTravelListItemShareButton";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import MyTravelPDF from "./MyTravelPDF";
 
 const MyTravelListItem = ({
   request,
@@ -92,7 +94,12 @@ const MyTravelListItem = ({
         <div className="lg:grid-rows-[6rem,auto,6rem] grid-rows-[repeat(3,auto)]">
           <div className="flex lg:flex-row flex-col items-center text-center lg:text-left lg:justify-between lg:items-start lg:gap-0 gap-3">
             <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium mb-6">
-              My travel
+              My travel{" "}
+              <PDFDownloadLink document={<MyTravelPDF request={request} />}>
+                <span className="underline underline-offset-4 text-sm ml-4">
+                  Download as PDF
+                </span>
+              </PDFDownloadLink>
             </h2>
 
             {request.status !== "pending" ? (

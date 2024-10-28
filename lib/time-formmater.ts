@@ -49,6 +49,12 @@ export const dateToLocalFormatted = (userDate: string) => {
     "yyyy/MM/dd HH:mm"
   );
 };
+export const dateToLocalFormattedWithoutTime = (userDate: string) => {
+  return format(
+    formatDateToUserLocal(new Date(userDate)).toISO() as string,
+    "yyyy/MM/dd"
+  );
+};
 
 export const formatDateToDestinationTimezone = (
   userDate: Date,
