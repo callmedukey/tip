@@ -173,7 +173,7 @@ const MainPageForm = ({
                 <FormItem className="flex flex-col py-2">
                   {serviceCountryAndCities[locale as "en" | "ko"].map(
                     (city) => (
-                      <DropdownMenuSub>
+                      <DropdownMenuSub key={city.country}>
                         <DropdownMenuSubTrigger>
                           {city.country}
                         </DropdownMenuSubTrigger>
@@ -181,6 +181,7 @@ const MainPageForm = ({
                           <DropdownMenuSubContent>
                             {city.cities.map((city) => (
                               <DropdownMenuItem
+                                key={city}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   handleCityChange(city);
