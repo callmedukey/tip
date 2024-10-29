@@ -26,6 +26,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { submitRequest } from "@/actions/main-page";
 import { useState } from "react";
 import { Input } from "../ui/input";
+import { useLocale } from "next-intl";
 
 const ThirdScreen = ({
   setState,
@@ -38,6 +39,7 @@ const ThirdScreen = ({
   packageType: "all_inclusive" | "custom";
   returnToSecondScreen: () => void;
 }) => {
+  const locale = useLocale();
   const [loading, setLoading] = useState(false);
   const [stage, setStage] = useState(0);
   const [savedInitialData, setSavedInitialData] = useLocalStorage<Record<
@@ -173,7 +175,12 @@ const ThirdScreen = ({
                         <Textarea
                           {...field}
                           className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
-                          placeholder="Let us know if you have any other requests."
+                          placeholder={
+                            locale === "en"
+                              ? `If "etc" was selected, please tell us the cities you want to travel to / Travel for honeymoon / Love activities! / Art gallery lover / Michelin restaurant recommendations / No more than 3 spots in 1 day / Hotel vacation preferred / Paris hot jazz club / hotel with pool / Versailles luxury hotel etc \n\nTell us your travel style ! We are here for you.`
+                              : `기타 선택시 여행을 원하는 도시/ 허니문에 맞는 여행 / 액티비티를 너무 좋아해요! / 아트 갤러리 위주 / 미슐랭 레스토랑 2번 / 하루에 3군데 이상은 가고 싶지 않습니다 / 호캉스 위주 / 파리 핫한 재즈바 가고 싶어요! / 호텔은 수영장이 꼭 있어야해요 / 베르사유 럭셔리 호텔 등 \n\n여러분들의 여행 스타일을 알려주세요. 소중한 고객님의 스타일에 맞는 여행을 함께 만들어갑니다. 
+`
+                          }
                           rows={8}
                         />
                       </FormControl>

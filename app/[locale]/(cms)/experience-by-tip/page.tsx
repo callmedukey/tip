@@ -352,7 +352,9 @@ const page = async () => {
           className="object-cover object-center -z-10"
         />
         <h1 className="text-center mx-auto text-white text-[1.25rem] lg:text-[2.5rem] font-normal leading-[3rem] mt-32 title-indicator">
-          Enjoy the diverse experiences <br /> that Europe has to offer
+          We select qualified experiences and activities{" "}
+          <br className="hidden sm:block" />
+          for our TIP members.
         </h1>
       </section>
       <TopCarousel

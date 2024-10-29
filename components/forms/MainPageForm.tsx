@@ -10,14 +10,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import Image from "next/image";
+import { Form, FormField, FormItem } from "@/components/ui/form";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { serviceCities } from "@/definitions/service-cities";
+  serviceCities,
+  serviceCountryAndCities,
+} from "@/definitions/service-cities";
 import LocationIcon from "@/public/icons/location.svg";
 import { MainPageFormSchema } from "@/definitions/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,6 +28,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useLocalStorage } from "usehooks-ts";
@@ -39,12 +40,14 @@ import { initFormWithSession } from "@/actions/main-page";
 import { formatDateToUTC } from "@/lib/time-formmater";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import type { DateRange } from "react-day-picker";
+import { useLocale } from "next-intl";
 
 const MainPageForm = ({
   setState,
 }: {
   setState: (state: Record<string, string | number | Date | any>) => void;
 }) => {
+  const locale = useLocale();
   const [savedInitialData, setSavedInitialData] = useLocalStorage<Record<
     string,
     string | number | Date | any
@@ -131,6 +134,16 @@ const MainPageForm = ({
     }
   }, [savedInitialData]);
 
+  const handleCityChange = (city: string) => {
+    if (form.getValues("city").includes(city)) {
+      form.setValue(
+        "city",
+        form.getValues("city").filter((value) => value !== city)
+      );
+    } else {
+      form.setValue("city", [...form.getValues("city"), city]);
+    }
+  };
   form.watch("city");
 
   return (
@@ -158,41 +171,62 @@ const MainPageForm = ({
               name="city"
               render={() => (
                 <FormItem className="flex flex-col py-2">
-                  {serviceCities.map((city) => (
-                    <DropdownMenuItem key={city} asChild>
-                      <FormField
-                        control={form.control}
-                        name="city"
-                        render={({ field }) => {
-                          return (
-                            <FormItem
-                              key={city}
-                              className="flex flex-row items-start space-x-3 space-y-0 hover:opacity-60 py-2"
-                            >
-                              <FormControl>
-                                <Checkbox
-                                  checked={field.value?.includes(city)}
-                                  className=""
-                                  onCheckedChange={(checked) => {
-                                    return checked
-                                      ? field.onChange([...field.value, city])
-                                      : field.onChange(
-                                          field.value?.filter(
-                                            (value) => value !== city
-                                          )
-                                        );
-                                  }}
-                                />
-                              </FormControl>
-                              <FormLabel className="font-normal hover:bg-opacity-60">
+                  {serviceCountryAndCities[locale as "en" | "ko"].map(
+                    (city) => (
+                      <DropdownMenuSub>
+                        <DropdownMenuSubTrigger>
+                          {city.country}
+                        </DropdownMenuSubTrigger>
+                        <DropdownMenuPortal>
+                          <DropdownMenuSubContent>
+                            {city.cities.map((city) => (
+                              <DropdownMenuItem
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleCityChange(city);
+                                }}
+                              >
                                 {city}
-                              </FormLabel>
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    </DropdownMenuItem>
-                  ))}
+                              </DropdownMenuItem>
+                            ))}
+                          </DropdownMenuSubContent>
+                        </DropdownMenuPortal>
+                      </DropdownMenuSub>
+                      // <DropdownMenuItem key={city} asChild>
+                      //   <FormField
+                      //     control={form.control}
+                      //     name="city"
+                      //     render={({ field }) => {
+                      //       return (
+                      //         <FormItem
+                      //           key={city}
+                      //           className="flex flex-row items-start space-x-3 space-y-0 hover:opacity-60 py-2"
+                      //         >
+                      //           <FormControl>
+                      //             <Checkbox
+                      //               checked={field.value?.includes(city)}
+                      //               className=""
+                      //               onCheckedChange={(checked) => {
+                      //                 return checked
+                      //                   ? field.onChange([...field.value, city])
+                      //                   : field.onChange(
+                      //                       field.value?.filter(
+                      //                         (value) => value !== city
+                      //                       )
+                      //                     );
+                      //               }}
+                      //             />
+                      //           </FormControl>
+                      //           <FormLabel className="font-normal hover:bg-opacity-60">
+                      //             {city}
+                      //           </FormLabel>
+                      //         </FormItem>
+                      //       );
+                      //     }}
+                      //   />
+                      // </DropdownMenuItem>
+                    )
+                  )}
                 </FormItem>
               )}
             />
@@ -266,9 +300,11 @@ const MainPageForm = ({
                     <button
                       type="button"
                       className="text-center w-full flex  rounded-full justify-center items-center"
-                      onClick={() =>
-                        form.setValue("adults", form.getValues("adults") - 1)
-                      }
+                      onClick={() => {
+                        if (form.getValues("adults") > 0) {
+                          form.setValue("adults", form.getValues("adults") - 1);
+                        }
+                      }}
                     >
                       <CircleMinus strokeWidth={1} />
                     </button>
@@ -302,9 +338,14 @@ const MainPageForm = ({
                     <button
                       type="button"
                       className="text-center w-full flex  rounded-full justify-center items-center"
-                      onClick={() =>
-                        form.setValue("adults", form.getValues("adults") - 1)
-                      }
+                      onClick={() => {
+                        if (form.getValues("infants") > 0) {
+                          form.setValue(
+                            "infants",
+                            form.getValues("infants") - 1
+                          );
+                        }
+                      }}
                     >
                       <CircleMinus strokeWidth={1} />
                     </button>

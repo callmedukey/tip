@@ -79,7 +79,7 @@ const MyTravelListItem = ({
         className={cn(
           "grid  py-4",
           request.paid
-            ? "lg:grid-rows-[6rem,auto,6rem, 8rem] grid-rows-[repeat(4,auto)] lg:grid-cols-[auto,minmax(15rem,0.5fr)] gap-x-6"
+            ? "lg:grid-rows-[6rem,auto,6rem, 8rem] grid-rows-[repeat(4,auto)] xl:grid-cols-[auto,minmax(15rem,0.5fr)] gap-x-6 items-center"
             : ""
         )}
       >
@@ -93,7 +93,7 @@ const MyTravelListItem = ({
         />
         <div className="lg:grid-rows-[6rem,auto,6rem] grid-rows-[repeat(3,auto)]">
           <div className="flex lg:flex-row flex-col items-center text-center lg:text-left lg:justify-between lg:items-start lg:gap-0 gap-3">
-            <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium mb-6">
+            <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium mb-6 flex flex-col gap-2 lg:flex-row">
               My travel{" "}
               {request.paid && (
                 <PDFDownloadLink document={<MyTravelPDF request={request} />}>
@@ -177,7 +177,7 @@ const MyTravelListItem = ({
               </p>
             </div>
           </div>
-          <div className="items-center justify-end lg:gap-8 lg:flex-row flex-col lg:mt-0 mt-16 gap-6 hidden lg:flex">
+          <div className="items-center justify-end lg:gap-8 lg:flex-row lg:mt-0 mt-16 gap-6 hidden lg:flex">
             <MyTravelListItemShareButton
               requestId={request.id.toString()}
               sharedLink={request.sharedLink}

@@ -11,6 +11,9 @@ const page = async ({ searchParams }: { searchParams: { id: string } }) => {
 
   const request = await prisma.request.findUnique({
     where: { sharedLink: id },
+    include: {
+      uploads: true,
+    },
   });
 
   if (!request) return redirect("/");

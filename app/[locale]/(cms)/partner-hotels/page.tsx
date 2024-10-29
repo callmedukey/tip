@@ -1,7 +1,8 @@
 import HotelCard from "./_components/HotelCard";
 import { getLocale } from "next-intl/server";
 import HotelCarousel from "./_components/HotelCarousel";
-
+import Image from "next/image";
+import BackgroundImage from "@/public/second-bg.png";
 export const dynamic = "force-dynamic";
 
 export type PartnerHotelCarousel = {
@@ -326,13 +327,21 @@ const page = async () => {
 
   const locale = await getLocale();
   return (
-    <main className="py-16 font-inter px-4 max-w-screen-8xl mx-auto">
+    <main className="py-16 font-inter px-4 relative mt-[-5rem]">
+      <Image
+        src={BackgroundImage}
+        alt="Another Cloud Background"
+        fill
+        quality={100}
+        priority
+        placeholder="blur"
+        className="object-cover object-center -z-10 max-h-[100rem]"
+      />
       <h1 className="text-center mx-auto text-white text-[1.25rem] lg:text-[2.5rem] font-normal leading-[3rem] mt-32 title-indicator">
-        Immerse yourself in the modern <br className="hidden sm:block" />{" "}
-        elegance of a personalized luxury <br className="hidden sm:block" /> and
-        exceptional service.
+        For your travel, <br /> Your Place to stay is the most important. <br />{" "}
+        Our partner hotels are here <br /> to provide you with precious time.
       </h1>
-      <article className="mt-[20rem] pt-[20rem]">
+      <article className="mt-[35rem]">
         <h2 className="text-[2rem] font-normal leading-normal text-center font-inter mt-60">
           저희 파트너 호텔에서 잊지 못할 좋은 시간 보내세요
         </h2>

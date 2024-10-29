@@ -208,7 +208,7 @@ const TravelDetailsMain = ({
             </ul>
           )}
           {selectedDay && (
-            <ul className="py-4 space-y-4 max-w-[25rem] w-full">
+            <ul className="py-4 space-y-4 max-w-[25rem] w-full px-2">
               {Array.isArray(travelPlanDays) &&
                 travelPlanDays.length > 0 &&
                 parsePrisma<TravelPlan[]>(request.travelPlan)
@@ -216,7 +216,11 @@ const TravelDetailsMain = ({
                   .map((day, index) => (
                     <li
                       key={day.day + index}
-                      className="flex items-center gap-4 px-8 hover:opacity-50 cursor-pointer transition-opacity duration-300 font-medium"
+                      className={cn(
+                        "flex items-center gap-4 px-8 hover:opacity-50 cursor-pointer transition-opacity duration-300 font-medium py-2 rounded-md",
+                        day.placeName === selectedMarker?.placeName &&
+                          "ring-2 ring-egyptianBlue/60 bg-egyptianBlue/10"
+                      )}
                       onClick={() =>
                         setSelectedMarker({
                           longitude: parseFloat(day.longitude),
@@ -320,7 +324,7 @@ const TravelDetailsMain = ({
                   </div>
                   <div className="flex-grow">
                     <div className="space-y-4">
-                      {request.editRequests.map((editRequest) => (
+                      {request.editRequests?.map((editRequest) => (
                         <div
                           key={editRequest.id}
                           className="bg-[#E5E5E5]  rounded-[2rem] flex flex-col items-center justify-center p-4 lg:mt-0 mt-8"
