@@ -91,3 +91,14 @@ export const packageOptionsKR = {
   "ski/snowboard": "스키/스노보드",
   "spa/hot springs": "스파 & 온천",
 };
+
+export const packageTypeLocale = {
+  "ko": {
+    "all_inclusive": "전체 포함 여행 패키지",
+    "custom": "커스컴 여행 패키지"
+  }, 
+  en: {
+    all_inclusive: "All Inclusive Travel Package",
+    custom: "Custom Travel Package",
+  },
+};

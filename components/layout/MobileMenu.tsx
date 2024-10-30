@@ -8,7 +8,7 @@ import DarkLogo from "@/public/dark-logo.png";
 import Image from "next/image";
 import LanguageSelectDropDown from "../LanguageSelectDropDown";
 const links = [
-  { href: "/my-account", name: "My Account" },
+  { href: "/my-profile", name: "My Profile" },
   { href: "/my-travel", name: "My Travel" },
   { href: "/partner-hotels", name: "Partner Hotels" },
   { href: "/experience-by-tip", name: "Experience by TIP" },

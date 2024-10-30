@@ -5,6 +5,14 @@ import { dateToLocalFormattedWithoutTime } from "@/lib/time-formmater";
 import Image from "next/image";
 import type { Request, User } from "@prisma/client";
 import { useRef } from "react";
+import {
+  customOptions,
+  inclusiveOptions,
+  packageOptionsKR,
+  packageTypeLocale,
+} from "@/definitions/packages";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import MyTravelInvoicePDF from "@/components/user/MyTravelInvoicePDF";
 
 interface RequestWithUser extends Request {
   user: Omit<User, "password">;
@@ -24,6 +32,9 @@ const InvoicePrintPage = ({
       window.print();
     }
   };
+
+  const handleDownloadPDF = () => {};
+
   return (
     <article className="bg-white rounded-[1rem] p-8" ref={ref}>
       <div className="flex items-end justify-between">
@@ -61,6 +72,11 @@ const InvoicePrintPage = ({
         <div className="w-full sm:w-1/2 flex-1 sm:max-w-[50%]">
           <div className="font-semibold">
             {locale === "en" ? "Order Summary" : "주문 요약"}
+          </div>
+          <div>
+            Travel Period:{" "}
+            {dateToLocalFormattedWithoutTime(request.from as unknown as string)}{" "}
+            - {dateToLocalFormattedWithoutTime(request.to as unknown as string)}
           </div>
           <div>Destination Cities: {request.city.join(", ")}</div>
           <div>
@@ -102,10 +118,44 @@ const InvoicePrintPage = ({
         </div>
         <div className="flex py-2 border-b border-gray-300">
           <div className="min-w-[60%]">
-            {locale === "en" ? "Destination City" : "목적지 도시"}
+            {packageTypeLocale[locale as "ko" | "en"][request.packageType]}
           </div>
           <div className="min-w-[20%]">{request.price?.toLocaleString()}</div>
           <div className="min-w-[20%] text-right">{request.currency}</div>
+        </div>
+        <div className="flex py-2 border-b border-gray-300">
+          <div className="max-w-[60%] w-full">
+            {locale === "en" ? "Inclusive of: " : "포함 옵션: "}
+            <span className="text-sm">
+              {locale === "en"
+                ? request.options
+                    .map((option) => {
+                      let found;
+                      found = inclusiveOptions.find(
+                        (o) => o.id === option
+                      )?.label;
+                      if (!found) {
+                        found = customOptions.find(
+                          (o) => o.id === option
+                        )?.label;
+                      }
+                      return found;
+                    })
+                    .join(", ")
+                : request.options
+                    .map((option) => {
+                      let found;
+                      found = inclusiveOptions.find((o) => o.id === option)?.id;
+                      if (!found) {
+                        found = customOptions.find((o) => o.id === option)?.id;
+                      }
+                      return packageOptionsKR[
+                        found as keyof typeof packageOptionsKR
+                      ];
+                    })
+                    .join(", ")}
+            </span>
+          </div>
         </div>
         <div className="flex py-2 bg-gray-200">
           <div className="min-w-[60%]"></div>
@@ -114,14 +164,14 @@ const InvoicePrintPage = ({
             {request.price?.toLocaleString()} {request.currency}
           </div>
         </div>
-        <div className="flex flex-col py-2 mt-24 justify-center items-center mb-12">
-          {locale === "en" ? (
+        <div className="flex flex-col py-2 mt-60 justify-center items-center mb-12">
+          {locale === "ko" ? (
             <>
               <div className="font-bold">
                 트래블 인 유어 포켓 [주/ 파리클래스]
               </div>
               <div>사업자 번호 #887-86-03126</div>
-              <div>서울 특별시 중구 퇴계로 286, 6층 6063호</div>
+              <div>서울 특별시 중구 퇴계로 286, 6층</div>
             </>
           ) : (
             <>
@@ -133,7 +183,14 @@ const InvoicePrintPage = ({
             </>
           )}
         </div>
-        <div className="flex justify-center items-center print:hidden mb-6">
+        <div className="flex justify-center items-center gap-4 print:hidden mb-6">
+          <PDFDownloadLink
+            document={<MyTravelInvoicePDF locale={locale} request={request} />}
+          >
+            <span className="py-2.5 px-4 bg-egyptianBlue text-white">
+              {locale === "en" ? "Download PDF" : "PDF 다운로드"}
+            </span>
+          </PDFDownloadLink>
           <button
             type="button"
             onClick={handlePrint}
