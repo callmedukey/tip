@@ -109,7 +109,8 @@ const FirstScreen = () => {
         className="outline absolute size-[600px] hidden lg:block"
       />
       <h1 className="text-center text-[2.5rem] font-medium self-end mb-72 text-white hidden lg:block">
-        Travel in your Pocket <br /> for your best memories
+        Travel In your Pocket <br />
+        For your best and easy way <br /> to make your own travel
       </h1>
     </div>
   );
