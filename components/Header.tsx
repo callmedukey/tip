@@ -5,7 +5,7 @@ import MobileMenu from "./layout/MobileMenu";
 import Auth_HeaderMenu from "./layout/Auth_HeaderMenu";
 const Header = () => {
   return (
-    <header className="bg-transparent absolute top-0 left-0 right-0 z-10 grid grid-cols-[1fr,auto,1fr] text-white oneOneToFive grid-rows-[var(--header-height)] px-4 lg:px-0">
+    <header className="print:hidden bg-transparent absolute top-0 left-0 right-0 z-10 grid grid-cols-[1fr,auto,1fr] text-white oneOneToFive grid-rows-[var(--header-height)] px-4 lg:px-0">
       <div className="col-start-1 col-end-2 lg:hidden flex items-center justify-start">
         <MobileMenu />
       </div>

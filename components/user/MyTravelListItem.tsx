@@ -187,6 +187,7 @@ const MyTravelListItem = ({
             request.currency &&
             request.quoteLink ? (
               <QuoteInvoiceModal
+                requestId={request.id.toString()}
                 price={request.price}
                 currency={request.currency}
                 paid={request.paid}
@@ -216,6 +217,7 @@ const MyTravelListItem = ({
               request.currency &&
               request.quoteLink ? (
                 <QuoteInvoiceModal
+                  requestId={request.id.toString()}
                   price={request.price}
                   currency={request.currency}
                   paid={request.paid}
@@ -247,6 +249,7 @@ const MyTravelListItem = ({
                   price={request.price}
                   currency={request.currency}
                   paid={request.paid}
+                  requestId={request.id.toString()}
                   invoiceUrl={request.quoteLink}
                 >
                   <button className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">

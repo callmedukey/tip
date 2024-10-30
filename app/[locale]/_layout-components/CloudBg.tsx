@@ -21,7 +21,7 @@ const CloudBg = () => {
       quality={100}
       priority
       placeholder="blur"
-      className="object-cover object-bottom lg:object-[100%_35%] 2xl:object-[100%_50%] -z-10"
+      className="print:hidden object-cover object-bottom lg:object-[100%_35%] 2xl:object-[100%_50%] -z-10"
     />
   );
 };
