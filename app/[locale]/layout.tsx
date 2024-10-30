@@ -13,6 +13,7 @@ import AuthContextProvider from "@/components/context/AuthContext";
 import ReactQueryContext from "@/components/context/ReactQueryContext";
 import GoogleProvider from "@/components/context/GoogleProvider";
 import CloudBg from "./_layout-components/CloudBg";
+import Footer from "@/components/Footer";
 const Inter = InterFont({
   subsets: ["latin"],
   display: "swap",
@@ -56,6 +57,7 @@ export default async function Layout({
                 <HeaderCushion />
                 <CloudBg />
                 {children}
+                <Footer />
               </AuthContextProvider>
             </NextIntlClientProvider>
           </ReactQueryContext>

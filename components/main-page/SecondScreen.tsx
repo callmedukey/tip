@@ -30,7 +30,7 @@ const SecondScreen = ({
   return (
     <>
       <Button
-        className="absolute lg:hidden top-[calc(var(--header-height)+0.5rem)] left-4 z-20 bg-transparent text-white text-[0.75rem] shadow-none gap-2 flex items-center hover:bg-transparent hover:opacity-80"
+        className="absolute lg:hidden top-[calc(var(--header-height)+6.5rem)] left-4 z-20 bg-transparent text-white text-[0.75rem] shadow-none gap-2 flex items-center hover:bg-transparent hover:opacity-80"
         type="button"
         onClick={handleReturnToFirstScreen}
       >
@@ -38,14 +38,6 @@ const SecondScreen = ({
         Back
       </Button>
       <div className="flex items-center flex-col justify-center max-w-screen-8xl mx-auto w-full">
-        <Button
-          className="bg-transparent text-white text-[0.75rem] shadow-none gap-2 flex items-center hover:bg-transparent hover:opacity-80 self-start"
-          type="button"
-          onClick={handleReturnToFirstScreen}
-        >
-          <ArrowLeft strokeWidth={1} />
-          Back
-        </Button>
         <div className="flex items-center justify-center lg:flex-row flex-col max-w-screen-8xl mx-auto w-full text-white gap-4 lg:mt-6 mt-24 px-4 pb-4 pt-4 lg:py-0 self-start lg:self-center">
           <div className="flex flex-col lg:block items-end justify-end relative basis-full lg:basis-1/2 flex-1 shrink-0 min-h-[45rem] xl:min-h-[calc(100vh-var(--header-height)-20rem)] isolate w-full lg:rounded-none rounded-[3rem] overflow-clip">
             <Image
