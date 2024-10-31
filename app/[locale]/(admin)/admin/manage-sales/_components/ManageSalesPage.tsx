@@ -26,12 +26,15 @@ import { dateToLocalFormatted } from "@/lib/time-formmater";
 import { Link } from "@/i18n/routing";
 import { SquareArrowOutUpRight } from "lucide-react";
 import CurrencyFilterDropdown from "./CurrencyFilterDropdown";
+import { useLocale, useTranslations } from "next-intl";
 
 interface RequestWithUser extends Request {
   user: Omit<User, "password">;
 }
 
 const ManageSalesPage = () => {
+  const t = useTranslations("manageSales");
+  const locale = useLocale();
   const [queryType, setQueryType] = useState<"email" | "name">("email");
   const [query, setQuery] = useDebounceValue("", 1000);
 
@@ -69,17 +72,30 @@ const ManageSalesPage = () => {
     }
 
     const fileName = `Sales.xls`;
-    const data: string[][] = [
-      [
-        "주문번호",
-        "이름",
-        "이메일",
-        "결제 금액",
-        "결제 통화",
-        "결제 여뷰",
-        "결제일",
-      ],
-    ];
+    const data: string[][] =
+      locale === "ko"
+        ? [
+            [
+              "주문번호",
+              "이름",
+              "이메일",
+              "결제 금액",
+              "결제 통화",
+              "결제 여뷰",
+              "결제일",
+            ],
+          ]
+        : [
+            [
+              "Order No.",
+              "Name",
+              "E-mail",
+              "Paid Amount",
+              "Currency",
+              "Paid Status",
+              "Payment Date",
+            ],
+          ];
 
     if (queryData && queryData.length > 0 && query) {
       queryData
@@ -146,14 +162,14 @@ const ManageSalesPage = () => {
             <SelectValue placeholder="검색 유형" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="email">이메일</SelectItem>
-            <SelectItem value="name">이름</SelectItem>
+            <SelectItem value="email">{t("email")}</SelectItem>
+            <SelectItem value="name">{t("name")}</SelectItem>
           </SelectContent>
         </Select>
         <input
           onChange={(e) => setQuery(e.currentTarget.value)}
           className="text-base flex-grow border rounded-md px-2"
-          placeholder="검색어"
+          placeholder={t("searchTerm")}
         />
       </div>
 
@@ -165,7 +181,7 @@ const ManageSalesPage = () => {
       <div className="bg-white max-w-screen-8xl mx-auto rounded-md p-4 flex flex-col gap-2 mt-12">
         <div className="flex justify-end items-center gap-4">
           <button type="button" onClick={handleDownload}>
-            Download CSV
+            {t("downloadCSV")}
           </button>
           <CurrencyFilterDropdown
             applyCurrencyFilter={setCurrencyFilter}
@@ -185,12 +201,14 @@ const ManageSalesPage = () => {
           <Table className="text-black ">
             <TableHeader className="">
               <TableRow className="">
-                <TableHead className="w-[100px] font-bold">주문번호</TableHead>
-                <TableHead className="font-bold">이름</TableHead>
-                <TableHead className="font-bold">이메일</TableHead>
-                <TableHead className="font-bold">결제 금액</TableHead>
-                <TableHead className="font-bold">결제 여뷰</TableHead>
-                <TableHead className="font-bold">결제일</TableHead>
+                <TableHead className="w-[100px] font-bold">
+                  {t("orderNo")}
+                </TableHead>
+                <TableHead className="font-bold">{t("name")}</TableHead>
+                <TableHead className="font-bold">{t("email")}</TableHead>
+                <TableHead className="font-bold">{t("paidAmount")}</TableHead>
+                <TableHead className="font-bold">{t("paidStatus")}</TableHead>
+                <TableHead className="font-bold">{t("paymentDate")}</TableHead>
                 <TableHead className="font-bold"></TableHead>
               </TableRow>
             </TableHeader>
@@ -209,11 +227,13 @@ const ManageSalesPage = () => {
                     <TableCell>
                       {request.price} {request.currency}
                     </TableCell>
-                    <TableCell>{request.paid ? "Paid" : "Unpaid"}</TableCell>
+                    <TableCell>
+                      {request.paid ? t("paid") : t("unpaid")}
+                    </TableCell>
                     <TableCell>
                       {request.paidAt
                         ? dateToLocalFormatted(String(request.paidAt))
-                        : "결제 안됨"}
+                        : t("unpaid")}
                     </TableCell>
                     <TableCell>
                       <Link href={`/admin/planner?id=${request.id.toString()}`}>
@@ -229,12 +249,14 @@ const ManageSalesPage = () => {
           <Table className="text-black ">
             <TableHeader className="">
               <TableRow className="">
-                <TableHead className="w-[100px] font-bold">주문번호</TableHead>
-                <TableHead className="font-bold">이름</TableHead>
-                <TableHead className="font-bold">이메일</TableHead>
-                <TableHead className="font-bold">결제 금액</TableHead>
-                <TableHead className="font-bold">결제 여뷰</TableHead>
-                <TableHead className="font-bold">결제일</TableHead>
+                <TableHead className="w-[100px] font-bold">
+                  {t("orderNo")}
+                </TableHead>
+                <TableHead className="font-bold">{t("name")}</TableHead>
+                <TableHead className="font-bold">{t("email")}</TableHead>
+                <TableHead className="font-bold">{t("paidAmount")}</TableHead>
+                <TableHead className="font-bold">{t("paidStatus")}</TableHead>
+                <TableHead className="font-bold">{t("paymentDate")}</TableHead>
                 <TableHead className="font-bold"></TableHead>
               </TableRow>
             </TableHeader>
@@ -253,11 +275,13 @@ const ManageSalesPage = () => {
                     <TableCell>
                       {request.price} {request.currency}
                     </TableCell>
-                    <TableCell>{request.paid ? "Paid" : "Unpaid"}</TableCell>
+                    <TableCell>
+                      {request.paid ? t("paid") : t("unpaid")}
+                    </TableCell>
                     <TableCell>
                       {request.paidAt
                         ? dateToLocalFormatted(String(request.paidAt))
-                        : "결제 안됨"}
+                        : t("unpaid")}
                     </TableCell>
                     <TableCell>
                       <Link href={`/admin/planner?id=${request.id.toString()}`}>

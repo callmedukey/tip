@@ -15,8 +15,9 @@ import { Button } from "../ui/button";
 import { SummaryArray } from "@/definitions/request-details";
 import { useSearchParams } from "next/navigation";
 import { saveRequestSummary } from "@/actions/admin";
-
+import { useTranslations } from "next-intl";
 const TravelSummaryForm = ({ summary }: { summary?: SummaryArray | null }) => {
+  const t = useTranslations("adminPlanner");
   const searchParams = useSearchParams();
   const requestId = searchParams.get("id");
   const form = useForm<z.infer<typeof TravelSummaryFormSchema>>({
@@ -59,7 +60,7 @@ const TravelSummaryForm = ({ summary }: { summary?: SummaryArray | null }) => {
                     <input
                       {...field}
                       className="p-1 ring-1 ring-black"
-                      placeholder="제목"
+                      placeholder={t("title")}
                     />
                   </FormControl>
                   <FormMessage />
@@ -75,7 +76,7 @@ const TravelSummaryForm = ({ summary }: { summary?: SummaryArray | null }) => {
                     <input
                       {...field}
                       className="p-1 ring-1 ring-black"
-                      placeholder="내용"
+                      placeholder={t("content")}
                     />
                   </FormControl>
                   <FormMessage />
@@ -85,29 +86,29 @@ const TravelSummaryForm = ({ summary }: { summary?: SummaryArray | null }) => {
             <div className="flex justify-end items-center gap-4 col-span-2">
               {index > 0 && (
                 <button type="button" onClick={() => move(index, index - 1)}>
-                  위로
+                  {t("up")}
                 </button>
               )}
               {index < fields.length - 1 && (
                 <button type="button" onClick={() => move(index, index + 1)}>
-                  아래로
+                  {t("down")}
                 </button>
               )}
               <button type="button" onClick={() => remove(index)}>
-                삭제
+                {t("delete")}
               </button>
             </div>
           </div>
         ))}
         <div className="flex justify-end items-center gap-4 mt-4">
           <Button variant="outline" type="submit">
-            저장
+            {t("save")}
           </Button>
           <Button
             type="button"
             onClick={() => append({ label: "", value: "" })}
           >
-            추가
+            {t("add")}
           </Button>
         </div>
       </form>

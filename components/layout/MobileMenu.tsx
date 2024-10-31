@@ -7,24 +7,30 @@ import { cn } from "@/lib/utils";
 import DarkLogo from "@/public/dark-logo.png";
 import Image from "next/image";
 import LanguageSelectDropDown from "../LanguageSelectDropDown";
+import { useTranslations } from "next-intl";
+import { DialogDescription, DialogTitle } from "../ui/dialog";
 const links = [
-  { href: "/my-profile", name: "My Profile" },
-  { href: "/my-travel", name: "My Travel" },
-  { href: "/partner-hotels", name: "Partner Hotels" },
-  { href: "/experience-by-tip", name: "Experience by TIP" },
-  { href: "/whats-new", name: "What's new" },
+  { href: "/my-profile", name: "myProfile" },
+  { href: "/my-travel", name: "myTravel" },
+  { href: "/partner-hotels", name: "partnerHotels" },
+  { href: "/experience-by-tip", name: "experienceByTip" },
+  { href: "/whats-new", name: "whatsNew" },
 ];
 
 const MobileMenu = () => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-
+  const t = useTranslations("Header");
   return (
     <Drawer direction="left" open={open} onOpenChange={setOpen}>
       <DrawerTrigger className="focus:outline-none" aria-label="모바일 메뉴">
         <Image src={Menu} alt="Menu" width={38} height={14} />
       </DrawerTrigger>
       <DrawerContent className="px-8 text-xl flex">
+        <DialogTitle className="sr-only">Mobile Menu</DialogTitle>
+        <DialogDescription className="sr-only">
+          This is a mobile menu
+        </DialogDescription>
         <div className="grid grid-cols-[1fr,auto,1fr] items-center">
           <LanguageSelectDropDown isMobile={true} />
           <Image
@@ -68,7 +74,7 @@ const MobileMenu = () => {
               prefetch={false}
               onClick={() => setOpen(false)}
             >
-              {nav.name}
+              {t(nav.name)}
             </Link>
           ))}
         </nav>

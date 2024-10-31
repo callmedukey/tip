@@ -17,9 +17,11 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "../ui/textarea";
 import { signup } from "@/actions/auth";
 import { useRouter } from "@/i18n/routing";
-
+import { useLocale, useTranslations } from "next-intl";
 const SignupForm = () => {
+  const t = useTranslations("signUpPage");
   const router = useRouter();
+  const locale = useLocale();
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -93,7 +95,7 @@ const SignupForm = () => {
             type="button"
             onClick={() => onAccountTypeClick("Business")}
           >
-            Business account
+            {t("business")}
           </button>
           <button
             className={cn(
@@ -104,7 +106,7 @@ const SignupForm = () => {
             type="button"
             onClick={() => onAccountTypeClick("Leisure")}
           >
-            Leisure account
+            {t("leisure")}
           </button>
         </div>
         <fieldset className="flex flex-col gap-12 mt-16">
@@ -114,12 +116,12 @@ const SignupForm = () => {
             render={({ field }) => (
               <FormItem className="flex flex-col items-center relative">
                 <label htmlFor={field.name} className="sr-only">
-                  name
+                  {t("name")}
                 </label>
                 <FormControl>
                   <input
                     className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                    placeholder="Name"
+                    placeholder={t("name")}
                     {...field}
                   />
                 </FormControl>
@@ -133,12 +135,12 @@ const SignupForm = () => {
             render={({ field }) => (
               <FormItem className="flex flex-col items-center relative">
                 <label htmlFor={field.name} className="sr-only">
-                  email
+                  {t("email")}
                 </label>
                 <FormControl>
                   <input
                     className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                    placeholder="E-mail"
+                    placeholder={t("email")}
                     {...field}
                   />
                 </FormControl>
@@ -152,13 +154,13 @@ const SignupForm = () => {
             render={({ field }) => (
               <FormItem className="flex flex-col items-center relative">
                 <label htmlFor={field.name} className="sr-only">
-                  password
+                  {t("password")}
                 </label>
                 <FormControl>
                   <input
                     type="password"
                     className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                    placeholder="Password"
+                    placeholder={t("password")}
                     {...field}
                   />
                 </FormControl>
@@ -172,13 +174,13 @@ const SignupForm = () => {
             render={({ field }) => (
               <FormItem className="flex flex-col items-center relative">
                 <label htmlFor={field.name} className="sr-only">
-                  password
+                  {t("password")}
                 </label>
                 <FormControl>
                   <input
                     type="password"
                     className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base "
-                    placeholder="Confirm Password"
+                    placeholder={t("confirmPassword")}
                     {...field}
                   />
                 </FormControl>
@@ -192,12 +194,12 @@ const SignupForm = () => {
             render={({ field }) => (
               <FormItem className="flex flex-col items-center relative">
                 <label htmlFor={field.name} className="sr-only">
-                  phone number
+                  {t("phoneNumber")}
                 </label>
                 <FormControl>
                   <input
                     className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                    placeholder="Phone Number"
+                    placeholder={t("phoneNumber")}
                     {...field}
                   />
                 </FormControl>
@@ -206,7 +208,7 @@ const SignupForm = () => {
             )}
           />
           <Datepicker
-            placeholder="Date of birth"
+            placeholder={t("dob")}
             value={form.getValues("birthday") || null}
             onChange={(e) => form.setValue("birthday", e as Date)}
             className=""
@@ -235,12 +237,12 @@ const SignupForm = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center relative">
                   <label htmlFor={field.name} className="sr-only">
-                    business number
+                    {t("businessNumber")}
                   </label>
                   <FormControl>
                     <input
                       className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                      placeholder="Business Number"
+                      placeholder={t("businessNumber")}
                       {...field}
                     />
                   </FormControl>
@@ -250,7 +252,7 @@ const SignupForm = () => {
             />
           )}
           <div className="flex gap-6 items-center">
-            <span>Gender</span>
+            <span>{t("gender")}</span>
             <button
               type="button"
               className={cn(
@@ -259,7 +261,7 @@ const SignupForm = () => {
               )}
               onClick={() => onGenderClick("Male")}
             >
-              Male
+              {t("male")}
             </button>
             <button
               type="button"
@@ -269,7 +271,7 @@ const SignupForm = () => {
               )}
               onClick={() => onGenderClick("Female")}
             >
-              Female
+              {t("female")}
             </button>
             <button
               type="button"
@@ -279,7 +281,7 @@ const SignupForm = () => {
               )}
               onClick={() => onGenderClick("Other")}
             >
-              Other
+              {t("other")}
             </button>
           </div>
           <FormField
@@ -293,11 +295,21 @@ const SignupForm = () => {
                     form.getValues("extra") && "sr-only"
                   )}
                 >
-                  Please tell us more about your <br className="sm:hidden" />{" "}
-                  preferances eg. I like to
-                  <br />
-                  experience local cuisine and visit{" "}
-                  <br className="sm:hidden" /> art gallaries
+                  {locale === "ko" ? (
+                    <>
+                      추가 정보를 알려주세요. <br /> {`예시)`} 저는 로컬 음식을
+                      좋아하고 미술관을 방문하는 것을 좋아합니다.
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      Please tell us more about your{" "}
+                      <br className="sm:hidden" /> preferances eg. I like to
+                      <br />
+                      experience local cuisine and visit{" "}
+                      <br className="sm:hidden" /> art gallaries
+                    </>
+                  )}
                 </FormLabel>
                 <FormControl>
                   <Textarea
@@ -310,12 +322,12 @@ const SignupForm = () => {
             )}
           />
           <button className="py-4 sm:py-6 px-24 bg-egyptianBlue text-white rounded-full mx-auto flex items-center justify-center">
-            Sign Up
+            {t("submit")}
           </button>
           <p className="text-center text-base">
-            I already have an account!{" "}
+            {t("alreadyHaveAccount")}{" "}
             <Link href="/login" className="underline underline-offset-4">
-              Log in
+              {t("login")}
             </Link>
           </p>
         </fieldset>

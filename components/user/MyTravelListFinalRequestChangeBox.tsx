@@ -4,12 +4,14 @@ import { PenLine } from "lucide-react";
 import React, { useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { submitEmergencyRequest } from "@/actions/user";
+import { useTranslations } from "next-intl";
 
 const MyTravelListFinalRequestChangeBox = ({
   requestId,
 }: {
   requestId: number;
 }) => {
+  const t = useTranslations("MyTravelListFinalRequestChangeBox");
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
 
@@ -33,7 +35,7 @@ const MyTravelListFinalRequestChangeBox = ({
           value={text}
           onChange={(e) => setText(e.target.value)}
           className="border-none resize-none p-0 scrollbar-hide w-full shadow-none placeholder:text-center"
-          placeholder="Please let us know if you cannot cancel your trip or have any emergency requests"
+          placeholder={t("placeholder")}
         />
       </div>
       <button
@@ -42,7 +44,7 @@ const MyTravelListFinalRequestChangeBox = ({
         onClick={handleSubmit}
         className="mt-4 font-medium rounded-full px-4 py-1 border border-[#404040] text-[#404040] hover:bg-[#404040] hover:text-white transition-colors duration-300"
       >
-        {loading ? "Submitting..." : "Submit"}
+        {loading ? t("submitting") : t("submit")}
       </button>
     </div>
   );

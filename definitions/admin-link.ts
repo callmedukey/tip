@@ -1,4 +1,4 @@
-export const adminLinks = [
+export const adminLinksKR = [
   {
     href: "/new-request",
     label: "새 문의 확인",
@@ -22,5 +22,31 @@ export const adminLinks = [
   {
     href: "/manage-users",
     label: "회원 관리",
+  },
+];
+export const adminLinksEN = [
+  {
+    href: "/new-request",
+    label: "New Orders",
+  },
+  {
+    href: "/update-request",
+    label: "Update Schedule / Cancel Request",
+  },
+  {
+    href: "/manage-orders",
+    label: "Manage Orders",
+  },
+  {
+    href: "/manage-sales",
+    label: "Manage Sales",
+  },
+  {
+    href: "/coupons",
+    label: "Manage Coupons",
+  },
+  {
+    href: "/manage-users",
+    label: "Manage Users",
   },
 ];

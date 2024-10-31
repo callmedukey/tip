@@ -1,7 +1,7 @@
 "use client";
 
 import { togglePaid } from "@/actions/admin";
-import React from "react";
+import { useTranslations } from "next-intl";
 
 const TogglePaidButton = ({
   paidStatus,
@@ -10,6 +10,7 @@ const TogglePaidButton = ({
   paidStatus: boolean;
   id: string;
 }) => {
+  const t = useTranslations("manageOrders");
   async function togglePaymentStatus() {
     const response = await togglePaid({ id, currentStatus: paidStatus });
     if (response?.message) {
@@ -23,7 +24,7 @@ const TogglePaidButton = ({
   }
   return (
     <button onClick={togglePaymentStatus}>
-      {paidStatus ? "Paid" : "Unpaid"}
+      {paidStatus ? t("paid") : t("unpaid")}
     </button>
   );
 };

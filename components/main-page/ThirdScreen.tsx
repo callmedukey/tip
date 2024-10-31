@@ -14,7 +14,11 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { customOptions, inclusiveOptions } from "@/definitions/packages";
+import {
+  customOptions,
+  inclusiveOptions,
+  packageOptionsKR,
+} from "@/definitions/packages";
 import { Checkbox } from "../ui/checkbox";
 import { cn } from "@/lib/utils";
 import { Textarea } from "../ui/textarea";
@@ -26,7 +30,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { submitRequest } from "@/actions/main-page";
 import { useState } from "react";
 import { Input } from "../ui/input";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const ThirdScreen = ({
   setState,
@@ -40,6 +44,8 @@ const ThirdScreen = ({
   returnToSecondScreen: () => void;
 }) => {
   const locale = useLocale();
+  const t = useTranslations("MainThirdForm");
+  const ui = useTranslations("ui");
   const [loading, setLoading] = useState(false);
   const [stage, setStage] = useState(0);
   const [savedInitialData, setSavedInitialData] = useLocalStorage<Record<
@@ -94,7 +100,7 @@ const ThirdScreen = ({
           }}
         >
           <ArrowLeft strokeWidth={1} />
-          back
+          {ui("back")}
         </Button>
         <div className="bg-formBg rounded-2xl py-12 px-8 lg:py-16 lg:px-16 self-start mt-[calc(var(--header-height)+6rem)] w-full mx-4 mb-16 lg:max-h-[120rem] max-w-7xl overflow-clip text-formText">
           <Button
@@ -103,10 +109,10 @@ const ThirdScreen = ({
             onClick={returnToSecondScreen}
           >
             <ArrowLeft strokeWidth={1} />
-            back
+            {ui("back")}
           </Button>
           <h3 className="text-[2rem]/[100%] font-medium lg:font-normal lg:text-[1.875rem]">
-            All inclusive package
+            {t("allInclusive")}
           </h3>
           <Form {...form}>
             <form
@@ -152,7 +158,11 @@ const ThirdScreen = ({
                                 />
                               </FormControl>
                               <FormLabel className="font-normal text-base">
-                                {item.label}
+                                {locale === "ko"
+                                  ? packageOptionsKR[
+                                      item.id as keyof typeof packageOptionsKR
+                                    ]
+                                  : item.label}
                               </FormLabel>
                             </FormItem>
                           );
@@ -169,7 +179,8 @@ const ThirdScreen = ({
                   render={({ field }) => (
                     <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
                       <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
-                        Other<span className="text-egyptianBlue">*</span>
+                        {t("other")}
+                        <span className="text-egyptianBlue">*</span>
                       </FormLabel>
                       <FormControl>
                         <Textarea
@@ -193,14 +204,14 @@ const ThirdScreen = ({
                   render={({ field }) => (
                     <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
                       <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
-                        Do you have a coupon code?{" "}
+                        {t("hasCoupon")}
                         <span className="text-egyptianBlue"></span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
-                          placeholder="Enter your coupon code"
+                          placeholder={t("enterCoupon")}
                         />
                       </FormControl>
                     </FormItem>
@@ -211,7 +222,7 @@ const ThirdScreen = ({
                   type="submit"
                   className="bg-transparent hover:bg-transparent hover:opacity-80 rounded-full w-full max-w-xs py-6 mt-12 mx-auto flex items-center justify-center shadow-none text-egyptianBlue border-egyptianBlue border font-medium lg:mt-24"
                 >
-                  Next
+                  {t("submit")}
                 </Button>
               </div>
             </form>

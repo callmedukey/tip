@@ -21,8 +21,9 @@ import { useState } from "react";
 import { CouponSchema } from "@/definitions/zod";
 import { Button } from "@/components/ui/button";
 import { createCoupon } from "@/actions/admin";
-
+import { useTranslations } from "next-intl";
 const CreateNewCouponDialog = () => {
+  const t = useTranslations("manageCoupons");
   const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof CouponSchema>>({
     resolver: zodResolver(CouponSchema),
@@ -45,13 +46,13 @@ const CreateNewCouponDialog = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="py-2 px-4">Create New Coupon</DialogTrigger>
+      <DialogTrigger className="py-2 px-4">
+        {t("createNewCoupon")}
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create New Coupon</DialogTitle>
-          <DialogDescription>
-            Create a new coupon with a unique code and description.
-          </DialogDescription>
+          <DialogTitle>{t("createNewCoupon")}</DialogTitle>
+          <DialogDescription>{t("createNewDescription")}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -61,12 +62,12 @@ const CreateNewCouponDialog = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center relative">
                   <label htmlFor={field.name} className="sr-only">
-                    Code
+                    {t("couponCode")}
                   </label>
                   <FormControl>
                     <input
                       className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                      placeholder="Code*"
+                      placeholder={t("couponCode") + "*"}
                       {...field}
                     />
                   </FormControl>
@@ -80,12 +81,12 @@ const CreateNewCouponDialog = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center relative">
                   <label htmlFor={field.name} className="sr-only">
-                    Description
+                    {t("description")}
                   </label>
                   <FormControl>
                     <input
                       className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                      placeholder="Description*"
+                      placeholder={t("description") + "*"}
                       {...field}
                     />
                   </FormControl>
@@ -94,7 +95,7 @@ const CreateNewCouponDialog = () => {
               )}
             />
             <Button type="submit" className="mt-8">
-              Create
+              {t("create")}
             </Button>
           </form>
         </Form>

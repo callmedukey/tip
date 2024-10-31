@@ -2,10 +2,12 @@
 
 import { sendRequestToCustomer } from "@/actions/admin";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 
 const PlannerSaveAndSend = ({ paid }: { paid: boolean }) => {
   const searchParams = useSearchParams();
+  const t = useTranslations("adminPlanner");
   const requestId = searchParams.get("id");
 
   const handleSend = async () => {
@@ -16,7 +18,7 @@ const PlannerSaveAndSend = ({ paid }: { paid: boolean }) => {
     if (response.error) {
       alert(response.message);
     } else {
-      alert("고객에게 전달되었습니다.");
+      alert("Sent to customer.");
     }
   };
 
@@ -28,7 +30,7 @@ const PlannerSaveAndSend = ({ paid }: { paid: boolean }) => {
         type="button"
         className="w-full bg-blue-300 max-w-sm mx-auto"
       >
-        고객에게 전달하기
+        {t("sendToUser")}
       </Button>
     </div>
   );

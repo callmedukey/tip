@@ -11,12 +11,13 @@ import {
 
 import prisma from "@/lib/prisma";
 import { formatDateToKR, formatDateToUTC } from "@/lib/time-formmater";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
 const AdminNewRequestPage = async () => {
   const session = await verifySession();
-
+  const t = await getTranslations("adminNewOrders");
   if (!session || !session.userId) {
     return redirect("/login");
   }
@@ -39,15 +40,17 @@ const AdminNewRequestPage = async () => {
 
   return (
     <div className="text-white max-w-screen-8xl mx-auto">
-      <h1 className="text-2xl font-bold">새 문의 확인</h1>
+      <h1 className="text-2xl font-bold">{t("newOrders")}</h1>
       <div className="bg-white rounded-md mt-12 relative text-black min-h-[50rem] max-h-[50rem] overflow-y-auto">
         <Table className="text-black">
           <TableHeader className="">
             <TableRow className="">
-              <TableHead className="w-[100px] font-bold">순번</TableHead>
-              <TableHead className="font-bold">이름</TableHead>
-              <TableHead className="font-bold">이메일</TableHead>
-              <TableHead className="font-bold">날짜</TableHead>
+              <TableHead className="w-[100px] font-bold">
+                {t("orderNo")}
+              </TableHead>
+              <TableHead className="font-bold">{t("name")}</TableHead>
+              <TableHead className="font-bold">{t("email")}</TableHead>
+              <TableHead className="font-bold">{t("date")}</TableHead>
               <TableHead className=""></TableHead>
             </TableRow>
           </TableHeader>
@@ -67,7 +70,7 @@ const AdminNewRequestPage = async () => {
                     href={`/admin/planner?id=${request.id}`}
                     className="bg-black text-white py-1 px-2 rounded-md"
                   >
-                    플래너
+                    {t("planner")}
                   </Link>
                 </TableCell>
               </TableRow>

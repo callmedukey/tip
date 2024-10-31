@@ -13,6 +13,7 @@ import QuoteInvoiceModal from "../modals/QuoteInvoiceModal";
 import MyTravelListItemShareButton from "./MyTravelListItemShareButton";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyTravelPDF from "./MyTravelPDF";
+import { useTranslations } from "next-intl";
 
 const MyTravelListItem = ({
   request,
@@ -21,6 +22,8 @@ const MyTravelListItem = ({
   request?: Request;
   isLoading?: boolean;
 }) => {
+  const t = useTranslations("myTravel");
+  const t2 = useTranslations("MainFirstForm");
   if (isLoading)
     return (
       <li className="grid lg:grid-rows-[6rem,auto,6rem] grid-rows-[repeat(3,auto)] py-4">
@@ -34,7 +37,7 @@ const MyTravelListItem = ({
         />
         <div className="flex lg:flex-row flex-col items-center text-center lg:text-left lg:justify-between lg:items-start lg:gap-0 gap-3 mb-6">
           <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium">
-            My travel
+            {t("myTravel")}
           </h2>
         </div>
         <div className="flex items-start lg:items-center gap-12 lg:flex-row flex-col mt-24 lg:mt-0">
@@ -48,25 +51,25 @@ const MyTravelListItem = ({
           />
           <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
             <p className="text-formText text-base lg:text-[1.25rem] font-medium">
-              Destination
+              {t("destination")}
             </p>
             <Skeleton className="w-full  h-[2rem]" />
           </div>
           <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
             <p className="text-formText text-base lg:text-[1.25rem] font-medium">
-              Date
+              {t("date")}
             </p>
             <Skeleton className="w-full h-[2rem]" />
           </div>
           <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
             <p className="text-formText text-base lg:text-[1.25rem] font-medium">
-              Persons
+              {t2("persons")}
             </p>
             <Skeleton className="w-full  h-[2rem]" />
           </div>
           <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
             <p className="text-formText text-base lg:text-[1.25rem] font-medium">
-              Purpose
+              {t2("purpose")}
             </p>
             <Skeleton className="w-full h-[2rem]" />
           </div>
@@ -94,11 +97,11 @@ const MyTravelListItem = ({
         <div className="lg:grid-rows-[6rem,auto,6rem] grid-rows-[repeat(3,auto)]">
           <div className="flex lg:flex-row flex-col items-center text-center lg:text-left lg:justify-between lg:items-start lg:gap-0 gap-3">
             <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium mb-6 flex flex-col gap-2 lg:flex-row">
-              My travel{" "}
+              {t("myTravel")}
               {request.paid && (
                 <PDFDownloadLink document={<MyTravelPDF request={request} />}>
                   <span className="underline underline-offset-4 text-sm ml-4">
-                    Download as PDF
+                    {t("downloadAsPDF")}
                   </span>
                 </PDFDownloadLink>
               )}
@@ -109,7 +112,7 @@ const MyTravelListItem = ({
                 href={`/my-travel/details?id=${request.id}`}
                 className="flex items-center lg:gap-2 gap-3 lg:no-underline underline underline-offset-4 lg:text-accountGrayText text-egyptianBlue lg:text-[1.5rem] font-medium"
               >
-                Details
+                {t("details")}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -138,7 +141,7 @@ const MyTravelListItem = ({
             />
             <div className="flex flex-col gap-2 flex-1 ">
               <p className="text-formText text-base lg:text-[1.25rem] font-medium">
-                Destination
+                {t("destination")}
               </p>
               <p className="text-[0.75rem] lg:text-base text-accountGrayText">
                 {request.city.join(", ")}
@@ -146,7 +149,7 @@ const MyTravelListItem = ({
             </div>
             <div className="flex flex-col gap-2 flex-1 lg:items-end shrink-0">
               <p className="text-formText text-base lg:text-[1.25rem] font-medium mr-auto">
-                Date
+                {t("date")}
               </p>
               <p className="text-[0.75rem] lg:text-base text-accountGrayText mr-auto whitespace-nowrap">
                 {formatDateToLocaleString(
@@ -164,13 +167,13 @@ const MyTravelListItem = ({
             </div>
             <div className="flex flex-col gap-2 flex-1 lg:items-end">
               <p className="text-formText text-base lg:text-[1.25rem] font-medium">
-                Persons
+                {t2("persons")}
               </p>
               <p className="text-[0.75rem] lg:text-base text-accountGrayText whitespace-nowrap">{`Adults: ${request.adults} Infants: ${request.infants}`}</p>
             </div>
             <div className="flex flex-col gap-2 flex-1 lg:items-end">
               <p className="text-formText text-base lg:text-[1.25rem] font-medium">
-                Purpose
+                {t2("purpose")}
               </p>
               <p className="text-[0.75rem] lg:text-base text-accountGrayText capitalize">
                 {request.purpose}
@@ -194,12 +197,12 @@ const MyTravelListItem = ({
                 invoiceUrl={request.quoteLink}
               >
                 <button className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
-                  See quote
+                  {t("seeQuote")}
                 </button>
               </QuoteInvoiceModal>
             ) : null}
             <button className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
-              Cancel
+              {t("cancel")}
             </button>
           </div>
         </div>
@@ -224,12 +227,12 @@ const MyTravelListItem = ({
                   invoiceUrl={request.quoteLink}
                 >
                   <button className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
-                    See quote
+                    {t("seeQuote")}
                   </button>
                 </QuoteInvoiceModal>
               ) : null}
               <button className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
-                Cancel
+                {t("cancel")}
               </button>
             </div>
           </>
@@ -253,13 +256,13 @@ const MyTravelListItem = ({
                   invoiceUrl={request.quoteLink}
                 >
                   <button className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
-                    See quote
+                    {t("seeQuote")}
                   </button>
                 </QuoteInvoiceModal>
               ) : null}
 
               <button className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
-                Cancel
+                {t("cancel")}
               </button>
             </div>
           </>
@@ -279,7 +282,7 @@ const MyTravelListItem = ({
       />
       <div className="flex lg:flex-row flex-col items-center text-center lg:text-left lg:justify-between lg:items-start lg:gap-0 gap-3">
         <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium mb-6">
-          My travel
+          {t("myTravel")}
         </h2>
       </div>
       <div className="flex items-start lg:items-center gap-12 lg:flex-row flex-col mt-24 lg:mt-0">
@@ -292,7 +295,7 @@ const MyTravelListItem = ({
           className="max-w-[178px] w-full h-auto flex-1 shrink-0 lg:block hidden"
         />
         <div className="w-full text-accountGrayText">
-          You have no active travel requests
+          {t("noActiveTravelRequests")}
         </div>
       </div>
       <div className="flex items-center justify-end lg:gap-8 lg:flex-row flex-col lg:mt-0 mt-16 gap-6">
@@ -300,7 +303,7 @@ const MyTravelListItem = ({
           href="/"
           className="bg-egyptianBlue text-white max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium flex items-center justify-center"
         >
-          Book now
+          {t("bookNow")}
         </Link>
       </div>
     </li>

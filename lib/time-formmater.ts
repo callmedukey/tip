@@ -28,6 +28,13 @@ export const formatDateToLocaleString = (userDate: Date) => {
   return format(userDate, "MMM/d/yyyy");
 };
 
+export const formatDateToLocaleStringFromDB = (userDate: string) => {
+  // return format(
+  //   DateTime.fromISO(formatDateToUserLocalFromDB(userDate))!.toISO() as string,
+  //   "MMM/d/yyyy"
+  // );
+};
+
 export const formatDateToUTC = (userDate: Date): string => {
   return formatDateToUserLocal(userDate)
     .toUTC()
@@ -42,7 +49,6 @@ export const dateToUTC = (userDate: Date) => {
 export const dateToLocal = (userDate: string) => {
   return formatDateToUserLocal(new Date(userDate)).toISO();
 };
-
 export const dateToLocalFormatted = (userDate: string) => {
   return format(
     formatDateToUserLocal(new Date(userDate)).toISO() as string,

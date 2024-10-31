@@ -3,6 +3,7 @@
 import { updateRequestNote } from "@/actions/admin";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function AdminRequestNote({
   requestId,
@@ -12,7 +13,7 @@ export default function AdminRequestNote({
   note: string | null;
 }) {
   const [newNote, setNewNote] = useState(note || "");
-
+  const t = useTranslations("adminPlanner");
   const handleSave = async () => {
     const response = await updateRequestNote({ requestId, note: newNote });
     if (response.message) {
@@ -27,7 +28,7 @@ export default function AdminRequestNote({
 
   return (
     <div className="flex flex-col gap-4 w-full max-w-md mt-8 mx-auto">
-      <p className="text-lg font-bold">고객에게 보내는 메시지</p>
+      <p className="text-lg font-bold">{t("msgToUser")}</p>
       <textarea
         value={newNote}
         onChange={(e) => setNewNote(e.target.value)}
@@ -35,7 +36,7 @@ export default function AdminRequestNote({
         className="w-full max-w-md shadow-md rounded-md p-2"
       />
       <Button onClick={handleSave} type="button">
-        저장
+        {t("save")}
       </Button>
     </div>
   );

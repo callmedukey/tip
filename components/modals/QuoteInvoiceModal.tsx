@@ -9,8 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Link } from "@/i18n/routing";
-import { useLocale } from "next-intl";
-import { useSearchParams } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 
 const QuoteInvoiceModal = ({
   children,
@@ -28,24 +27,23 @@ const QuoteInvoiceModal = ({
   invoiceUrl?: string;
 }) => {
   const locale = useLocale();
+  const t = useTranslations("QuoteInvoiceModal");
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-screen-8xl w-[95%] min-h-20rem rounded-[2rem] lg:rounded-[3rem] py-8 lg:min-h-[calc(100vh-30rem)] items-center justify-center">
         <DialogHeader className="sr-only">
-          <DialogTitle>Quote Invoice</DialogTitle>
-          <DialogDescription>
-            Below is the quote invoice for the service.
-          </DialogDescription>
+          <DialogTitle>{t("viewInvoice")}</DialogTitle>
+          <DialogDescription>{t("viewInvoiceDescription")}</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4 lg:gap-16">
           <div className="font-bold text-center sm:text-[2rem] lg:text-[2.5rem]">
-            Total amount
+            {t("totalAmount")}
           </div>
           <div className="text-center font-semibold sm:text-[2rem] lg:text-[2.5rem]">
             {price.toLocaleString()} {currency}
           </div>
-          <p className="text-center">We wish you the most pleasant trip</p>
+          <p className="text-center">{t("weWishYou")}</p>
           <div className="flex gap-4 justify-center items-center lg:flex-row flex-col">
             {price > 0 && currency && requestId ? (
               <Link
@@ -53,14 +51,14 @@ const QuoteInvoiceModal = ({
                 type="button"
                 className="text-center py-2 px-12 rounded-full border text-egyptianBlue border-egyptianBlue"
               >
-                {locale === "ko" ? "청구서 보기" : "View Invoice"}
+                {t("viewInvoice")}
               </Link>
             ) : null}
 
             {paid ? (
               <>
                 <div className="text-center py-2 px-12 rounded-full bg-egyptianBlue text-white">
-                  {locale === "ko" ? "결제 완료" : "Payment Completed"}
+                  {t("paymentCompleted")}
                 </div>
               </>
             ) : (

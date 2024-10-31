@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { AdminFileUploadsSchema } from "@/definitions/zod";
-import { useRouter } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Upload } from "@prisma/client";
 import { Trash2 } from "lucide-react";
@@ -24,7 +24,7 @@ const AdminFileUploads = ({
   requestId: number;
   uploads: Upload[];
 }) => {
-  const router = useRouter();
+  const t = useTranslations("adminPlanner");
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof AdminFileUploadsSchema>>({
     resolver: zodResolver(AdminFileUploadsSchema),
@@ -126,12 +126,12 @@ const AdminFileUploads = ({
           render={({ field }) => (
             <FormItem className="flex flex-col items-center relative">
               <label htmlFor={field.name} className="sr-only">
-                제목
+                {t("title")}
               </label>
               <FormControl>
                 <input
                   className="bg-transparent placeholder:text-formText pb-4 h-12 !mb-0 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                  placeholder="제목*"
+                  placeholder={t("title") + "*"}
                   {...field}
                 />
               </FormControl>
@@ -145,7 +145,7 @@ const AdminFileUploads = ({
           render={({ field }) => (
             <FormItem className="flex flex-col items-center relative">
               <label htmlFor={field.name} className="sr-only">
-                File
+                {t("file")}
               </label>
               <FormControl>
                 <input
@@ -160,7 +160,7 @@ const AdminFileUploads = ({
           )}
         />
         <Button type="submit" disabled={isLoading} className="mt-4">
-          {isLoading ? "Uploading..." : "Upload"}
+          {isLoading ? t("uploading") : t("upload")}
         </Button>
       </form>
     </Form>

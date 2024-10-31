@@ -28,8 +28,10 @@ import { ko } from "date-fns/locale";
 import { saveTravelPlan } from "@/actions/admin";
 import { useSearchParams } from "next/navigation";
 import { formatDateToUTC } from "@/lib/time-formmater";
+import { useTranslations } from "next-intl";
 
 const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
+  const t = useTranslations("adminPlanner");
   const searchParams = useSearchParams();
   const requestId = searchParams.get("id");
   const form = useForm<z.infer<typeof TravelPlanFormSchema>>({
@@ -107,7 +109,7 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
                           {field.value ? (
                             format(field.value, "yyyy-MM-dd")
                           ) : (
-                            <span>날짜</span>
+                            <span>{t("date")}</span>
                           )}
                         </Button>
                       </PopoverTrigger>
@@ -166,7 +168,7 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
                     <input
                       {...field}
                       className="p-1 ring-1 ring-black font-normal"
-                      placeholder="장소명"
+                      placeholder={t("placeName")}
                     />
                   </FormControl>
                   <FormMessage />
@@ -182,7 +184,7 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
                     <input
                       {...field}
                       className="p-1 ring-1 ring-black font-normal"
-                      placeholder="위도"
+                      placeholder={t("latitude")}
                     />
                   </FormControl>
                   <FormMessage />
@@ -198,7 +200,7 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
                     <input
                       {...field}
                       className="p-1 ring-1 ring-black font-normal"
-                      placeholder="경도"
+                      placeholder={t("longitude")}
                     />
                   </FormControl>
                   <FormMessage />
@@ -208,23 +210,23 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
             <div className="flex justify-end items-center gap-4 col-span-2">
               {index > 0 && (
                 <button type="button" onClick={() => move(index, index - 1)}>
-                  위로
+                  {t("up")}
                 </button>
               )}
               {index < fields.length - 1 && (
                 <button type="button" onClick={() => move(index, index + 1)}>
-                  아래로
+                  {t("down")}
                 </button>
               )}
               <button type="button" onClick={() => remove(index)}>
-                삭제
+                {t("delete")}
               </button>
             </div>
           </div>
         ))}
         <div className="flex justify-end items-center gap-4 mt-4">
           <Button variant="outline" type="submit">
-            저장
+            {t("save")}
           </Button>
           <Button
             type="button"
@@ -239,7 +241,7 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
               })
             }
           >
-            추가
+            {t("add")}
           </Button>
         </div>
       </form>

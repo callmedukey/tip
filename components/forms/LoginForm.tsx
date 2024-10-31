@@ -16,8 +16,10 @@ import { Link, useRouter } from "@/i18n/routing";
 import { login } from "@/actions/auth";
 import { useAuth } from "../context/AuthContext";
 import type { Session } from "@/actions/session";
+import { useTranslations } from "next-intl";
 
 const LoginForm = () => {
+  const t = useTranslations("loginPage");
   const [session, setSession, logoutSession] = useAuth();
   const router = useRouter();
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -36,7 +38,6 @@ const LoginForm = () => {
         userId: response?.userId,
         accountType: response?.accountType,
         name: response?.name,
-        
       } as Session);
 
       router.replace("/");
@@ -58,12 +59,12 @@ const LoginForm = () => {
           render={({ field }) => (
             <FormItem className="flex flex-col items-center relative">
               <label htmlFor={field.name} className="sr-only">
-                이메일
+                {t("email")}
               </label>
               <FormControl>
                 <input
                   className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                  placeholder="E-mail*"
+                  placeholder={t("email") + "*"}
                   {...field}
                 />
               </FormControl>
@@ -77,13 +78,13 @@ const LoginForm = () => {
           render={({ field }) => (
             <FormItem className="flex flex-col items-center relative mt-12">
               <label htmlFor={field.name} className="sr-only">
-                이메일
+                {t("password")}
               </label>
               <FormControl>
                 <input
                   type="password"
                   className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                  placeholder="Password*"
+                  placeholder={t("password") + "*"}
                   {...field}
                 />
               </FormControl>
@@ -95,16 +96,16 @@ const LoginForm = () => {
           href="/reset-password"
           className="mt-8 block underline text-[0.75rem]/[100%]"
         >
-          Find password
+          {t("findPassword")}
         </Link>
 
         <button className="sm:py-6 py-4 px-24 bg-egyptianBlue text-white rounded-full mt-24 mx-auto flex items-center justify-center">
-          Log in
+          {t("login")}
         </button>
         <p className="mt-24 text-center text-base">
-          I do not have an account!{" "}
+          {t("noAccount")}{" "}
           <Link href="/signup" className="underline underline-offset-4">
-            Sign up
+            {t("signUp")}
           </Link>
         </p>
       </form>

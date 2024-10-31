@@ -16,7 +16,10 @@ import { cn } from "@/lib/utils";
 import { Datepicker } from "flowbite-react";
 import { Textarea } from "@/components/ui/textarea";
 import { updateUserProfile } from "@/actions/user";
+import { useLocale, useTranslations } from "next-intl";
 const ProfileForm = ({ user }: { user: User }) => {
+  const t = useTranslations("myProfile");
+  const locale = useLocale();
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -107,7 +110,7 @@ const ProfileForm = ({ user }: { user: User }) => {
                   <input
                     type="password"
                     className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                    placeholder="Password"
+                    placeholder={t("password")}
                     {...field}
                   />
                 </FormControl>
@@ -127,7 +130,7 @@ const ProfileForm = ({ user }: { user: User }) => {
                   <input
                     type="password"
                     className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base "
-                    placeholder="Confirm Password"
+                    placeholder={t("confirmPassword")}
                     {...field}
                   />
                 </FormControl>
@@ -242,11 +245,21 @@ const ProfileForm = ({ user }: { user: User }) => {
                     form.getValues("extra") && "sr-only"
                   )}
                 >
-                  Please tell us more about your <br className="sm:hidden" />{" "}
-                  preferances eg. I like to
-                  <br />
-                  experience local cuisine and visit{" "}
-                  <br className="sm:hidden" /> art gallaries
+                  {locale === "ko" ? (
+                    <>
+                      추가 정보를 알려주세요. <br /> {`예시)`} 저는 로컬 음식을
+                      좋아하고 미술관을 방문하는 것을 좋아합니다.
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      Please tell us more about your{" "}
+                      <br className="sm:hidden" /> preferances eg. I like to
+                      <br />
+                      experience local cuisine and visit{" "}
+                      <br className="sm:hidden" /> art gallaries
+                    </>
+                  )}
                 </FormLabel>
                 <FormControl>
                   <Textarea
@@ -259,7 +272,7 @@ const ProfileForm = ({ user }: { user: User }) => {
             )}
           />
           <button className="py-4 sm:py-6 px-24 bg-egyptianBlue text-white rounded-full mx-auto flex items-center justify-center">
-            Edit
+            {t("editProfile")}
           </button>
         </fieldset>
       </form>

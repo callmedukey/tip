@@ -10,12 +10,13 @@ import { useState } from "react";
 import { Link, useRouter } from "@/i18n/routing";
 import { logout } from "@/actions/auth";
 import { useAuth } from "../context/AuthContext";
+import { useTranslations } from "next-intl";
 
 const Auth_HeaderDropdownMenu = () => {
   const [session, setSession, logoutSession] = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-
+  const t = useTranslations("AuthHeaderMenu");
   const handleLogout = async () => {
     await logout();
     logoutSession();
@@ -37,29 +38,29 @@ const Auth_HeaderDropdownMenu = () => {
             clipRule="evenodd"
           />
         </svg>
-        My <br className="lg:hidden" /> Account
+        {t("myAccount")}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="text-center">
         <DropdownMenuItem asChild>
           <Link href="/my-travel" className="block">
-            My travel
+            {t("myTravel")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href="/my-profile" className="block">
-            My profile
+            {t("myProfile")}
           </Link>
         </DropdownMenuItem>
         {session?.accountType === "Admin" && (
           <DropdownMenuItem asChild>
             <Link href="/admin" className="block">
-              Admin
+              {t("admin")}
             </Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuItem asChild>
           <button className="block w-full" onClick={handleLogout}>
-            Log out
+            {t("logout")}
           </button>
         </DropdownMenuItem>
       </DropdownMenuContent>

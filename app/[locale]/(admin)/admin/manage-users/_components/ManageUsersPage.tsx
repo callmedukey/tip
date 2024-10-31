@@ -22,8 +22,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslations } from "next-intl";
 
 const ManageUsersPage = () => {
+  const t = useTranslations("manageUsers");
   const [queryType, setQueryType] = useState<"email" | "name">("email");
   const [query, setQuery] = useDebounceValue("", 1000);
 
@@ -45,34 +47,34 @@ const ManageUsersPage = () => {
 
   return (
     <div className="text-white max-w-screen-8xl mx-auto">
-      <h1 className="text-2xl font-bold">회원 관리</h1>
+      <h1 className="text-2xl font-bold">{t("manageUsers")}</h1>
       <div className="bg-white max-w-screen-8xl mx-auto rounded-md p-4 flex gap-2 text-black mt-6">
         <Select
           value={queryType}
           onValueChange={(value) => setQueryType(value as "email" | "name")}
         >
           <SelectTrigger className="w-[12rem] text-base">
-            <SelectValue placeholder="검색 유형" />
+            <SelectValue placeholder={t("searchTerm")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="email">이메일</SelectItem>
-            <SelectItem value="name">이름</SelectItem>
+            <SelectItem value="email">{t("email")}</SelectItem>
+            <SelectItem value="name">{t("name")}</SelectItem>
           </SelectContent>
         </Select>
         <input
           onChange={(e) => setQuery(e.currentTarget.value)}
           className="text-base flex-grow border rounded-md px-2"
-          placeholder="검색어"
+          placeholder={t("searchTerm")}
         />
       </div>
       <div className="bg-white rounded-md mt-12 relative text-black min-h-[50rem] max-h-[50rem] overflow-y-auto">
         <Table className="text-black">
           <TableHeader className="">
             <TableRow className="">
-              <TableHead className="w-[100px] font-bold">이름</TableHead>
-              <TableHead className="font-bold">이메일</TableHead>
-              <TableHead className="font-bold">회원 등급</TableHead>
-              <TableHead className="font-bold">개인 정보</TableHead>
+              <TableHead className="w-[100px] font-bold">{t("name")}</TableHead>
+              <TableHead className="font-bold">{t("email")}</TableHead>
+              <TableHead className="font-bold">{t("accountLevel")}</TableHead>
+              <TableHead className="font-bold">{t("personalInfo")}</TableHead>
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>

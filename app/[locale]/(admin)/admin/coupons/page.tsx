@@ -10,19 +10,13 @@ import {
 } from "@/components/ui/table";
 import prisma from "@/lib/prisma";
 export const dynamic = "force-dynamic";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import ToggleActiveCouponButton from "./_components/ToggleActiveCouponButton";
 import CreateNewCouponDialog from "./_components/CreateNewCouponDialog";
+import { getTranslations } from "next-intl/server";
 
 const page = async () => {
   const session = await verifySession();
+  const t = await getTranslations("manageCoupons");
 
   if (!session || session.accountType !== "Admin" || !session.userId) {
     return redirect("/login");
@@ -43,7 +37,7 @@ const page = async () => {
 
   return (
     <div className="text-white max-w-screen-8xl mx-auto">
-      <h1 className="text-2xl font-bold">쿠폰 관리</h1>
+      <h1 className="text-2xl font-bold">{t("manageCoupons")}</h1>
       <div className="bg-white rounded-md mt-12 relative text-black min-h-[50rem] max-h-[50rem] overflow-y-auto">
         <div className="flex justify-end">
           <CreateNewCouponDialog />
@@ -51,11 +45,11 @@ const page = async () => {
         <Table className="text-black">
           <TableHeader className="">
             <TableRow className="">
-              <TableHead className="w-[100px] font-bold">순번</TableHead>
-              <TableHead className="font-bold">Code</TableHead>
-              <TableHead className="font-bold">설명</TableHead>
-              <TableHead className="font-bold">사용 횟수</TableHead>
-              <TableHead className="font-bold">상태</TableHead>
+              <TableHead className="w-[100px] font-bold">{t("number")}</TableHead>
+              <TableHead className="font-bold">{t("couponCode")}</TableHead>
+              <TableHead className="font-bold">{t("description")}</TableHead>
+              <TableHead className="font-bold">{t("used")}</TableHead>
+              <TableHead className="font-bold">{t("status")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="text-black max-h-[500px] overflow-y-auto">

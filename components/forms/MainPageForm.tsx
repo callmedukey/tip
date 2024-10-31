@@ -4,6 +4,7 @@ import PurposeIcon from "@/public/icons/purpose.svg";
 import PlaneIcon from "@/public/icons/plane.svg";
 import Person from "@/public/icons/person.svg";
 import { Calendar } from "@/components/ui/calendar";
+import { ko, enUS } from "date-fns/locale";
 import {
   Popover,
   PopoverContent,
@@ -11,10 +12,7 @@ import {
 } from "@/components/ui/popover";
 import Image from "next/image";
 import { Form, FormField, FormItem } from "@/components/ui/form";
-import {
-  serviceCities,
-  serviceCountryAndCities,
-} from "@/definitions/service-cities";
+import { serviceCountryAndCities } from "@/definitions/service-cities";
 import LocationIcon from "@/public/icons/location.svg";
 import { MainPageFormSchema } from "@/definitions/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,9 +36,8 @@ import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState } from "react";
 import { initFormWithSession } from "@/actions/main-page";
 import { formatDateToUTC } from "@/lib/time-formmater";
-import { Checkbox } from "@radix-ui/react-checkbox";
 import type { DateRange } from "react-day-picker";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const MainPageForm = ({
   setState,
@@ -48,6 +45,7 @@ const MainPageForm = ({
   setState: (state: Record<string, string | number | Date | any>) => void;
 }) => {
   const locale = useLocale();
+  const t = useTranslations("MainFirstForm");
   const [savedInitialData, setSavedInitialData] = useLocalStorage<Record<
     string,
     string | number | Date | any
@@ -163,7 +161,7 @@ const MainPageForm = ({
             />
             {form.getValues("city").length > 0
               ? form.getValues("city").join(", ")
-              : "City"}
+              : t("city")}
           </DropdownMenuTrigger>
           <DropdownMenuContent className="max-h-[20rem] overflow-y-auto scrollbar-hide lg:mt-8 lg:w-fit">
             <FormField
@@ -253,7 +251,7 @@ const MainPageForm = ({
                 {date.from ? (
                   format(date.from, "yyyy-MM-dd")
                 ) : (
-                  <span>From</span>
+                  <span>{t("startDate")}</span>
                 )}
 
                 <Image
@@ -263,7 +261,9 @@ const MainPageForm = ({
                   height={24}
                   className="mx-auto lg:mx-6"
                 />
-                <span>{date.to ? format(date.to, "yyyy-MM-dd") : "To"}</span>
+                <span>
+                  {date.to ? format(date.to, "yyyy-MM-dd") : t("endDate")}
+                </span>
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0 lg:mt-8" align="start">
@@ -273,6 +273,7 @@ const MainPageForm = ({
                 onSelect={setDate}
                 numberOfMonths={2}
                 timeZone="UTC"
+                locale={locale === "ko" ? ko : enUS}
                 required
               />
             </PopoverContent>
@@ -283,10 +284,10 @@ const MainPageForm = ({
             <DropdownMenuTrigger className="flex items-center lg:gap-2 gap-2 w-[8rem] ring-0 focus:ring-0">
               <Image src={Person} alt="Person Icon" width={24} height={24} />
               {form.getValues("adults") + form.getValues("infants") > 0
-                ? `${
-                    form.getValues("adults") + form.getValues("infants")
-                  } Persons`
-                : "Persons"}
+                ? `${form.getValues("adults") + form.getValues("infants")} ${
+                    locale === "ko" ? "명" : "Persons"
+                  }`
+                : t("persons")}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="text-center lg:mt-8">
               <DropdownMenuItem
@@ -296,7 +297,9 @@ const MainPageForm = ({
                 }}
               >
                 <div className="flex items-center gap-4">
-                  <span className="block text-center flex-1">Adults</span>
+                  <span className="block text-center flex-1">
+                    {t("adults")}
+                  </span>
                   <div className="flex items-center gap-4 flex-1">
                     <button
                       type="button"
@@ -330,9 +333,9 @@ const MainPageForm = ({
               >
                 <div className="flex items-center gap-4">
                   <span className="flex flex-col flex-1">
-                    <span>Infant</span>
+                    <span>{t("infants")}</span>
                     <span className="text-[0.75rem] whitespace-nowrap">
-                      ages 2 - 12
+                      {t("ages")}
                     </span>
                   </span>
                   <div className="flex items-center gap-4 flex-1">
@@ -377,18 +380,18 @@ const MainPageForm = ({
               />
               {form.getValues("purpose")
                 ? form.getValues("purpose")
-                : "Purpose"}
+                : t("purpose")}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="text-center lg:mt-8">
               <DropdownMenuItem
                 onClick={() => form.setValue("purpose", "business")}
               >
-                Business
+                {t("business")}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => form.setValue("purpose", "leisure")}
               >
-                Leisure
+                {t("leisure")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

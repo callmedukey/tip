@@ -12,7 +12,6 @@ import { useLocalStorage } from "usehooks-ts";
 
 const FirstScreen = () => {
   const t = useTranslations("HomePage");
-
   const wrapperClassName =
     "min-h-[100rem] lg:min-h-[80rem] h-screen justify-center items-center flex";
 
@@ -89,7 +88,12 @@ const FirstScreen = () => {
           height={273}
           className={cn("h-auto w-[12rem] mx-auto", locale === "ko" && "mt-10")}
         />
-        <h1 className="text-center text-[0.75rem] mt-6 font-medium text-white">
+        <h1
+          className={cn(
+            "text-center text-[0.75rem] mt-6 font-medium text-white",
+            locale === "ko" && "mt-0"
+          )}
+        >
           Travel in your Pocket <br /> for your best memories
         </h1>
       </div>

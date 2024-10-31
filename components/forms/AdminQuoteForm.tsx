@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { issueQuote } from "@/actions/admin";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const AdminQuoteForm = ({
   price,
@@ -24,6 +25,7 @@ const AdminQuoteForm = ({
   currency: string | null;
   paymentLink: string | null;
 }) => {
+  const t = useTranslations("adminPlanner");
   const searchParams = useSearchParams();
   const requestId = searchParams.get("id");
 
@@ -61,11 +63,11 @@ const AdminQuoteForm = ({
           render={({ field }) => (
             <FormItem className="">
               <label htmlFor={field.name} className="sr-only">
-                총금액
+                {t("totalPrice")}
               </label>
               <FormControl>
                 <input
-                  placeholder="총금액"
+                  placeholder={t("totalPrice")}
                   {...field}
                   className="p-1 font-normal placeholder:text-black"
                 />
@@ -80,11 +82,11 @@ const AdminQuoteForm = ({
           render={({ field }) => (
             <FormItem className="">
               <label htmlFor={field.name} className="sr-only">
-                통화
+                {t("currency")}
               </label>
               <FormControl>
                 <input
-                  placeholder="통화 3자"
+                  placeholder={t("currency")}
                   {...field}
                   className="p-1 font-normal placeholder:text-black"
                 />
@@ -99,11 +101,11 @@ const AdminQuoteForm = ({
           render={({ field }) => (
             <FormItem className="">
               <label htmlFor={field.name} className="sr-only">
-                결제링크
+                {t("paymentLink")}
               </label>
               <FormControl>
                 <input
-                  placeholder="결제링크"
+                  placeholder={t("paymentLink")}
                   {...field}
                   className="p-1 font-normal placeholder:text-black"
                 />
@@ -113,7 +115,7 @@ const AdminQuoteForm = ({
           )}
         />
         <Button type="submit" className="mt-6">
-          견적 보내기
+          {t("sendQuote")}
         </Button>
       </form>
     </Form>

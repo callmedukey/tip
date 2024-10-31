@@ -18,6 +18,16 @@ export type TravelPlan = {
 
 
 export const requestStatusObject: Record<RequestStatus, string> = {
+  pending: "New",
+  editing: "Urgent Edit",
+  awaitingResponse: "Awaiting Response",
+  confirmed: "Confirmed",
+  invoiced: "Invoiced",
+  paid: "Paid",
+  initialEditing: "Pre-Payment Edit",
+  canceled: "Canceled"
+};
+export const requestStatusObjectKR: Record<RequestStatus, string> = {
   pending: "신규",
   editing: "긴급 수정",
   awaitingResponse: "대기",

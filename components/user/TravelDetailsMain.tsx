@@ -19,6 +19,7 @@ import { Download, PenLine } from "lucide-react";
 import { cancelTrip, confirmTrip } from "@/actions/user";
 import { useRouter } from "@/i18n/routing";
 import TravelDetailsDownloadButton from "./TravelDetailsDownloadButton";
+import { useTranslations } from "next-intl";
 
 interface TravelDetailsMainProps extends Request {
   editRequests: EditRequest[];
@@ -40,6 +41,9 @@ const TravelDetailsMain = ({
     latitude: number;
     placeName: string;
   } | null>(null);
+
+  const t = useTranslations("MyTravelDetails");
+  const ui = useTranslations("ui");
 
   const travelPlanDays = useMemo(() => {
     if (!request.travelPlan) return [];
@@ -134,7 +138,7 @@ const TravelDetailsMain = ({
             d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
           />
         </svg>
-        Back
+        {ui("back")}
       </button>
       <div className="grid lg:grid-cols-[auto_1fr] gap-4 mt-4 pb-60 lg:pb-12 min-h-[min(50vh,400px)]">
         <aside className="bg-[#F1EFEC] rounded-[2rem] overflow-clip relative max-h-[min(60vh,600px)] overflow-y-auto">
@@ -272,12 +276,12 @@ const TravelDetailsMain = ({
                     alt="My travel plane"
                     className="max-w-[100px] w-full h-auto shrink-0 rounded-[1rem]"
                   />
-                  Trip Details
+                  {t("tripDetails")}
                 </h1>
                 {request.adminNotes && (
                   <div className="bg-[#E5E5E5]  rounded-[2rem] flex flex-col items-center justify-center p-4 mb-6">
                     <h2 className="text-[1.25rem] font-medium border-b border-black/40">
-                      Admin Notes
+                      {t("adminNotes")}
                     </h2>
                     <div className="text-black whitespace-pre-wrap w-full mt-2 font-pretendard">
                       {request.adminNotes}
@@ -304,7 +308,7 @@ const TravelDetailsMain = ({
                     {request.uploads && request.uploads.length > 0 && (
                       <div className="col-span-full">
                         <h2 className="text-[1.25rem] font-medium border-b border-black/40">
-                          Downloads
+                          {t("downloads")}
                         </h2>
                         <div>
                           {request.uploads.map((upload) => (

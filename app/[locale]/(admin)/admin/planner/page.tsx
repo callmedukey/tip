@@ -12,6 +12,7 @@ import { formatDateToKR, formatDateToUTC } from "@/lib/time-formmater";
 import PlannerSaveAndSend from "./_components/PlannerSaveAndSend";
 import AdminFileUploads from "./_components/AdminFileUploads";
 import AdminRequestNote from "./_components/AdminRequestNote";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
@@ -21,10 +22,15 @@ const AdminPlannerPage = async ({
   searchParams: { id: string };
 }) => {
   const session = await verifySession();
+  const t = await getTranslations("adminPlanner");
   if (!session || !session.userId || session.accountType !== "Admin") {
     return redirect("/login");
   }
   const orderId = searchParams.id;
+
+  if (!orderId) {
+    return redirect("/admin/new-request");
+  }
 
   const order = await prisma.request.findUnique({
     where: {
@@ -49,32 +55,33 @@ const AdminPlannerPage = async ({
       </div>
     );
   }
+  console.log(typeof order.from, typeof order.to);
   return (
     <div className="max-w-screen-8xl mx-auto text-white font-medium">
-      <h1 className="text-2xl font-bold text-center">여행 플래너</h1>
+      <h1 className="text-2xl font-bold text-center">{t("planner")}</h1>
       <main className="bg-white/85 mt-12 p-4 text-black rounded-md overflow-y-auto">
         <div className="flex gap-2 mt-4">
-          <div>주문번호:</div>
+          <div>{t("orderNo")}:</div>
           <div>{generateOrderNumber(order.id)}</div>
         </div>
         <div className="flex gap-2 mt-4">
-          <div>이름:</div>
+          <div>{t("name")}:</div>
           <div>{order.user.name}</div>
         </div>
         <div className="flex gap-2 mt-4">
-          <div>이메일:</div>
+          <div>{t("email")}:</div>
           <div>{order.user.email}</div>
         </div>
         <div className="flex gap-2 mt-4">
-          <div>계정 여행스타일:</div>
+          <div>{t("accountTravelStyle")}:</div>
         </div>
         <div className="mt-2 bg-gray-300 p-2 rounded-md max-w-md">
           {order.user.extra && order.user.extra !== ""
             ? order.user.extra
-            : "계정 여행스타일 없음"}
+            : t("noAccountTravelStyle")}
         </div>
         <div className="mt-12">
-          <h2 className="text-xl font-bold">수정 요청 사항</h2>
+          <h2 className="text-xl font-bold">{t("editRequestTitle")}</h2>
         </div>
         {order.editRequests.map((editRequest) => (
           <div key={editRequest.id}>
@@ -90,42 +97,43 @@ const AdminPlannerPage = async ({
         ))}
         {order.editRequests.length === 0 && (
           <div className="mt-6 bg-gray-300 p-2 rounded-md max-w-md">
-            수정 요청 사항이 없습니다.
+            {t("noEditRequest")}
           </div>
         )}
         <div className="mt-12">
           <h2 className="text-xl font-bold underline underline-offset-4">
-            선택 사항
+            {t("selectedOptions")}
           </h2>
         </div>
         <div className="flex gap-2 mt-4">
-          <div>날짜:</div>
+          <div>{t("date")}:</div>
           <div>
-            {formatDateToKR(formatDateToUTC(order.from) as unknown as Date)} ~{" "}
-            {formatDateToKR(formatDateToUTC(order.to) as unknown as Date)}
+            {formatDateToKR(order.from)} ~ {formatDateToKR(order.to)}
           </div>
         </div>
         <div className="flex gap-2 mt-4">
-          <div>주문 여행스타일:</div>
+          <div>{t("orderTravelStyle")}:</div>
         </div>
         <div className="mt-2 bg-gray-300 p-2 rounded-md max-w-md">
           {order.extra && order.extra !== ""
             ? order.extra
-            : "추가 여행스타일 없음"}
+            : t("noOrderTravelStyle")}
         </div>
         <div className="flex gap-2 mt-4">
-          <div>도시:</div>
+          <div>{t("city")}:</div>
           <div>{order.city.join(", ")}</div>
         </div>
         <div className="flex gap-2 mt-4">
-          <div>인원:</div>
+          <div>{t("persons")}:</div>
           <div>
-            성인 {order.adults} / 유아 {order.infants}
+            {t("adults")} {order.adults} / {t("infants")} {order.infants}
           </div>
         </div>
         <div className="flex gap-2 mt-4">
-          <div>유형:</div>
-          <div>{order.purpose === "business" ? "사업" : "여행"}</div>
+          <div>{t("type")}:</div>
+          <div>
+            {order.purpose === "business" ? t("business") : t("travel")}
+          </div>
         </div>
         <div className="mt-12">
           <h2 className="text-xl font-bold underline underline-offset-4 flex gap-12">
@@ -136,7 +144,7 @@ const AdminPlannerPage = async ({
         </div>
         <ul className="list-disc list-inside py-4">
           {!order.options || order.options.length === 0 ? (
-            <li>선택 옵션 없음</li>
+            <li>{t("noSelectedOptions")}</li>
           ) : null}
           {order.options?.map((option, index) => (
             <li className="" key={`${option}-${index}`}>
@@ -144,27 +152,27 @@ const AdminPlannerPage = async ({
             </li>
           ))}
         </ul>
-        <div className="font-bold">그 외 요청</div>
+        <div className="font-bold">{t("etcRequests")}</div>
         <div className="max-w-md bg-gray-300  p-2 rounded-md">
-          {order.extra && order.extra !== "" ? order.extra : "없음"}
+          {order.extra && order.extra !== "" ? order.extra : t("noEtcRequests")}
         </div>
         <div className="mt-12">
-          <h2 className="text-xl font-bold">여행 개요</h2>
+          <h2 className="text-xl font-bold">{t("travelSummary")}</h2>
         </div>
         <TravelSummaryForm summary={order.summary as SummaryArray} />
         <div className="mt-12">
-          <h2 className="text-xl font-bold">여행 일정</h2>
+          <h2 className="text-xl font-bold">{t("travelPlan")}</h2>
         </div>
         <TravelPlanForm plan={order.travelPlan as unknown as TravelPlanArray} />
         <AdminRequestNote requestId={order.id} note={order.adminNotes} />
         <PlannerSaveAndSend paid={order.paid} />
         <div className="mt-12">
-          <h2 className="text-xl font-bold">견적</h2>
+          <h2 className="text-xl font-bold">{t("quote")}</h2>
         </div>
         {order.coupon && (
           <div className="mt-4">
             <div className="flex gap-2">
-              <div>쿠폰:</div>
+              <div>{t("coupon")}:</div>
               <div>{order.coupon.code}</div>
             </div>
             <div className="max-w-md">{order.coupon.description}</div>
@@ -176,7 +184,7 @@ const AdminPlannerPage = async ({
           paymentLink={order.quoteLink}
         />
         <div className="mt-12">
-          <p className="text-lg font-bold">파일 업로드</p>
+          <p className="text-lg font-bold">{t("fileUpload")}</p>
           <div className="mt-4">
             <AdminFileUploads requestId={order.id} uploads={order.uploads} />
           </div>

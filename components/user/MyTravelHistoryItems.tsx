@@ -15,8 +15,10 @@ import {
 } from "@/lib/time-formmater";
 import { useQuery } from "@tanstack/react-query";
 import QuoteInvoiceModal from "../modals/QuoteInvoiceModal";
+import { useTranslations } from "next-intl";
 
 const MyTravelHistoryItems = () => {
+  const t = useTranslations("MyTravelHistoryItems");
   const { data, isLoading } = useQuery<Request[]>({
     queryKey: ["my-travel", "history"],
     queryFn: async () => {
@@ -43,7 +45,7 @@ const MyTravelHistoryItems = () => {
   if (data && data.length === 0) {
     return (
       <div className="max-h-[30rem] overflow-y-scroll text-center">
-        No history found
+        {t("noHistory")}
       </div>
     );
   }
@@ -55,7 +57,7 @@ const MyTravelHistoryItems = () => {
           <AccordionItem value={history.id.toString()} key={history.id}>
             <AccordionTrigger isHistory={true} className="">
               <div className="flex flex-col">
-                <p className="text-base text-formText text-left">Date</p>
+                <p className="text-base text-formText text-left">{t("date")}</p>
                 <p className="text-accountGrayText">
                   {formatDateToLocaleString(
                     formatDateToUserLocalFromDB(
@@ -74,26 +76,26 @@ const MyTravelHistoryItems = () => {
             <AccordionContent className="flex items-start lg:items-center gap-2 lg:flex-row flex-col text-accountGrayText">
               <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
                 <p className="text-formText text-base lg:text-[1.25rem] font-medium">
-                  Destination
+                  {t("destination")}
                 </p>
                 {history.city}
               </div>
               <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
                 <p className="text-formText text-base lg:text-[1.25rem] font-medium">
-                  Persons
+                  {t("persons")}
                 </p>
                 {`Adults: ${history.adults} Infants: ${history.infants}`}
               </div>
               <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
                 <p className="text-formText text-base lg:text-[1.25rem] font-medium ">
-                  Purpose
+                  {t("purpose")}
                 </p>
                 <span className="capitalize">{history.purpose}</span>
               </div>
               {history.price && history.currency && (
                 <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
                   <p className="text-formText text-base lg:text-[1.25rem] font-medium ">
-                    Invoice
+                    {t("invoice")}
                   </p>
                   <QuoteInvoiceModal
                     price={history.price}
@@ -102,7 +104,7 @@ const MyTravelHistoryItems = () => {
                     invoiceUrl={history.quoteLink ?? undefined}
                   >
                     <span className="capitalize underline cursor-pointer">
-                      See my invoice
+                      {t("seeMyInvoice")}
                     </span>
                   </QuoteInvoiceModal>
                 </div>
@@ -114,7 +116,7 @@ const MyTravelHistoryItems = () => {
                     href={`/my-travel/details?id=${history.id}`}
                     className="text-right mr-0 ml-auto flex items-center gap-2 lg:text-base text-[0.75rem] text-egyptianBlue"
                   >
-                    <span className="underline">Details</span>
+                    <span className="underline">{t("details")}</span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"

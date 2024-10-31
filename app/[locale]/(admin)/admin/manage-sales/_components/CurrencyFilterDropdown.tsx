@@ -5,6 +5,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTranslations } from "next-intl";
+
 const CurrencyFilterDropdown = ({
   currencies,
   applyCurrencyFilter,
@@ -12,9 +14,10 @@ const CurrencyFilterDropdown = ({
   currencies: string[];
   applyCurrencyFilter: (newFilter: string | null) => void;
 }) => {
+  const t = useTranslations("manageSales");
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>Currency Filter</DropdownMenuTrigger>
+      <DropdownMenuTrigger>{t("currencyFilter")}</DropdownMenuTrigger>
       <DropdownMenuContent>
         {currencies.map((currency) => (
           <DropdownMenuItem
@@ -25,7 +28,7 @@ const CurrencyFilterDropdown = ({
           </DropdownMenuItem>
         ))}
         <DropdownMenuItem onClick={() => applyCurrencyFilter(null)}>
-          None
+          {t("none")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

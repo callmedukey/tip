@@ -29,7 +29,6 @@ export const serviceCountryAndCities = {
   en: [
     { country: "USA", cities: ["Las Vegas", "New York", "Hawaii - Waikiki"] },
     { country: "Monaco", cities: ["Monte Carlo"] },
-    { country: "France", cities: ["Paris", "Nice", "Bordeaux", "Marseille"] },
     { country: "Malaysia", cities: ["Kuala Lumpur"] },
     { country: "Switzerland", cities: ["Interlaken", "Lucerne"] },
     { country: "Spain", cities: ["Bilbao"] },
@@ -105,7 +104,6 @@ export const serviceCountryAndCities = {
   ko: [
     { country: "미국", cities: ["라스 베가스", "뉴욕", "하와이 - 와이키키"] },
     { country: "모나코", cities: ["몬테 카를로"] },
-    { country: "프랑스", cities: ["파리", "니스", "생트로페", "베르사유"] },
     { country: "말레이시아", cities: ["쿠알라룸푸르"] },
     { country: "스위스", cities: ["인터라켄", "루체른"] },
     { country: "스페인", cities: ["빌바오"] },

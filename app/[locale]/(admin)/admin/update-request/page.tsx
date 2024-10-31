@@ -11,14 +11,19 @@ import {
 
 import prisma from "@/lib/prisma";
 import { formatDateToKR, formatDateToUTC } from "@/lib/time-formmater";
-import { requestStatusObject } from "@/definitions/request-details";
+import {
+  requestStatusObject,
+  requestStatusObjectKR,
+} from "@/definitions/request-details";
 import { generateOrderNumber } from "@/lib/generateOrderNumber";
+import { getLocale, getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
 const AdminUpdateRequestPage = async () => {
   const session = await verifySession();
-
+  const t = await getTranslations("updateSchedule");
+  const locale = await getLocale();
   if (!session || !session.userId) {
     return redirect("/login");
   }
@@ -44,16 +49,18 @@ const AdminUpdateRequestPage = async () => {
 
   return (
     <div className="text-white max-w-screen-8xl mx-auto">
-      <h1 className="text-2xl font-bold">스케줄 수정 / 취소 요청 확인</h1>
+      <h1 className="text-2xl font-bold">{t("updateSchedule")}</h1>
       <div className="bg-white rounded-md mt-12 relative text-black min-h-[50rem] max-h-[50rem] overflow-y-auto">
         <Table className="text-black">
           <TableHeader className="">
             <TableRow className="">
-              <TableHead className="w-[100px] font-bold">주문번호</TableHead>
-              <TableHead className="font-bold">이름</TableHead>
-              <TableHead className="font-bold">이메일</TableHead>
-              <TableHead className="font-bold">날짜</TableHead>
-              <TableHead className="font-bold">형태</TableHead>
+              <TableHead className="w-[100px] font-bold">
+                {t("orderNo")}
+              </TableHead>
+              <TableHead className="font-bold">{t("name")}</TableHead>
+              <TableHead className="font-bold">{t("email")}</TableHead>
+              <TableHead className="font-bold">{t("date")}</TableHead>
+              <TableHead className="font-bold">{t("type")}</TableHead>
               <TableHead className=""></TableHead>
             </TableRow>
           </TableHeader>
@@ -68,13 +75,17 @@ const AdminUpdateRequestPage = async () => {
                 )} ~ ${formatDateToKR(
                   formatDateToUTC(request.to) as unknown as Date
                 )}`}</TableCell>
-                <TableCell>{requestStatusObject[request.status]}</TableCell>
+                <TableCell>
+                  {locale === "ko"
+                    ? requestStatusObjectKR[request.status]
+                    : requestStatusObject[request.status]}
+                </TableCell>
                 <TableCell>
                   <Link
                     href={`/admin/planner?id=${request.id}`}
                     className="bg-black text-white py-1 px-2 rounded-md"
                   >
-                    플래너
+                    {t("planner")}
                   </Link>
                 </TableCell>
               </TableRow>

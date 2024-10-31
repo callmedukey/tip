@@ -9,8 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useRouter } from "@/i18n/routing";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 const MyTravelListItemShareButton = ({
@@ -22,7 +21,7 @@ const MyTravelListItemShareButton = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const locale = useLocale();
-
+  const t = useTranslations("MyTravelListItemShareButton");
   const handleCopyShareLink = async () => {
     if (!navigator) return;
     const { sharedLink, success, message } = await generateSharedLink(
@@ -56,14 +55,14 @@ const MyTravelListItemShareButton = ({
           className="bg-transparent text-egyptianBlue border border-egyptianBlue max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium"
           type="button"
         >
-          Share
+          {t("share")}
         </button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Share your travel</DialogTitle>
+          <DialogTitle>{t("shareYourTravel")}</DialogTitle>
           <DialogDescription>
-            Share your travel plans with your friends and family!
+            {t("shareYourTravelDescription")}
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-2 gap-4 my-8">
@@ -72,14 +71,14 @@ const MyTravelListItemShareButton = ({
             onClick={handleCopyShareLink}
             type="button"
           >
-            {copied ? "Link Copied!" : "Copy Share Link"}
+            {copied ? t("linkCopied") : t("copyShareLink")}
           </button>
           <button
             className="text-formText text-base font-medium text-red-500"
             onClick={handleDisableSharing}
             type="button"
           >
-            Disable Sharing
+            {t("disableSharing")}
           </button>
         </div>
       </DialogContent>

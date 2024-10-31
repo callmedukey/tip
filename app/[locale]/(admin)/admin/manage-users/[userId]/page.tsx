@@ -16,6 +16,7 @@ import { userLevelObject } from "@/lib/parseUserLevel";
 import UpdateAccountType from "../_components/UpdateAccountType";
 import TogglePaidButton from "@/components/admin/manage-orders/TogglePaidButton";
 import { SquareArrowOutUpRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
@@ -27,6 +28,7 @@ const ManageSingelUserPage = async ({
   };
 }) => {
   const session = await verifySession();
+  const t = await getTranslations("manageSingleUser");
   if (!session || !session.userId || session.accountType !== "Admin") {
     return redirect("/login");
   }
@@ -52,30 +54,42 @@ const ManageSingelUserPage = async ({
       <div className="bg-white text-black p-4 rounded-md">
         <ul className="space-y-4">
           <li>
-            <p>Name:{user.name}</p>
+            <p>
+              {t("name")}:{user.name}
+            </p>
           </li>
 
           <li>
-            <p>Email: {user.email} </p>
+            <p>
+              {t("email")}: {user.email}{" "}
+            </p>
           </li>
 
           <li>
-            <p>Phone Number: {user.phoneNumber}</p>
+            <p>
+              {t("phoneNumber")}: {user.phoneNumber}
+            </p>
           </li>
 
           <li>
-            <p>Birthday: {formatDateToKR(user.birthday)} </p>
+            <p>
+              {t("dob")}: {formatDateToKR(user.birthday)}{" "}
+            </p>
           </li>
 
           <li>
-            <p>Gender: {user.gender}</p>
+            <p>
+              {t("gender")}: {user.gender}
+            </p>
           </li>
 
           {user?.extra &&
             typeof user.extra === "string" &&
             user.extra.length > 0 && (
               <li>
-                <p>Extra: {user.extra} </p>
+                <p>
+                  {t("extraInfo")}: {user.extra}{" "}
+                </p>
               </li>
             )}
 
@@ -83,23 +97,31 @@ const ManageSingelUserPage = async ({
             typeof user.businessNumber === "string" &&
             user.businessNumber.length > 0 && (
               <li>
-                <p>Business Number: {user.businessNumber} </p>
+                <p>
+                  {t("businessNumber")}: {user.businessNumber}{" "}
+                </p>
               </li>
             )}
           <li>
-            <p>Account type: {user.accountType}</p>
+            <p>
+              {t("accountType")}: {user.accountType}
+            </p>
           </li>
 
           <li>
-            <p>Money spent: {user.moneySpent}</p>
+            <p>
+              {t("moneySpent")}: {user.moneySpent}
+            </p>
           </li>
 
           <li>
-            <p>User Level : {userLevelObject[user.userLevel]} </p>
+            <p>
+              {t("accountLevel")}: {userLevelObject[user.userLevel]}{" "}
+            </p>
           </li>
         </ul>
         <div className="mt-4">
-          <div>Extra:</div>
+          <div>{t("extraInfo")}:</div>
           <div className="bg-gray-300  p-2 rounded-md">
             {user.extra?.trim() ?? "없음"}
           </div>
@@ -109,11 +131,13 @@ const ManageSingelUserPage = async ({
         <Table className="text-black">
           <TableHeader className="">
             <TableRow className="">
-              <TableHead className="w-[100px] font-bold">주문번호</TableHead>
-              <TableHead className="font-bold">도시</TableHead>
-              <TableHead className="font-bold">결제 금액</TableHead>
-              <TableHead className="">결제 여뷰</TableHead>
-              <TableHead className="">결제일</TableHead>
+              <TableHead className="w-[100px] font-bold">
+                {t("orderNo")}
+              </TableHead>
+              <TableHead className="font-bold">{t("destination")}</TableHead>
+              <TableHead className="font-bold">{t("paidAmount")}</TableHead>
+              <TableHead className="">{t("paidStatus")}</TableHead>
+              <TableHead className="">{t("paymentDate")}</TableHead>
               <TableHead className=""></TableHead>
             </TableRow>
           </TableHeader>
@@ -134,7 +158,7 @@ const ManageSingelUserPage = async ({
                 <TableCell>
                   {request.paidAt
                     ? dateToLocalFormatted(request.paidAt.toISOString())
-                    : "결제 안됨"}
+                    : t("notPaid")}
                 </TableCell>
                 <TableCell>
                   <Link href={`/admin/planner?id=${request.id.toString()}`}>

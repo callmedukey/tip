@@ -14,12 +14,13 @@ import {
 import { generateOrderNumber } from "@/lib/generateOrderNumber";
 import { SquareArrowOutUpRight } from "lucide-react";
 import { dateToLocalFormatted } from "@/lib/time-formmater";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
 const page = async () => {
   const session = await verifySession();
-
+  const t = await getTranslations("myProfile");
   if (!session || !session.userId) {
     return redirect("/login");
   }
@@ -50,7 +51,7 @@ const page = async () => {
   return (
     <main className="max-w-screen-xl mx-auto w-full px-4 py-32">
       <div className="bg-white/85 rounded-[2rem] px-4 flex flex-col items-center justify-center py-12">
-        <h1 className="text-[1.875rem] font-normal">Profile</h1>
+        <h1 className="text-[1.875rem] font-normal">{t("profile")}</h1>
         <UserBadge
           userLevel={user?.userLevel ?? null}
           className="max-w-[10rem]"
@@ -58,13 +59,17 @@ const page = async () => {
         <ProfileForm user={user as any} />
       </div>
       <div className="bg-white/85 rounded-[2rem] px-4 flex flex-col items-center justify-center py-12 mt-6">
-        <h2 className="text-[1.875rem] font-normal mb-12">Payment History</h2>
+        <h2 className="text-[1.875rem] font-normal mb-12">
+          {t("paymentHistory")}
+        </h2>
         <Table className="text-black ">
           <TableHeader className="">
             <TableRow className="">
-              <TableHead className="w-[100px] font-bold">Order no.</TableHead>
-              <TableHead className="font-bold">Paid Amount</TableHead>
-              <TableHead className="font-bold">Payment Date</TableHead>
+              <TableHead className="w-[100px] font-bold">
+                {t("orderNo")}
+              </TableHead>
+              <TableHead className="font-bold">{t("paidAmount")}</TableHead>
+              <TableHead className="font-bold">{t("paymentDate")}</TableHead>
               <TableHead className="font-bold"></TableHead>
             </TableRow>
           </TableHeader>
@@ -88,7 +93,7 @@ const page = async () => {
             {payments.length === 0 && (
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
-                  No payments found
+                  {t("noPayments")}
                 </TableCell>
               </TableRow>
             )}
