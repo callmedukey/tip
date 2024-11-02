@@ -1,5 +1,6 @@
 "use server";
 
+import * as brevo from "@getbrevo/brevo";
 import bcrypt from "bcrypt";
 import {
   loginSchema,
@@ -11,6 +12,9 @@ import { redirect } from "@/i18n/routing";
 import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
+import generateCode from "@/lib/generateCode";
+import {  emailTemplate, sendEmailInstance } from "@/lib/brevo";
+import { getLocale } from "next-intl/server";
 
 export const getSession = async () => {
   const cookie = cookies().get("session")?.value;
@@ -145,6 +149,18 @@ export async function signup({
       error: "User Sign up failed",
     };
   }
+  const locale = await getLocale();
+
+  sendEmailInstance({
+    params: { name },
+    emailTemplate:
+      locale === "ko" ? emailTemplate.welcomeKO : emailTemplate.welcome,
+    to: email,
+  }).then((data) => {
+    console.log("Sign up email sent to " + email + " successfully");
+  }).catch((error) => {
+    console.log(error);
+  });
 
   return {
     message: "User Sign up successfully",
@@ -202,3 +218,190 @@ export async function changePassword({
     message: "Password changed successfully",
   };
 }
+
+export const generateResetPasswordCode = async ({email, locale}: {email: string, locale: string}) => {
+  try {
+    const passcode = generateCode();
+
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    if (!existingUser) {
+      return {
+        existingUser: true,
+      };
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        passcode,
+      },
+    });
+
+    // send email with passcode
+
+    if (!updatedUser) {
+      return {
+        message: "Failed to generate reset password code",
+      };
+    }
+
+    sendEmailInstance({
+      params: { passcode },
+      emailTemplate: locale === "ko" ? emailTemplate.resetPasswordKO : emailTemplate.resetPassword,
+      to: email,
+    }).then((data) => {
+      console.log(data);
+      console.log(`Email sent to ${email} successfully`);
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    
+
+    return {
+      success: true,
+    };
+
+  } catch (error) {
+    console.log(error);
+    return {
+      message: "Failed to generate reset password code",
+    };
+  }
+};
+
+export const resetPassword = async ({ password, confirmPassword, resetChanceId }: {password: string, confirmPassword: string, resetChanceId: string}) => {
+try {
+  if (!password || !confirmPassword) {
+    return {
+      message: "Please enter a password",
+    };
+  }
+
+  if (password !== confirmPassword) {
+    return {
+      message: "Passwords do not match",
+    };
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const resetChance = await prisma.resetChance.findUnique({
+    where: {
+      id: resetChanceId,
+    },
+    include: {
+      user: true,
+    },
+  });
+
+  if (!resetChance) {
+    return {
+      message: "Invalid Request",
+    };
+  }
+
+   const updatedUser = await prisma.user.update({
+    where: {
+      id: resetChance.user.id,
+    },
+    data: {
+      password: hashedPassword,
+      resetChance: {
+        delete: true
+      },
+    },
+  });
+
+  if (!updatedUser) {
+    return {
+      message: "Failed to reset password",
+    };
+
+  }
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      message: "Failed to reset password",
+    };
+  }
+};
+
+
+export const verifyResetPasswordCode = async ({passcode}: { passcode: string}) => {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        passcode,
+      } ,
+      include:{
+        resetChance: true,
+      },
+      omit:{
+        password:true,
+      }
+    });
+    if (!user) {
+      return {
+        message: "Invalid passcode",
+      };
+    }
+
+    if (user.resetChance) {
+      await prisma.$transaction([
+        prisma.resetChance.delete({
+          where: {
+            id: user.resetChance.id,
+          },
+        }),
+        prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            passcode: null,
+          },
+        }),
+      ]);
+
+      return {
+        message: "Reset password code already used",
+      };
+
+    }
+
+
+    const createChance = await prisma.resetChance.create({
+      data: {
+        userId: user.id,
+      },
+    });
+
+
+    if (!createChance) {
+      return {
+        message: "Failed to create reset password chance",
+      };
+    }
+    return {
+      success: true,
+      resetId: createChance.id,
+    };
+
+  } catch (error) {
+    console.log(error);
+    return {
+      message: "Failed to verify reset password code",
+    };
+  }
+};

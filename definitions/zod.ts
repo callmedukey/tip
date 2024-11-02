@@ -78,3 +78,11 @@ export const AdminFileUploadsSchema = z.object({
   title: z.string().min(1, { message: "파일명은 필수입니다." }).trim(),
   requestId: z.coerce.number().min(1, { message: "요청 ID는 필수입니다." }),
 });
+
+export const finalResetPasswordSchema = z.object({
+  password: z.string().min(1, { message: "This field is required." }),
+  confirmPassword: z.string().min(1, { message: "This field is required." }),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match.",
+  path: ["confirmPassword"],
+});

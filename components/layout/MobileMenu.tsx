@@ -14,7 +14,7 @@ const links = [
   { href: "/my-travel", name: "myTravel" },
   { href: "/partner-hotels", name: "partnerHotels" },
   { href: "/experience-by-tip", name: "experienceByTip" },
-  { href: "/whats-new", name: "whatsNew" },
+  { href: "/about", name: "about" },
 ];
 
 const MobileMenu = () => {

@@ -5,6 +5,9 @@ import { verifySession } from "./session";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { logout } from "./auth";
+import { emailTemplate } from "@/lib/brevo";
+import { sendEmailInstance } from "@/lib/brevo";
+import { getLocale } from "next-intl/server";
 export const generateSharedLink = async (requestId: string) => {
   try {
     const session = await verifySession();
@@ -130,10 +133,25 @@ export const confirmTrip = async (requestId: number) => {
     const updatedRequest = await prisma.request.update({
       where: { id: +requestId, userId: session.userId, paid: false },
       data: { status: "confirmed" },
+      include: {
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
     });
 
     if (!updatedRequest) return { message: "Error confirming trip" };
 
+    const locale = await getLocale();
+    sendEmailInstance({
+      params: {
+      },
+      emailTemplate:
+        locale === "ko" ? emailTemplate.requestConfirmedKO : emailTemplate.requestConfirmed,
+      to: updatedRequest.user.email,
+    });
     return { success: true };
   } catch (error) {
     console.error(error);

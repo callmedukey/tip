@@ -13,7 +13,7 @@
       "myProfile": "My Profile",
       "partnerHotels": "Partner Hotels",
       "experienceByTip": "Experience by TIP",
-      "whatsNew": "What's new"
+      "about": "About"
   },
   "AuthHeaderMenu": {
     "myAccount": "My Account",
@@ -276,5 +276,26 @@
     "paidStatus": "Paid Status",
     "paymentDate": "Payment Date",
     "notPaid": "Not Paid"
+  },
+  "resetPassword": {
+    "resetPassword": "Reset Password",
+    "email": "E-mail",
+    "emailSent": "Email has been sent. Please check your email for the 6 digit code.",
+    "success": "Email sent successfully",
+    "userNotFound": "User not found",
+    "alreadyCode": "Already have a code?",
+    "sendCode": "Send Code",
+    "weWillSendCode": "We will send you a code to reset your password via email",
+    "resendCode": "Resend Code",
+    "confirmCode": "Confirm Code",
+    "passcode": "Code"
+  },
+  "resetPasswordChance": {
+    "resetPassword": "Reset Password",
+    "enterNewPassword": "Enter New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "submit": "Submit",
+    "password": "Password",
+    "passwordResetSuccess": "Password reset successfully"
   }
 }

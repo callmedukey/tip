@@ -6,6 +6,8 @@ import { verifySession } from "./session";
 import { revalidatePath } from "next/cache";
 import { dateToUTC } from "@/lib/time-formmater";
 import type { AccountType, UserLevel } from "@prisma/client";
+import { emailTemplate, sendEmailInstance } from "@/lib/brevo";
+import { getLocale } from "next-intl/server";
 
 export const saveRequestSummary = async ({
   summary,
@@ -103,6 +105,13 @@ export const issueQuote = async ({
         currency: currency,
         quoteLink: link,
       },
+      include: {
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
     });
 
     if (!updatedRequest) {
@@ -113,6 +122,18 @@ export const issueQuote = async ({
     revalidatePath("/[locale]/my-travel", "page");
     revalidatePath("/[locale]/admin/manage-orders", "page");
     revalidatePath("/[locale]/admin/update-request", "page");
+
+    const locale = await getLocale();
+    sendEmailInstance({
+      params: {},
+      emailTemplate:
+        locale === "ko" ? emailTemplate.invoiceIssuedKO : emailTemplate.invoiceIssued,
+      to: updatedRequest.user.email,
+    }).then((data) => {
+      console.log("Invoice issued email sent to " + updatedRequest.user.email + " successfully");
+    }).catch((error) => {
+      console.log(error);
+    });
     return { success: true };
   } catch (error) {
     console.log(error);
@@ -169,6 +190,13 @@ export const togglePaid = async ({
         paid: !currentStatus,
         paidAt: !currentStatus == true ? dateToUTC(new Date()) : null,
       },
+      include:{
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
     });
 
     if (!updatedRequest) {
@@ -177,6 +205,16 @@ export const togglePaid = async ({
 
     revalidatePath("/[locale]/admin/manage-orders", "page");
 
+    const locale = await getLocale();
+    if (updatedRequest.paid) {
+      sendEmailInstance({
+        params: {
+        },
+        emailTemplate:
+          locale === "ko" ? emailTemplate.paymentSuccessKO : emailTemplate.paymentSuccess,
+        to: updatedRequest.user.email,
+      });
+    }
     return { success: true };
   } catch (error) {
     console.log(error);
@@ -204,6 +242,13 @@ export const sendRequestToCustomer = async ({
       data: {
         status: paid ? "confirmed" : "awaitingResponse",
       },
+      include: {
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
     });
     if (!updatedRequest) {
       return { message: "Error updating request status" };
@@ -213,6 +258,18 @@ export const sendRequestToCustomer = async ({
     revalidatePath("/[locale]/my-travel", "page");
     revalidatePath("/[locale]/admin/manage-orders", "page");
     revalidatePath("/[locale]/admin/update-request", "page");
+
+    const locale = await getLocale();
+    sendEmailInstance({
+      params: {},
+      emailTemplate:
+        locale === "ko" ? emailTemplate.requestEditedKO : emailTemplate.requestEdited,
+      to: updatedRequest.user.email,
+    }).then((data) => {
+      console.log("Request confirmed email sent to " + updatedRequest.user.email + " successfully");
+    }).catch((error) => {
+      console.log(error);
+    });
 
     return { success: true };
   } catch (error) {
@@ -251,6 +308,14 @@ export const updateUserLevel = async ({
     revalidatePath("/[locale]/admin/manage-users", "page");
     revalidatePath("/[locale]/admin/new-request", "page");
 
+    const locale = await getLocale();
+    sendEmailInstance({
+      params: {
+      },
+      emailTemplate:
+        locale === "ko" ? emailTemplate.accountLeveledUpKO : emailTemplate.accountLeveledUp,
+      to: updatedUser.email,
+    });
     return { success: true };
   } catch (error) {
     console.error(error);
