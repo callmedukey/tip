@@ -244,7 +244,6 @@ export const generateResetPasswordCode = async ({email, locale}: {email: string,
       },
     });
 
-    // send email with passcode
 
     if (!updatedUser) {
       return {

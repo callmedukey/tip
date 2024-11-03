@@ -14,9 +14,11 @@
   "type": "module",
   "browserslist": "> 0.5%, last 10 versions, not ie <= 11, not ie_mob <= 11",
   "dependencies": {
+    "@channel.io/channel-web-sdk-loader": "^2.0.0",
     "@date-fns/utc": "^2.1.0",
     "@getbrevo/brevo": "^2.2.0",
     "@hookform/resolvers": "^3.9.0",
+    "@next/third-parties": "^15.0.2",
     "@prisma/client": "^5.20.0",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-checkbox": "^1.1.2",

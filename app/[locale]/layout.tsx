@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import { ThemeModeScript } from "flowbite-react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 import {
   Inter as InterFont,
@@ -14,6 +15,7 @@ import ReactQueryContext from "@/components/context/ReactQueryContext";
 import GoogleProvider from "@/components/context/GoogleProvider";
 import CloudBg from "./_layout-components/CloudBg";
 import Footer from "@/components/Footer";
+import ChannelTalkProvider from "@/components/layout/ChannelTalkProvider";
 const Inter = InterFont({
   subsets: ["latin"],
   display: "swap",
@@ -32,6 +34,14 @@ const NotoSansKr = NotoSansKrFont({
   display: "swap",
   variable: "--font-noto-sans-kr",
 });
+
+export const metadata = {
+  title: "Travel in Your Pocket",
+  keywords:
+    "Travel in Your Pocket, Travel Mate, Travel Planner, Travel Assistant, Travel Guide, Travel Assistant, Travel Planner, Travel Guide",
+  description:
+    "Travel in Your Pocket, a simple yet sophisticated travel planner for your next trip",
+};
 
 export default async function Layout({
   children,
@@ -53,11 +63,17 @@ export default async function Layout({
           <ReactQueryContext>
             <NextIntlClientProvider messages={messages}>
               <AuthContextProvider>
+                <GoogleTagManager
+                  gtmId={
+                    process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID as string
+                  }
+                />
                 <Header />
                 <HeaderCushion />
                 <CloudBg />
                 {children}
                 <Footer />
+                <ChannelTalkProvider />
               </AuthContextProvider>
             </NextIntlClientProvider>
           </ReactQueryContext>
