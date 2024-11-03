@@ -63,11 +63,13 @@ export default async function Layout({
           <ReactQueryContext>
             <NextIntlClientProvider messages={messages}>
               <AuthContextProvider>
-                <GoogleTagManager
-                  gtmId={
-                    process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID as string
-                  }
-                />
+                {process.env.NODE_ENV === "production" && (
+                  <GoogleTagManager
+                    gtmId={
+                      process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID as string
+                    }
+                  />
+                )}
                 <Header />
                 <HeaderCushion />
                 <CloudBg />

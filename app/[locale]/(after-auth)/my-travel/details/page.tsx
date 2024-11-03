@@ -35,7 +35,6 @@ const TravelDetailsPage = async ({
   if (!request) {
     return redirect("/my-travel");
   }
-
   return (
     <main className="max-w-screen-8xl mx-auto w-full px-4">
       <TravelDetailsMain request={request as any} />

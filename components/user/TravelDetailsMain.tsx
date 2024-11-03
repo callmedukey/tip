@@ -110,7 +110,6 @@ const TravelDetailsMain = ({
     }
     setLoading(false);
   };
-
   return (
     <>
       <button
