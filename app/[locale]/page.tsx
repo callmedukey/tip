@@ -7,6 +7,7 @@ export default function Home({ params }: { params: { locale: string } }) {
   const t = useTranslations("HomePage");
   return (
     <MainWrapper className="relative isolated">
+      12
       <FirstScreen />
     </MainWrapper>
   );
