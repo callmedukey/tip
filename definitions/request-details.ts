@@ -25,7 +25,7 @@ export const requestStatusObject: Record<RequestStatus, string> = {
   invoiced: "Invoiced",
   paid: "Paid",
   initialEditing: "Pre-Payment Edit",
-  canceled: "Canceled"
+  canceled: "Canceled",
 };
 export const requestStatusObjectKR: Record<RequestStatus, string> = {
   pending: "신규",

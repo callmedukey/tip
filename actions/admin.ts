@@ -189,6 +189,7 @@ export const togglePaid = async ({
       data: {
         paid: !currentStatus,
         paidAt: !currentStatus == true ? dateToUTC(new Date()) : null,
+        status: !currentStatus == true ? "paid" : undefined,
       },
       include:{
         user: {

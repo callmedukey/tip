@@ -31,7 +31,7 @@ const AdminUpdateRequestPage = async () => {
   const requests = await prisma.request.findMany({
     where: {
       status: {
-        in: ["editing", "initialEditing", "canceled"],
+        in: ["editing", "initialEditing", "canceled", "confirmed"],
       },
       canceled: false,
     },

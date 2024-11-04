@@ -49,7 +49,7 @@ const page = async () => {
   }
 
   return (
-    <main className="max-w-screen-xl mx-auto w-full px-4 py-32">
+    <main className="max-w-3xl mx-auto w-full px-4 py-32">
       <div className="bg-white/85 rounded-[2rem] px-4 flex flex-col items-center justify-center py-12">
         <h1 className="text-[1.875rem] font-normal">{t("profile")}</h1>
         <UserBadge
