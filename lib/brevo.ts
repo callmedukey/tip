@@ -21,6 +21,21 @@ export const sendEmailInstance = ({params, emailTemplate, to}: EmailProps) => {
     return apiInstance.sendTransacEmail(sendEmail);
 }
 
+export const addToContactList = ({email, name}: {email: string, name: string}) => {
+    const apiInstance = new brevo.ContactsApi();
+    //@ts-ignore
+    const apiKey = apiInstance.authentications['apiKey'];
+    apiKey.apiKey= process.env.BREVO!;
+
+    const contact = new brevo.CreateContact();
+    contact.email = email;
+    contact.attributes = {
+        NAME: name,
+    };
+    
+    return apiInstance.createContact(contact);
+}
+
 export const brevoSenderEmail = "travelmate@travelinyourpocket.com";
 export const emailTemplate = {
     "resetPassword": 1,

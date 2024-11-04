@@ -119,6 +119,11 @@ const ManageSingelUserPage = async ({
               {t("accountLevel")}: {userLevelObject[user.userLevel]}{" "}
             </p>
           </li>
+          <li>
+            <p>
+              {t("referrer")}: {user.referrer ?? "-"}{" "}
+            </p>
+          </li>
         </ul>
         <div className="mt-4">
           <div>{t("extraInfo")}:</div>

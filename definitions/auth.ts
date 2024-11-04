@@ -15,6 +15,8 @@ export const loginSchema = z.object({
 
 export const signupSchema = loginSchema
   .extend({
+    referrer: z.email().trim().optional(),
+    newsletter: z.boolean().optional(),
     name: z
       .string()
       .min(2, { message: "Name must be at least 2 characters" })

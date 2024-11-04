@@ -17,6 +17,8 @@ import { login } from "@/actions/auth";
 import { useAuth } from "../context/AuthContext";
 import type { Session } from "@/actions/session";
 import { useTranslations } from "next-intl";
+import { Eye } from "lucide-react";
+import PasswordInput from "../PasswordInput";
 
 const LoginForm = () => {
   const t = useTranslations("loginPage");
@@ -72,26 +74,7 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem className="flex flex-col items-center relative mt-12">
-              <label htmlFor={field.name} className="sr-only">
-                {t("password")}
-              </label>
-              <FormControl>
-                <input
-                  type="password"
-                  className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                  placeholder={t("password") + "*"}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <PasswordInput form={form} name="password" />
         <Link
           href="/reset-password"
           className="mt-8 block underline text-[0.75rem]/[100%]"

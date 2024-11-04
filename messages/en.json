@@ -119,11 +119,14 @@
     "password": "Password",
     "findPassword": "Find Password",
     "noAccount": "I don't have an account!",
+    "confirmPassword": "Confirm Password",
     "signUp": "Sign Up",
     "login": "Log in"
   },
   "signUpPage": {
     "signUp": "Sign Up",
+    "referrer": "Referrer Email",
+    "newsletter": "I agree to receive newsletters",
     "business": "Business account",
     "leisure": "Leisure account",
     "name": "Name",
@@ -220,7 +223,9 @@
     "paidStatus": "Paid Status",
     "paymentDate": "Payment Date",
     "paid": "Paid",
-    "unpaid": "Unpaid"
+    "unpaid": "Unpaid",
+    "start": "Travel Start Month",
+    "travelDate": "Travel Date"
   },
   "manageSales":{
     "manageSales": "Manage Sales",
@@ -257,9 +262,11 @@
     "accountType": "Account Type",
     "accountLevel": "Account Level",
     "personalInfo": "Personal Info",
-    "searchTerm": "Search Term"
+    "searchTerm": "Search Term",
+    "referrer": "Referrer"
   },
   "manageSingleUser": {
+    "referrer": "Referrer",
     "name": "Name",
     "email": "E-mail",
     "phoneNumber": "Phone Number",

@@ -17,6 +17,7 @@ import { Datepicker } from "flowbite-react";
 import { Textarea } from "@/components/ui/textarea";
 import { updateUserProfile } from "@/actions/user";
 import { useLocale, useTranslations } from "next-intl";
+import PasswordInput from "@/components/PasswordInput";
 const ProfileForm = ({ user }: { user: User }) => {
   const t = useTranslations("myProfile");
   const locale = useLocale();
@@ -98,46 +99,8 @@ const ProfileForm = ({ user }: { user: User }) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem className="flex flex-col items-center relative">
-                <label htmlFor={field.name} className="sr-only">
-                  password
-                </label>
-                <FormControl>
-                  <input
-                    type="password"
-                    className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
-                    placeholder={t("password")}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem className="flex flex-col items-center relative">
-                <label htmlFor={field.name} className="sr-only">
-                  password
-                </label>
-                <FormControl>
-                  <input
-                    type="password"
-                    className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base "
-                    placeholder={t("confirmPassword")}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <PasswordInput form={form} name="password" className="mt-0" />
+          <PasswordInput form={form} name="confirmPassword" className="mt-0" />
           <FormField
             control={form.control}
             name="phoneNumber"

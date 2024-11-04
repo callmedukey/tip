@@ -379,7 +379,9 @@ const MainPageForm = ({
                 height={24}
               />
               {form.getValues("purpose")
-                ? form.getValues("purpose")
+                ? form.getValues("purpose") === "business"
+                  ? t("business")
+                  : t("leisure")
                 : t("purpose")}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="text-center lg:mt-8">
@@ -398,9 +400,9 @@ const MainPageForm = ({
         </div>
         <Button
           type="submit"
-          className="rounded-full bg-formButton py-6 px-4 font-normal hover:bg-formButton/90 my-6 lg:my-0"
+          className="rounded-full bg-formButton py-6 px-4 font-normal hover:bg-formButton/90 my-6 lg:my-0 min-w-[6rem]"
         >
-          Get a quote
+          {t("getAQuote")}
         </Button>
       </form>
     </Form>

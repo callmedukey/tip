@@ -75,6 +75,7 @@ const ManageUsersPage = () => {
               <TableHead className="font-bold">{t("email")}</TableHead>
               <TableHead className="font-bold">{t("accountLevel")}</TableHead>
               <TableHead className="font-bold">{t("personalInfo")}</TableHead>
+              <TableHead className="font-bold">{t("referrer")}</TableHead>
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>
@@ -95,6 +96,7 @@ const ManageUsersPage = () => {
                   <TableCell>
                     {user.gender} {formatDateToKR(user.birthday)}{" "}
                   </TableCell>
+                  <TableCell>{user.referrer ?? "-"}</TableCell>
                   <TableCell>
                     <Link href={`/admin/manage-users/${user.id}`}>
                       <SquareArrowOutUpRight />

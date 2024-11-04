@@ -6,6 +6,7 @@ import Image from "next/image";
 import type { EditRequest, Request, Upload } from "@prisma/client";
 import { useMemo, useRef, useState } from "react";
 import {
+  dateToLocalFormattedWithoutTime,
   formatDateToLocaleString,
   formatDateToUTC,
 } from "@/lib/time-formmater";
@@ -15,7 +16,7 @@ import { TravelPlan } from "@/definitions/request-details";
 import { cn } from "@/lib/utils";
 import TravelDetailAddress from "@/app/[locale]/(after-auth)/my-travel/details/_components/TravelDetailAddress";
 import TravelDetailsEditInput from "./TravelDetailsEditInput";
-import { Download, PenLine } from "lucide-react";
+import { PenLine } from "lucide-react";
 import { cancelTrip, confirmTrip } from "@/actions/user";
 import { useRouter } from "@/i18n/routing";
 import TravelDetailsDownloadButton from "./TravelDetailsDownloadButton";
@@ -110,6 +111,7 @@ const TravelDetailsMain = ({
     }
     setLoading(false);
   };
+
   return (
     <>
       <button
@@ -152,11 +154,26 @@ const TravelDetailsMain = ({
               className="max-w-[80px] w-full h-auto shrink-0 rounded-[1rem]"
             />
             <p>
-              {`${formatDateToLocaleString(
-                formatDateToUTC(request.from) as unknown as Date
-              )} - ${formatDateToLocaleString(
-                formatDateToUTC(request.to) as unknown as Date
-              )}`}
+              {selectedDay ? (
+                <div className="flex flex-col">
+                  <span className="font-bold">
+                    {formatDateToLocaleString(
+                      parsePrisma<TravelPlan[]>(request.travelPlan)?.find(
+                        (item) => item.day === selectedDay
+                      )?.date as Date
+                    )}
+                  </span>
+                  <span className="text-[1.1rem] text-white/65">
+                    {selectedDay}
+                  </span>
+                </div>
+              ) : (
+                `${formatDateToLocaleString(
+                  formatDateToUTC(request.from) as unknown as Date
+                )} - ${formatDateToLocaleString(
+                  formatDateToUTC(request.to) as unknown as Date
+                )}`
+              )}
             </p>
           </div>
           {!selectedDay && (
@@ -166,7 +183,19 @@ const TravelDetailsMain = ({
                 travelPlanDays.map((day) => (
                   <li
                     key={day}
-                    className="flex items-center gap-4 px-8 hover:opacity-50 cursor-pointer transition-opacity duration-300 font-medium"
+                    className={cn(
+                      "flex items-center gap-4 px-6 hover:opacity-50 cursor-pointer transition-opacity duration-300 font-medium py-2 max-w-[95%] w-full mx-auto rounded-md",
+                      dateToLocalFormattedWithoutTime(
+                        (
+                          parsePrisma<TravelPlan[]>(request.travelPlan)?.find(
+                            (item) => item.day === day
+                          )?.date as Date
+                        ).toString()
+                      ) ===
+                        dateToLocalFormattedWithoutTime(new Date().toString())
+                        ? "bg-yellow-300/20 ring-2 ring-yellow-300"
+                        : ""
+                    )}
                     onClick={() => {
                       setSelectedDay(day);
                       setSelectedMarker({
@@ -288,7 +317,7 @@ const TravelDetailsMain = ({
                   </div>
                 )}
                 <div className="flex items-start justify-between gap-4">
-                  <div className="grid grid-cols-2 max-w-[500px] gap-x-2 gap-y-6 min-w-[20rem]">
+                  <div className="grid grid-cols-2 max-w-[500px] gap-x-2 gap-y-6 min-w-[15rem]">
                     {request.summary &&
                       Array.isArray(request.summary) &&
                       request.summary.map((item: any, index) => (

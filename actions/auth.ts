@@ -13,7 +13,7 @@ import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import generateCode from "@/lib/generateCode";
-import {  emailTemplate, sendEmailInstance } from "@/lib/brevo";
+import {  addToContactList, emailTemplate, sendEmailInstance } from "@/lib/brevo";
 import { getLocale } from "next-intl/server";
 
 export const getSession = async () => {
@@ -84,6 +84,8 @@ export async function signup({
   gender,
   accountType,
   businessNumber,
+  referrer,
+  newsletter,
 }: {
   email: string;
   password: string;
@@ -94,6 +96,8 @@ export async function signup({
   gender: "Male" | "Female" | "Other";
   accountType: "Business" | "Leisure";
   businessNumber?: string;
+  referrer?: string;
+  newsletter?: boolean;
 }) {
   const validatedFields = signupSchema.safeParse({
     email,
@@ -105,6 +109,8 @@ export async function signup({
     gender,
     accountType,
     businessNumber,
+    referrer,
+    newsletter,
   });
 
   if (!validatedFields.success) {
@@ -141,6 +147,8 @@ export async function signup({
         validatedFields.data.accountType === "Business"
           ? validatedFields.data.businessNumber
           : null,
+      newsletter: validatedFields.data.newsletter ?? undefined,
+      referrer: validatedFields.data.referrer,
     },
   });
 
@@ -161,6 +169,14 @@ export async function signup({
   }).catch((error) => {
     console.log(error);
   });
+
+  if (validatedFields.data.referrer) {
+    addToContactList({email: validatedFields.data.referrer, name: validatedFields.data.name}).then((data) => {
+      console.log("Contact added to list", data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
   return {
     message: "User Sign up successfully",

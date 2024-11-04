@@ -28,14 +28,14 @@
   "MainFirstForm": {
     "city": "도시",
     "startDate": "출발일",
-    "endDate": "복귀일",
+    "endDate": "종료일",
     "persons": "인원",
     "adults": "성인",
     "infants": "유아",
     "ages": "유아 2 - 12세",
     "purpose": "목적",
-    "business": "사업",
-    "leisure": "여가",
+    "business": "츨장",
+    "leisure": "여행",
     "getAQuote": "다음"
   },
   "MainSecondForm": {
@@ -118,6 +118,7 @@
   "loginPage": {
     "email": "이메일",
     "password": "비밀번호",
+    "confirmPassword": "비밀번호 확인",
     "findPassword": "비밀번호 찾기",
     "noAccount": "계정이 없으신가요?",
     "signUp": "회원가입",
@@ -125,6 +126,8 @@
   },
   "signUpPage": {
     "signUp": "회원가입",
+    "referrer": "추천인 이메일",
+    "newsletter": "뉴스레터 수신 동의",
     "business": "사업자 계정",
     "leisure": "여가 계정",
     "name": "이름",
@@ -185,7 +188,7 @@
     "noAccountTravelStyle": "계정 여행스타일 없음",
     "noEditRequest": "수정 요청 사항이 없습니다.",
     "noOrderTravelStyle": "주문 여행스타일 없음",
-    "business": "사업",
+    "business": "출장",
     "travel": "여행",
     "noSelectedOptions": "선택한 옵션 없음",
     "noEtcRequests": "그 외 요청 없음",
@@ -221,7 +224,9 @@
     "paidStatus": "결제 상태",
     "paymentDate": "결제일",
     "paid": "결제됨",
-    "unpaid": "미결제"
+    "unpaid": "미결제",
+    "start": "여행 시작 월",
+    "travelDate": "여행 날짜"
   },
   "manageSales":{
     "manageSales": "매출 관리",
@@ -258,9 +263,11 @@
     "accountType": "계정 유형",
     "accountLevel": "계정 등급",
     "personalInfo": "개인 정보",
-    "searchTerm": "검색어"
+    "searchTerm": "검색어",
+    "referrer": "추천인"
   },
   "manageSingleUser": {
+    "referrer": "추천인",
     "name": "이름",
     "email": "이메일",
     "phoneNumber": "전화번호",

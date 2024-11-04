@@ -63,6 +63,9 @@ model User {
 
   passcode String? @unique
 
+  newsletter Boolean @default(false)
+  referrer   String?
+
   moneySpent    Int             @default(0)
   userLevel     UserLevel       @default(tip_white)
   createdAt     DateTime        @default(now())
