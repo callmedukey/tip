@@ -147,7 +147,7 @@ export async function signup({
         validatedFields.data.accountType === "Business"
           ? validatedFields.data.businessNumber
           : null,
-      newsletter: validatedFields.data.newsletter ?? undefined,
+      newsletter: validatedFields.data.newsletter ? true : false,
       referrer: validatedFields.data.referrer,
     },
   });
