@@ -72,13 +72,13 @@ export default async function Layout({
                   />
                 )}
                 {process.env.NODE_ENV === "production" && (
-                  <Script id="gtag">{`<script>
+                  <Script id="gtag">{`
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
                   gtag('config', 'G-JNMGX8NNN6');
-                </script>`}</Script>
+                `}</Script>
                 )}
                 <Header />
                 <HeaderCushion />
