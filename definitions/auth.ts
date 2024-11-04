@@ -15,7 +15,7 @@ export const loginSchema = z.object({
 
 export const signupSchema = loginSchema
   .extend({
-    referrer: z.email().trim().optional(),
+    referrer: z.string().email().trim().optional(),
     newsletter: z.boolean().optional(),
     name: z
       .string()

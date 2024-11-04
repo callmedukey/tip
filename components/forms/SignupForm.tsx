@@ -311,15 +311,17 @@ const SignupForm = () => {
             control={form.control}
             name="newsletter"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 ">
                 <FormControl>
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
                   />
                 </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>I agree to receive newsletters</FormLabel>
+                <div className="space-y-1">
+                  <FormLabel className="text-formText">
+                    I agree to receive newsletters
+                  </FormLabel>
                 </div>
               </FormItem>
             )}
