@@ -16,6 +16,7 @@ import GoogleProvider from "@/components/context/GoogleProvider";
 import CloudBg from "./_layout-components/CloudBg";
 import Footer from "@/components/Footer";
 import ChannelTalkProvider from "@/components/layout/ChannelTalkProvider";
+import Script from "next/script";
 const Inter = InterFont({
   subsets: ["latin"],
   display: "swap",
@@ -69,6 +70,15 @@ export default async function Layout({
                       process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID as string
                     }
                   />
+                )}
+                {process.env.NODE_ENV === "production" && (
+                  <Script id="gtag">{`<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+                  gtag('config', 'G-JNMGX8NNN6');
+                </script>`}</Script>
                 )}
                 <Header />
                 <HeaderCushion />
