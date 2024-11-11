@@ -103,8 +103,11 @@ const ManageUsersPage = () => {
                     {user.gender} {formatDateToKR(user.birthday)}{" "}
                   </TableCell>
                   <TableCell>{user.referrer ?? "-"}</TableCell>
-                  <TableCell>
+                  <TableCell className="flex gap-4">
                     <Link href={`/admin/manage-users/${user.id}`}>
+                      <UserIcon />
+                    </Link>
+                    <Link href={`/admin/manage-users/${user.id}?submit=true`}>
                       <SquareArrowOutUpRight />
                     </Link>
                   </TableCell>
