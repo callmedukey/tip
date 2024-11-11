@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatDateToKR } from "@/lib/time-formmater";
-import { SquareArrowOutUpRight } from "lucide-react";
+import { SquareArrowOutUpRight, User as UserIcon } from "lucide-react";
 import UpdateUserLevel from "./UpdateUserLevel";
 import { useDebounceValue } from "usehooks-ts";
 import type { User } from "@prisma/client";
@@ -129,8 +129,12 @@ const ManageUsersPage = () => {
                   <TableCell>
                     {user.gender} {formatDateToKR(user.birthday)}{" "}
                   </TableCell>
-                  <TableCell>
+                  <TableCell>{user.referrer ?? "-"}</TableCell>
+                  <TableCell className="flex gap-4">
                     <Link href={`/admin/manage-users/${user.id}`}>
+                      <UserIcon />
+                    </Link>
+                    <Link href={`/admin/manage-users/${user.id}?submit=true`}>
                       <SquareArrowOutUpRight />
                     </Link>
                   </TableCell>

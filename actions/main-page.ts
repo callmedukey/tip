@@ -18,7 +18,7 @@ export const submitRequest = async (data: any) => {
 
   const user = await prisma.user.findUnique({
     where: {
-      id: session.userId,
+      id: data?.userId && data.userId !== session.userId ? data.userId : session.userId,
     },
   });
 

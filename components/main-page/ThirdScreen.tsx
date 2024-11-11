@@ -31,6 +31,7 @@ import { submitRequest } from "@/actions/main-page";
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { useLocale, useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 const ThirdScreen = ({
   setState,
@@ -44,6 +45,7 @@ const ThirdScreen = ({
   returnToSecondScreen: () => void;
 }) => {
   const locale = useLocale();
+  const userId = useParams()?.userId;
   const t = useTranslations("MainThirdForm");
   const ui = useTranslations("ui");
   const [loading, setLoading] = useState(false);
@@ -71,6 +73,7 @@ const ThirdScreen = ({
       ...initialState,
       ...data,
       packageType,
+      userId,
     });
 
     if (response?.error) {

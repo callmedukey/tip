@@ -17,14 +17,21 @@ import UpdateAccountType from "../_components/UpdateAccountType";
 import TogglePaidButton from "@/components/admin/manage-orders/TogglePaidButton";
 import { SquareArrowOutUpRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import MainPageForm from "@/components/forms/MainPageForm";
+import FirstScreen from "@/components/main-page/FirstScreen";
+import MainWrapper from "@/components/MainWrapper";
 
 export const dynamic = "force-dynamic";
 
 const ManageSingelUserPage = async ({
   params: { userId },
+  searchParams: { submit },
 }: {
   params: {
     userId: string;
+  };
+  searchParams: {
+    submit: string;
   };
 }) => {
   const session = await verifySession();
@@ -44,6 +51,14 @@ const ManageSingelUserPage = async ({
   });
   if (!user) {
     return redirect("/admin/manage-users");
+  }
+
+  if (submit === "true") {
+    return (
+      <MainWrapper className="relative isolated -mt-[var(--header-height)]">
+        <FirstScreen />
+      </MainWrapper>
+    );
   }
 
   return (

@@ -12,6 +12,7 @@ import { useLocalStorage } from "usehooks-ts";
 
 const FirstScreen = () => {
   const t = useTranslations("HomePage");
+
   const wrapperClassName =
     "min-h-[100rem] lg:min-h-[80rem] h-screen justify-center items-center flex";
 
