@@ -19,8 +19,9 @@ export async function GET(req: Request) {
         { status: 400 }
       );
     }
+    console.log(queryType, query);
 
-    let requests = await prisma.request.findMany({
+    const requests = await prisma.request.findMany({
         where: {
             status: {
               in: ["editing", "initialEditing", "canceled", "confirmed"],
@@ -42,7 +43,7 @@ export async function GET(req: Request) {
         createdAt: "asc",
       },
     });
-
+    console.log(requests);
     return Response.json(requests);
     } catch (error) {
         console.error(error);

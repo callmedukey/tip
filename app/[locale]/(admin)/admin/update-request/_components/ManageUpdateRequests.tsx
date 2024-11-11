@@ -56,7 +56,7 @@ const ManageUpdateRequests = () => {
       fetch(
         `/api/admin/manage-update-requests/query?queryType=${queryType}&query=${encodeURIComponent(
           query
-        )}}`
+        )}`
       ).then((data) => data.json()),
     enabled: !!query || !!selectedMonth,
   });
@@ -138,9 +138,9 @@ const ManageUpdateRequests = () => {
                     <TableCell>{request.user.name}</TableCell>
                     <TableCell>{request.user.email}</TableCell>
                     <TableCell className="">{`${formatDateToKR(
-                      formatDateToUTC(request.from) as unknown as Date
+                      formatDateToUTC(new Date(request.from)) as unknown as Date
                     )} ~ ${formatDateToKR(
-                      formatDateToUTC(request.to) as unknown as Date
+                      formatDateToUTC(new Date(request.to)) as unknown as Date
                     )}`}</TableCell>
                     <TableCell>
                       {locale === "ko"
