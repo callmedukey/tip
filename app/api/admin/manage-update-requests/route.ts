@@ -29,7 +29,6 @@ export async function GET(req: Request) {
         createdAt: "asc",
       },
     });
-
     return Response.json(requests);
   } catch (error) {
     console.error(error);

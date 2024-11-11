@@ -61,9 +61,9 @@ const AdminNewRequestPage = async () => {
                 <TableCell>{request.user.name}</TableCell>
                 <TableCell>{request.user.email}</TableCell>
                 <TableCell className="">{`${formatDateToKR(
-                  formatDateToUTC(request.from) as unknown as Date
+                  formatDateToUTC(new Date(request.from)) as unknown as Date
                 )} ~ ${formatDateToKR(
-                  formatDateToUTC(request.to) as unknown as Date
+                  formatDateToUTC(new Date(request.to)) as unknown as Date
                 )}`}</TableCell>
                 <TableCell>
                   <Link
