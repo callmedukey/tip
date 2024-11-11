@@ -298,6 +298,7 @@ const SignupForm = () => {
                 </label>
                 <FormControl>
                   <input
+                    type="email"
                     className="bg-transparent placeholder:text-formText pb-4 border-b-[0.5px] border-formText text-formText appearance-none focus:outline-none w-full text-base"
                     placeholder={t("referrer")}
                     {...field}

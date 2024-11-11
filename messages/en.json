@@ -100,7 +100,19 @@
   "MyTravelDetails":{
     "tripDetails": "Trip Details",
     "adminNotes": "Admin Notes",
-    "downloads": "Downloads"
+    "downloads": "Downloads",
+    "ilike": "Yes, I like my itinerary",
+    "cancel": "Cancel",
+    "changes": "Please let us know if you would like to change your schedule",
+    "submit": "Request Change",
+    "cancelConfirm": "Are you sure you want to cancel your trip?",
+    "canceledReview": "This trip is currently being reviewed by staff",
+    "confirmed": "Trip confirmed successfully",
+    "alreadyPaid": "This is a paid trip, staff will review your request to confirm the cancelation",
+    "canceled": "Trip canceled successfully",
+    "changeConfirm": "Are you sure you want to request a change?",
+    "created": "Edit request created successfully",
+    "confirm": "Are you sure you want to confirm your trip?"
   },
   "myProfile":{
     "profile": "Profile",
@@ -258,6 +270,7 @@
   "manageUsers": {
     "manageUsers": "Manage Users",
     "name": "Name",
+    "number": "No.",
     "email": "E-mail",
     "accountType": "Account Type",
     "accountLevel": "Account Level",
@@ -282,7 +295,8 @@
     "paidAmount": "Paid Amount",
     "paidStatus": "Paid Status",
     "paymentDate": "Payment Date",
-    "notPaid": "Not Paid"
+    "notPaid": "Not Paid",
+    "createdAt": "Signed Up At"
   },
   "resetPassword": {
     "resetPassword": "Reset Password",
@@ -304,5 +318,15 @@
     "submit": "Submit",
     "password": "Password",
     "passwordResetSuccess": "Password reset successfully"
+  },
+  "manageUpdateRequests": {
+    "planner": "Planner",
+    "searchTerm": "Search Term",
+    "manageUpdateRequests": "Manage Update Requests",
+    "email": "Email",
+    "name": "Name",
+    "orderNo": "Order No.",
+    "date": "Date",
+    "type": "Type"
   }
 }

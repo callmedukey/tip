@@ -73,7 +73,7 @@ const TravelDetailsMain = ({
   }, [request.travelPlan, selectedDay]);
 
   const handleConfirmTrip = async () => {
-    if (!confirm("Are you sure you want to confirm your trip?")) return;
+    if (!confirm(t("confirm"))) return;
     setLoading(true);
     const res = await confirmTrip(request.id);
     if (res.message) {
@@ -81,32 +81,30 @@ const TravelDetailsMain = ({
     }
 
     if (res.success) {
-      alert("Trip confirmed successfully");
+      alert(t("confirmed"));
       window.location.reload();
     }
     setLoading(false);
   };
 
   const handleCancelTrip = async () => {
-    if (!confirm("Are you sure you want to cancel your trip?")) return;
+    if (!confirm(t("cancelConfirm"))) return;
     setLoading(true);
 
     if (request.status === "canceled" && !request.canceled) {
-      alert("This trip is currently being reviewed by staff");
+      alert(t("canceledReview"));
       setLoading(false);
       return;
     }
 
     if (request.paid) {
-      alert(
-        "This is a paid trip, staff will review your request to confirm the cancelation"
-      );
+      alert(t("alreadyPaid"));
     }
     const res = await cancelTrip(request.id, request.paid);
     if (res.message) alert(res.message);
 
     if (res.success) {
-      alert("Trip canceled successfully");
+      alert(t("canceled"));
       router.replace("/my-travel");
     }
     setLoading(false);
@@ -378,7 +376,7 @@ const TravelDetailsMain = ({
                             onClick={handleConfirmTrip}
                             disabled={loading}
                           >
-                            Yes, I like my itinerary
+                            {t("ilike")}
                           </button>
                           <button
                             className="p-4 rounded-full bg-murrey text-white flex-1"
@@ -386,7 +384,7 @@ const TravelDetailsMain = ({
                             onClick={handleCancelTrip}
                             disabled={loading}
                           >
-                            Cancel Trip
+                            {t("cancel")}
                           </button>
                         </div>
                       )}
@@ -419,6 +417,11 @@ const TravelDetailsMain = ({
                     position={{ lat: marker.latitude, lng: marker.longitude }}
                     onClick={() => setSelectedMarker(marker)}
                     label={(index + 1).toString()}
+                    animation={
+                      marker.placeName === selectedMarker?.placeName
+                        ? google.maps.Animation.BOUNCE
+                        : undefined
+                    }
                   />
                 ))}
               </GoogleMap>

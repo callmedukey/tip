@@ -71,6 +71,9 @@ const ManageUsersPage = () => {
         <Table className="text-black">
           <TableHeader className="">
             <TableRow className="">
+              <TableHead className="w-[100px] font-bold">
+                {t("number")}
+              </TableHead>
               <TableHead className="w-[100px] font-bold">{t("name")}</TableHead>
               <TableHead className="font-bold">{t("email")}</TableHead>
               <TableHead className="font-bold">{t("accountLevel")}</TableHead>
@@ -83,8 +86,11 @@ const ManageUsersPage = () => {
             {query &&
               queryData &&
               queryData.length > 0 &&
-              queryData?.map((user) => (
+              queryData?.map((user, index) => (
                 <TableRow key={user.id}>
+                  <TableCell className="w-[100px]">
+                    {queryData.length - index}
+                  </TableCell>
                   <TableCell className="min-w-[20rem]">{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
@@ -107,8 +113,11 @@ const ManageUsersPage = () => {
             {!query &&
               baseData &&
               baseData.length > 0 &&
-              baseData?.map((user) => (
+              baseData?.map((user, index) => (
                 <TableRow key={user.id}>
+                  <TableCell className="w-[100px]">
+                    {baseData.length - index}
+                  </TableCell>
                   <TableCell className="min-w-[20rem]">{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>

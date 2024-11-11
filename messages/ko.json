@@ -14,7 +14,7 @@
     "myProfile": "나의 프로필",
     "partnerHotels": "파트너 호텔",
     "experienceByTip": "액티비티",
-    "about": "TIP 란?"
+    "about": "ABOUT TIP"
   },
   "AuthHeaderMenu": {
     "myAccount": "나의 계정",
@@ -101,7 +101,19 @@
   "MyTravelDetails":{
     "tripDetails": "여행 상세",
     "adminNotes": "관리자 노트",
-    "downloads": "다운로드"
+    "downloads": "다운로드",
+    "ilike": "여행 확정",
+    "cancel": "여행 취소",
+    "changes": "여행 일정 변경 희망하신다면 알려주세요!",
+    "submit": "제출하기",
+    "cancelConfirm": "여행을 취소하시겠습니까?",
+    "canceledReview": "취소 요청이 이미 제출되었습니다.",
+    "confirmed": "여행 확정 완료되었습니다.",
+    "alreadyPaid": "이미 결제된 여행입니다. 관리자가 취소 요청을 검토합니다.",
+    "canceled": "여행 취소 완료되었습니다.",
+    "changeConfirm": "여행 일정 변경 요청을 제출하시겠습니까?",
+    "created": "여행 일정 변경 요청 제출 완료되었습니다.",
+    "confirm": "여행을 확정하시겠습니까?"
   },
   "myProfile":{
     "profile": "프로필",
@@ -258,6 +270,7 @@
   },
   "manageUsers": {
     "manageUsers": "사용자 관리",
+    "number": "No.",
     "name": "이름",
     "email": "이메일",
     "accountType": "계정 유형",
@@ -283,7 +296,8 @@
     "paidAmount": "결제 금액",
     "paidStatus": "결제 상태",
     "paymentDate": "결제일",
-    "notPaid": "결제 안됨"
+    "notPaid": "결제 안됨",
+    "createdAt": "가입일"
   },
   "resetPassword": {
     "resetPassword": "비밀번호 재설정",
@@ -305,5 +319,15 @@
     "submit": "초기화",
     "password": "비밀번호",
     "passwordResetSuccess": "비밀번호 초기화 완료되셨습니다"
+  },
+  "manageUpdateRequests": {
+    "planner": "플래너",
+    "searchTerm": "검색어",
+    "manageUpdateRequests": "업데이트 일정 / 취소 요청 관리",
+    "email": "이메일",
+    "name": "이름",
+    "orderNo": "주문번호",
+    "date": "날짜",
+    "type": "유형"
   }
 }

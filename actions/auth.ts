@@ -1,6 +1,5 @@
 "use server";
 
-import * as brevo from "@getbrevo/brevo";
 import bcrypt from "bcrypt";
 import {
   loginSchema,
@@ -13,7 +12,7 @@ import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import generateCode from "@/lib/generateCode";
-import {  addToContactList, emailTemplate, sendEmailInstance } from "@/lib/brevo";
+import {  addToContactList, emailTemplate, sendEmailInstance, staffEmailTemplate } from "@/lib/brevo";
 import { getLocale } from "next-intl/server";
 
 export const getSession = async () => {
@@ -158,9 +157,20 @@ export async function signup({
     };
   }
   const locale = await getLocale();
+// For Staff 
+  sendEmailInstance({
+    params: { name: validatedFields.data.name,},
+    emailTemplate:
+staffEmailTemplate.welcome,
+    to: "travelmate@travelinyourpocket.com",
+  }).then((data) => {
+    console.log("Sign up email sent to staff successfully");
+  }).catch((error) => {
+    console.log(error);
+  });
 
   sendEmailInstance({
-    params: { name },
+    params: { name: validatedFields.data.name, email: validatedFields.data.email, registrationDate: new Date().toLocaleDateString(locale=== "ko"? "ko-KR": "en-US", { year: 'numeric', month: 'long', day: 'numeric' }) },
     emailTemplate:
       locale === "ko" ? emailTemplate.welcomeKO : emailTemplate.welcome,
     to: email,

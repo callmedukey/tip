@@ -37,7 +37,10 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
   const form = useForm<z.infer<typeof TravelPlanFormSchema>>({
     resolver: zodResolver(TravelPlanFormSchema),
     defaultValues: {
-      json: plan || [
+      json: plan?.map((item) => ({
+        ...item,
+        date: new Date(item.date),
+      })) || [
         {
           date: new Date(),
           day: "",

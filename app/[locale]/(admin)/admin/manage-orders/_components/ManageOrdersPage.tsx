@@ -65,7 +65,7 @@ const ManageOrdersPage = () => {
 
   useEffect(() => {
     setQuery("");
-  }, [queryType]);
+  }, [queryType, setQuery]);
 
   return (
     <div className="text-white max-w-screen-8xl mx-auto">

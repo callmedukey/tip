@@ -77,6 +77,45 @@ export const saveTravelPlan = async ({
   }
 };
 
+export const saveQuote = async ({requestId, price, currency, link}:{requestId:string, price:number, currency:string, link:string})=>{
+try {
+    const session = await verifySession();
+
+    if (!session || !session.userId || session.accountType !== "Admin") {
+      return { error: "접근 권한이 없습니다" };
+    }
+
+    const updatedRequest = await prisma.request.update({
+      where: {
+        id: +requestId,
+      },
+      data: {
+        quoteLink: link,
+        price: price,
+        currency: currency,
+      },
+    });
+
+    revalidatePath("/[locale]/admin/planner", "page");
+    revalidatePath("/[locale]/admin/new-request", "page");
+    revalidatePath("/[locale]/my-travel", "page");
+    revalidatePath("/[locale]/admin/manage-orders", "page");
+    revalidatePath("/[locale]/admin/update-request", "page");
+
+
+
+    if (!updatedRequest) {
+      return { error: "업데이트 오류입니다" };
+    }
+
+    
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    return { error: "서버에서 업데이트 오류입니다" };
+  }
+}
+
 export const issueQuote = async ({
   requestId,
   price,
@@ -124,6 +163,8 @@ export const issueQuote = async ({
     revalidatePath("/[locale]/admin/update-request", "page");
 
     const locale = await getLocale();
+   
+
     sendEmailInstance({
       params: {},
       emailTemplate:

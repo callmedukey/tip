@@ -5,7 +5,7 @@ import { verifySession } from "./session";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { logout } from "./auth";
-import { emailTemplate } from "@/lib/brevo";
+import { emailTemplate, staffEmailTemplate } from "@/lib/brevo";
 import { sendEmailInstance } from "@/lib/brevo";
 import { getLocale } from "next-intl/server";
 export const generateSharedLink = async (requestId: string) => {
@@ -70,7 +70,7 @@ export const createEditRequest = async ({
 }) => {
   try {
     const session = await verifySession();
-
+    const locale = await getLocale();
     if (!session || !session.userId) return { message: "Unauthorized" };
 
     const [created, updatedRequest] = await prisma.$transaction([
@@ -80,12 +80,32 @@ export const createEditRequest = async ({
           requestId: +requestId,
           editRequestType: "normal",
         },
+        
       }),
       prisma.request.update({
         where: { id: +requestId },
         data: { status: "initialEditing" },
+        include:{
+          user:{
+            select:{
+              name: true,
+            }
+          }
+        }
       }),
     ]);
+
+    // For Staff 
+  sendEmailInstance({
+    params: { name: updatedRequest.user.name,},
+    emailTemplate:
+staffEmailTemplate.requestSubmitted,
+    to: "travelmate@travelinyourpocket.com",
+  }).then((data) => {
+    console.log("Sign up email sent to staff successfully");
+  }).catch((error) => {
+    console.log(error);
+  });
 
     if (!created || !updatedRequest)
       return { message: "Failed to create edit request" };
@@ -179,11 +199,31 @@ export const submitEmergencyRequest = async (
       prisma.request.update({
         where: { id: +requestId },
         data: { status: "editing" },
+        include:{
+          user:{
+            select:{
+              name: true,
+            }
+          }
+        }
       }),
     ]);
 
     if (!created || !updatedRequest)
       return { message: "Failed to create edit request" };
+
+    sendEmailInstance({
+      params: { name: updatedRequest.user.name,},
+      emailTemplate:
+  staffEmailTemplate.requestSubmitted,
+      to: "travelmate@travelinyourpocket.com",
+    }).then((data) => {
+      console.log("Sign up email sent to staff successfully");
+    }).catch((error) => {
+      console.log(error);
+    });
+  
+
     return { message: "Edit request created successfully" };
   } catch (error) {
     console.error(error);

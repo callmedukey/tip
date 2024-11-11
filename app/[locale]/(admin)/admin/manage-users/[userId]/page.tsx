@@ -124,6 +124,11 @@ const ManageSingelUserPage = async ({
               {t("referrer")}: {user.referrer ?? "-"}{" "}
             </p>
           </li>
+          <li>
+            <p>
+              {t("createdAt")}: {formatDateToKR(user.createdAt)}{" "}
+            </p>
+          </li>
         </ul>
         <div className="mt-4">
           <div>{t("extraInfo")}:</div>

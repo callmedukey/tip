@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AdminQuoteFormSchema } from "@/definitions/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
-import { issueQuote } from "@/actions/admin";
+import { issueQuote, saveQuote } from "@/actions/admin";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
@@ -52,6 +52,19 @@ const AdminQuoteForm = ({
     }
 
     alert("Quote has been sent.");
+  };
+
+  const onSave = async () => {
+    const response = await saveQuote({
+      ...form.getValues(),
+      requestId: requestId as string,
+    });
+
+    if (response?.error) {
+      return alert(response.error);
+    }
+
+    alert("Quote has been saved.");
   };
 
   return (
@@ -114,9 +127,19 @@ const AdminQuoteForm = ({
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-6">
-          {t("sendQuote")}
-        </Button>
+        <div className="flex gap-4">
+          <Button
+            type="button"
+            className="mt-6"
+            variant="outline"
+            onClick={onSave}
+          >
+            {t("save")}
+          </Button>
+          <Button type="submit" className="mt-6">
+            {t("sendQuote")}
+          </Button>
+        </div>
       </form>
     </Form>
   );

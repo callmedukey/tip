@@ -53,6 +53,11 @@ export const emailTemplate = {
     "invoiceIssued": 14,
     "invoiceIssuedKO": 15,
 };
+
+export const staffEmailTemplate = {
+    welcome: 16,
+    requestSubmitted: 17,
+}
 export const emailSubject = {
     "resetPassword": "Reset Password Code",
     "welcome": "Welcome to TIP",

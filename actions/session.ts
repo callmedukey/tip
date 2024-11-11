@@ -65,7 +65,7 @@ export async function createSession({
 }
 
 export async function verifySession() {
-  const cookie = cookies().get("session")?.value;
+  const cookie =  cookies().get("session")?.value;
   const session = await decrypt(cookie);
 
   if (!session?.userId) {

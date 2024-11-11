@@ -4,8 +4,10 @@ import { PenLine } from "lucide-react";
 import React, { useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { createEditRequest } from "@/actions/user";
+import { useTranslations } from "next-intl";
 
 const TravelDetailsEditInput = ({ requestId }: { requestId: number }) => {
+  const t = useTranslations("MyTravelDetails");
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
 
@@ -13,7 +15,7 @@ const TravelDetailsEditInput = ({ requestId }: { requestId: number }) => {
     if (loading || !text.trim()) return;
     setLoading(true);
 
-    if (!confirm("Are you sure you want to request a change?")) {
+    if (!confirm(t("changeConfirm"))) {
       setLoading(false);
       return;
     }
@@ -23,7 +25,7 @@ const TravelDetailsEditInput = ({ requestId }: { requestId: number }) => {
     if (res.message) {
       alert(res.message);
     } else {
-      alert("Edit request created successfully");
+      alert(t("created"));
       window.location.reload();
     }
     setLoading(false);
@@ -37,7 +39,7 @@ const TravelDetailsEditInput = ({ requestId }: { requestId: number }) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           className="border-none resize-none p-0 scrollbar-hide w-full shadow-none placeholder:text-center placeholder:translate-y-6"
-          placeholder="Please let us know if you yould like to change your schedule"
+          placeholder={t("changes")}
         />
       </div>
       <button
@@ -45,7 +47,7 @@ const TravelDetailsEditInput = ({ requestId }: { requestId: number }) => {
         onClick={handleSubmit}
         className="mt-4 font-medium rounded-full px-4 py-1 border border-[#404040] text-[#404040] hover:bg-[#404040] hover:text-white transition-colors duration-300"
       >
-        Request Change
+        {t("submit")}
       </button>
     </div>
   );

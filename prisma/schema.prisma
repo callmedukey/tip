@@ -94,8 +94,9 @@ model Request {
 
   adminNotes String?
 
-  price     Int?
-  currency  String?
+  price    Int?
+  currency String?
+
   paid      Boolean   @default(false)
   paidAt    DateTime?
   quoteLink String?
@@ -105,6 +106,8 @@ model Request {
   updatedAt DateTime  @updatedAt
 
   confirmed Boolean @default(false)
+
+  addedServices AddedInvoices[]
 
   summary    Json?
   travelPlan Json?
@@ -119,6 +122,20 @@ model Request {
   editRequests  EditRequest[]
   extraRequests ExtraRequests[]
 }
+
+model AddedInvoices {
+  id Int @id @default(autoincrement())
+
+  request Request @relation(fields: [requestId], references: [id])
+
+  price Int
+
+  requestId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 
 model EditRequest {
   id        Int     @id @default(autoincrement())
