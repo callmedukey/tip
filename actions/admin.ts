@@ -288,6 +288,7 @@ export const sendRequestToCustomer = async ({
         user: {
           select: {
             email: true,
+            name: true,
           },
         },
       },
@@ -303,7 +304,9 @@ export const sendRequestToCustomer = async ({
 
     const locale = await getLocale();
     sendEmailInstance({
-      params: {},
+      params: {
+        name: updatedRequest.user.name,
+      },
       emailTemplate:
         locale === "ko" ? emailTemplate.requestEditedKO : emailTemplate.requestEdited,
       to: updatedRequest.user.email,
