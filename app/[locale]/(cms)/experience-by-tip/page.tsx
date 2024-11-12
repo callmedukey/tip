@@ -296,13 +296,17 @@ export type ExperienceBottomCarousel = {
 
 export type ExperienceData = {
   en_title: string;
-  en_content: string;
+  en_content: any[];
   kr_title: string;
-  kr_content: string;
+  kr_content: any[];
   thumbnail: PartnerHotelThumbnail;
   slug: string;
   en_keywords: string;
   kr_keywords: string;
+  country: {
+    id: number;
+    name: string;
+  };
   order: number;
   id: string;
 };
@@ -339,6 +343,9 @@ const page = async () => {
   const experiencesBottomCarouselData: CMSCall<ExperienceBottomCarousel> =
     await experiencesBottomCarousel.json();
 
+  const uniqueCountries = Array.from(
+    new Set(experiencesData.docs.map((experience) => experience.country.name))
+  );
   return (
     <main>
       <section className="relative w-full min-h-[min(80vh,120rem)] isolate mt-[-5rem] pt-[8rem]">
@@ -358,20 +365,33 @@ const page = async () => {
         </h1>
       </section>
       <TopCarousel
-        topCarousel={experiencesTopCarouselData.docs}
+        topCarousel={experiencesTopCarouselData.docs.sort(
+          (a, b) => a.order - b.order
+        )}
         locale={locale}
       />
       <BottomCarousel
-        bottomCarousel={experiencesBottomCarouselData.docs}
+        bottomCarousel={experiencesBottomCarouselData.docs.sort(
+          (a, b) => a.order - b.order
+        )}
         locale={locale}
       />
-      <article className="mt-32 px-4">
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-x-4 gap-y-12 max-w-screen-8xl mx-auto text-[#404040] items-start">
-          {experiencesData.docs.map((experience) => (
-            <ExperienceCard key={experience.id} experience={experience} />
-          ))}
-        </ul>
-      </article>
+      {uniqueCountries
+        .sort((a, b) => a.localeCompare(b))
+        .map((country) => (
+          <article key={country} className="mt-32 max-w-screen-8xl mx-auto">
+            <h3 className="text-[2rem] font-semibold leading-normal text-left font-inter mb-16">
+              {country}
+            </h3>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-x-4 gap-y-12 max-w-screen-8xl mx-auto text-[#404040] items-start">
+              {experiencesData.docs
+                .filter((experience) => experience.country.name === country)
+                .map((experience) => (
+                  <ExperienceCard key={experience.id} experience={experience} />
+                ))}
+            </ul>
+          </article>
+        ))}
     </main>
   );
 };

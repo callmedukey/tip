@@ -169,25 +169,28 @@ const MainPageForm = ({
               name="city"
               render={() => (
                 <FormItem className="flex flex-col py-2">
-                  {serviceCountryAndCities[locale as "en" | "ko"].map(
-                    (city) => (
+                  {serviceCountryAndCities[locale as "en" | "ko"]
+                    .sort((a, b) => a.country.localeCompare(b.country))
+                    .map((city) => (
                       <DropdownMenuSub key={city.country}>
                         <DropdownMenuSubTrigger>
                           {city.country}
                         </DropdownMenuSubTrigger>
                         <DropdownMenuPortal>
                           <DropdownMenuSubContent>
-                            {city.cities.map((city) => (
-                              <DropdownMenuItem
-                                key={city}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  handleCityChange(city);
-                                }}
-                              >
-                                {city}
-                              </DropdownMenuItem>
-                            ))}
+                            {city.cities
+                              .sort((a, b) => a.localeCompare(b))
+                              .map((city) => (
+                                <DropdownMenuItem
+                                  key={city}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    handleCityChange(city);
+                                  }}
+                                >
+                                  {city}
+                                </DropdownMenuItem>
+                              ))}
                           </DropdownMenuSubContent>
                         </DropdownMenuPortal>
                       </DropdownMenuSub>
@@ -224,8 +227,7 @@ const MainPageForm = ({
                       //     }}
                       //   />
                       // </DropdownMenuItem>
-                    )
-                  )}
+                    ))}
                 </FormItem>
               )}
             />

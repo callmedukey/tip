@@ -2,13 +2,15 @@
 import Image from "next/image";
 import BackgroundImage from "@/public/cloud-background.jpg";
 import { usePathname } from "@/i18n/routing";
+import { useParams } from "next/navigation";
 
 const CloudBg = () => {
   const pathname = usePathname();
+  const params = useParams();
 
   if (
     pathname.includes("/experience-by-tip") ||
-    pathname.includes("/partner-hotels")
+    (pathname.includes("/partner-hotels") && !params.slug)
   ) {
     return null;
   }

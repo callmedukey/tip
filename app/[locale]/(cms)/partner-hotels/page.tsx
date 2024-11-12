@@ -45,6 +45,12 @@ export type PartnerHotel = {
   kr_content: any[];
   updatedAt: string;
   createdAt: string;
+  country: {
+    id: number;
+    name: string;
+    createdAt: Date;
+    updatedAt: Date;
+  };
 };
 
 export type PartnerHotelThumbnail = {
@@ -106,6 +112,12 @@ const page = async () => {
           focalX: 0.5,
           focalY: 0.5,
         },
+        country: {
+          id: 1,
+          name: "South Korea",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       },
       {
         id: 1,
@@ -132,6 +144,12 @@ const page = async () => {
           height: 150,
           focalX: 0.5,
           focalY: 0.5,
+        },
+        country: {
+          id: 1,
+          name: "USA",
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
       },
       {
@@ -160,6 +178,12 @@ const page = async () => {
           focalX: 0.5,
           focalY: 0.5,
         },
+        country: {
+          id: 1,
+          name: "India",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       },
       {
         id: 1,
@@ -186,6 +210,12 @@ const page = async () => {
           height: 150,
           focalX: 0.5,
           focalY: 0.5,
+        },
+        country: {
+          id: 1,
+          name: "Germany",
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
       },
     ],
@@ -325,6 +355,11 @@ const page = async () => {
     totalPages: 1,
   };
 
+  const countries = partnerHotelsData.docs
+    .map((hotel) => hotel.country?.name)
+    .sort((a, b) => a.localeCompare(b));
+  const uniqueCountries = [...new Set(countries)];
+
   const locale = await getLocale();
   return (
     <main className="py-16 font-inter px-4 relative mt-[-5rem]">
@@ -355,13 +390,22 @@ const page = async () => {
           />
         </section>
       </article>
-      <article className="mt-32">
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-x-4 gap-y-12 max-w-screen-8xl mx-auto text-[#404040] items-start">
-          {partnerHotelsData.docs.map((hotel) => (
-            <HotelCard key={hotel.id} hotel={hotel} />
-          ))}
-        </ul>
-      </article>
+      {uniqueCountries
+        .sort((a, b) => a.localeCompare(b))
+        .map((country) => (
+          <article key={country} className="mt-32 max-w-screen-8xl mx-auto">
+            <h3 className="text-[2rem] font-semibold leading-normal text-left font-inter mb-16">
+              {country}
+            </h3>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-x-4 gap-y-12 max-w-screen-8xl mx-auto text-[#404040] items-start">
+              {partnerHotelsData.docs
+                .filter((hotel) => hotel.country?.name === country)
+                .map((hotel) => (
+                  <HotelCard key={hotel.id} hotel={hotel} />
+                ))}
+            </ul>
+          </article>
+        ))}
     </main>
   );
 };
