@@ -136,7 +136,7 @@ const ManageOrdersPage = () => {
             </TableRow>
           </TableHeader>
           <TableBody className=" text-black max-h-[500px] overflow-y-auto">
-            {(query ? queryData : baseData)?.map((request, index) => (
+            {(queryData ? queryData : baseData)?.map((request, index) => (
               <TableRow key={request.id}>
                 <TableCell>{generateOrderNumber(request.id)}</TableCell>
                 <TableCell>{request.user.name}</TableCell>
