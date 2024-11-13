@@ -55,8 +55,8 @@ export const emailTemplate = {
 };
 
 export const staffEmailTemplate = {
-    welcome: 16,
-    requestSubmitted: 17,
+    welcome: 17,
+    requestSubmitted: 18,
 }
 export const emailSubject = {
     "resetPassword": "Reset Password Code",
