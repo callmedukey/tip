@@ -157,36 +157,55 @@ export async function signup({
     };
   }
   const locale = await getLocale();
-// For Staff 
-  sendEmailInstance({
-    params: { name: validatedFields.data.name,},
-    emailTemplate:
+// // For Staff 
+//   sendEmailInstance({
+//     params: { name: validatedFields.data.name,},
+//     emailTemplate:
+// staffEmailTemplate.welcome,
+//     to: "travelmate@travelinyourpocket.com",
+//   }).then((data) => {
+//     console.log("Sign up email sent to staff successfully");
+//   }).catch((error) => {
+//     console.log(error);
+//   });
+
+//   sendEmailInstance({
+//     params: { name: validatedFields.data.name, email: validatedFields.data.email, registrationDate: new Date().toLocaleDateString(locale=== "ko"? "ko-KR": "en-US", { year: 'numeric', month: 'long', day: 'numeric' }) },
+//     emailTemplate:
+//       locale === "ko" ? emailTemplate.welcomeKO : emailTemplate.welcome,
+//     to: email,
+//   }).then((data) => {
+//     console.log("Sign up email sent to " + email + " successfully");
+//   }).catch((error) => {
+//     console.log(error);
+//   });
+if (validatedFields.data.referrer) {
+  addToContactList({email: validatedFields.data.referrer, name: validatedFields.data.name}).then((data) => {
+    console.log("Contact added to list", data);
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
+  const sendEmails = await Promise.all([
+    sendEmailInstance({
+      params: { name: validatedFields.data.name, email: validatedFields.data.email, registrationDate: new Date().toLocaleDateString(locale=== "ko"? "ko-KR": "en-US", { year: 'numeric', month: 'long', day: 'numeric' }) },
+      emailTemplate:
+        locale === "ko" ? emailTemplate.welcomeKO : emailTemplate.welcome,
+      to: email,
+    }),
+    sendEmailInstance({
+      params: { name: validatedFields.data.name,},
+      emailTemplate:
 staffEmailTemplate.welcome,
-    to: "travelmate@travelinyourpocket.com",
-  }).then((data) => {
-    console.log("Sign up email sent to staff successfully");
-  }).catch((error) => {
+      to: "travelmate@travelinyourpocket.com",
+    })
+  ]).catch((error) => {
     console.log(error);
   });
 
-  sendEmailInstance({
-    params: { name: validatedFields.data.name, email: validatedFields.data.email, registrationDate: new Date().toLocaleDateString(locale=== "ko"? "ko-KR": "en-US", { year: 'numeric', month: 'long', day: 'numeric' }) },
-    emailTemplate:
-      locale === "ko" ? emailTemplate.welcomeKO : emailTemplate.welcome,
-    to: email,
-  }).then((data) => {
-    console.log("Sign up email sent to " + email + " successfully");
-  }).catch((error) => {
-    console.log(error);
-  });
+  
 
-  if (validatedFields.data.referrer) {
-    addToContactList({email: validatedFields.data.referrer, name: validatedFields.data.name}).then((data) => {
-      console.log("Contact added to list", data);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
 
   return {
     message: "User Sign up successfully",
