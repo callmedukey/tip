@@ -5,6 +5,7 @@ import { getMessages } from "next-intl/server";
 import { GoogleTagManager } from "@next/third-parties/google";
 
 import {
+  EB_Garamond,
   Inter as InterFont,
   Noto_Sans_KR as NotoSansKrFont,
 } from "next/font/google";
@@ -21,6 +22,12 @@ const Inter = InterFont({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+});
+
+const Garamond = EB_Garamond({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-garamond",
 });
 
 const Pretendard = localFont({
@@ -58,7 +65,7 @@ export default async function Layout({
         <ThemeModeScript />
       </head>
       <body
-        className={`${Inter.variable} ${Pretendard.variable} ${NotoSansKr.variable} antialiased relative isolated bg-white break-keep lg:min-h-[min(100vh,80rem)]`}
+        className={`${Inter.variable} ${Pretendard.variable} ${NotoSansKr.variable} ${Garamond.variable} antialiased relative isolated bg-white break-keep lg:min-h-[min(100vh,80rem)]`}
       >
         <GoogleProvider>
           <ReactQueryContext>

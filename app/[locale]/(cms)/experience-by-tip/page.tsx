@@ -358,10 +358,10 @@ const page = async () => {
           placeholder="blur"
           className="object-cover object-center -z-10"
         />
-        <h1 className="text-center mx-auto text-white text-[1.25rem] lg:text-[2.5rem] font-normal leading-[3rem] mt-32 title-indicator">
-          We select qualified experiences and activities{" "}
+        <h1 className="text-center mx-auto text-white text-[1.25rem] lg:text-[2.5rem] font-normal leading-[3rem] mt-32 title-indicator font-garamond tracking-normal leading-loose">
+          We offer unique experiences tailored just for you,{" "}
           <br className="hidden sm:block" />
-          for our TIP members.
+          <span className="italic">beyond the ordinary journey.</span>
         </h1>
       </section>
       <TopCarousel

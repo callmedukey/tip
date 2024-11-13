@@ -13,7 +13,8 @@ const config: Config = {
   		fontFamily: {
   			inter: ["var(--font-inter)"],
   			pretendard: ["var(--font-pretendard)"],
-  			noto: ["var(--font-noto-sans-kr)"]
+  			noto: ["var(--font-noto-sans-kr)"],
+  			garamond: ["var(--font-garamond)"],
   		},
   		screens: {
   			'8xl': '90rem'

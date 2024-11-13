@@ -328,5 +328,8 @@
     "orderNo": "Order No.",
     "date": "Date",
     "type": "Type"
+  },
+  "partnerHotels": {
+    "catchPhrase": "We are pleased to introduce a selection of carefully curated hotels. We hope you create wonderful memories with great discounts and benefits."
   }
 }
