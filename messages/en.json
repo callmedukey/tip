@@ -237,7 +237,9 @@
     "paid": "Paid",
     "unpaid": "Unpaid",
     "start": "Travel Start Month",
-    "travelDate": "Travel Date"
+    "travelDate": "Travel Date",
+    "startDate": "From",
+    "endDate": "To"
   },
   "manageSales":{
     "manageSales": "Manage Sales",

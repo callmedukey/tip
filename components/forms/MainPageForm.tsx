@@ -1,7 +1,6 @@
 "use client";
 import { CirclePlus, CircleMinus } from "lucide-react";
 import PurposeIcon from "@/public/icons/purpose.svg";
-import PlaneIcon from "@/public/icons/plane.svg";
 import Person from "@/public/icons/person.svg";
 import { Calendar } from "@/components/ui/calendar";
 import { ko, enUS } from "date-fns/locale";
@@ -21,6 +20,7 @@ import { z } from "zod";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import CalendarIcon from "@/public/icons/Calendar.svg";
+import PlaneIcon from "@/public/icons/plane.svg";
 import { format } from "date-fns";
 import {
   DropdownMenu,

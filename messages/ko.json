@@ -238,7 +238,9 @@
     "paid": "결제됨",
     "unpaid": "미결제",
     "start": "여행 시작 월",
-    "travelDate": "여행 날짜"
+    "travelDate": "여행 날짜",
+    "startDate": "From",
+    "endDate": "To"
   },
   "manageSales":{
     "manageSales": "매출 관리",

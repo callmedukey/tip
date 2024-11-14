@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { verifySession } from "@/actions/session";
 import getDateComponents from "@/lib/getDateComponents";
 import { reconstructDate } from "@/lib/getDateComponents";
+import { DateTime } from "luxon";
 
 export const dynamic = "force-dynamic";
 
@@ -15,18 +16,24 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const queryType = searchParams.get("queryType");
     const query = decodeURIComponent(searchParams.get("query") || "");
-    const selectedMonth = decodeURIComponent(
-      searchParams.get("selectedMonth") || ""
-    );
-    let queryFrom: string | undefined;
-    let queryTo: string | undefined;
-    if (queryType === "start" && selectedMonth) {
-      const { year, month, firstDay, lastDay } = getDateComponents(
-        new Date(selectedMonth)
-      );
-      queryFrom = reconstructDate({ year, month, day: firstDay }).toISOString();
+    const fromDate = decodeURIComponent(searchParams.get("fromDate") || "");
+    const toDate = decodeURIComponent(searchParams.get("toDate") || "");
+
+    let queryFrom: string | undefined | null;
+    let queryTo: string | undefined | null;
+
+    if (queryType === "start" && fromDate) {
+      queryFrom = DateTime.fromISO(fromDate).toUTC().toISO();
     }
-    console.log(queryFrom);
+
+    if (queryType === "start" && toDate) {
+      queryTo = DateTime.fromISO(toDate).toUTC().toISO();
+    }
+
+    if (queryType === "start" && (!queryFrom || !queryTo)) {
+      return Response.json({ message: "Invalid date range" }, { status: 400 });
+    }
+
     const requests = await prisma.request.findMany({
       where: {
         status: {
@@ -45,7 +52,10 @@ export async function GET(req: Request) {
                     : undefined,
               }
             : undefined,
-        from: queryFrom ? { gte: queryFrom } : undefined,
+        from:
+          queryFrom && queryTo
+            ? { gte: new Date(queryFrom), lte: new Date(queryTo) }
+            : undefined,
       },
       include: {
         user: {

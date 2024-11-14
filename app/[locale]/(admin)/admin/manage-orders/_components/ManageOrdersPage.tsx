@@ -27,8 +27,22 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useDebounceValue } from "usehooks-ts";
 import { User, Request } from "@prisma/client";
-import { useTranslations } from "next-intl";
-import { Datepicker } from "flowbite-react";
+import { useLocale, useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { enUS } from "date-fns/locale";
+import { ko } from "date-fns/locale";
+import { Calendar } from "@/components/ui/calendar";
+import CalendarIcon from "@/public/icons/Calendar.svg";
+import PlaneIcon from "@/public/icons/plane.svg";
+import { addDays, format } from "date-fns";
+import { DateRange } from "react-day-picker";
 
 interface RequestWithUser extends Request {
   user: User;
@@ -36,11 +50,12 @@ interface RequestWithUser extends Request {
 
 const ManageOrdersPage = () => {
   const t = useTranslations("manageOrders");
+  const locale = useLocale();
+  const [date, setDate] = useState<DateRange | undefined>(undefined);
   const [queryType, setQueryType] = useState<"email" | "name" | "start">(
     "email"
   );
   const [query, setQuery] = useDebounceValue("", 1000);
-  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
 
   const { data: baseData, isLoading: baseIsLoading } = useQuery<
     RequestWithUser[]
@@ -53,14 +68,16 @@ const ManageOrdersPage = () => {
   const { data: queryData, isLoading: queryIsLoading } = useQuery<
     RequestWithUser[]
   >({
-    queryKey: ["manage-orders", queryType, query, selectedMonth],
+    queryKey: ["manage-orders", queryType, query, date],
     queryFn: () =>
       fetch(
         `/api/admin/manage-orders/query?queryType=${queryType}&query=${encodeURIComponent(
           query
-        )}&selectedMonth=${encodeURIComponent(selectedMonth!) ?? ""}`
+        )}&fromDate=${encodeURIComponent(
+          date?.from?.toISOString() ?? ""
+        )}&toDate=${encodeURIComponent(date?.to?.toISOString() ?? "")}`
       ).then((data) => data.json()),
-    enabled: !!query || !!selectedMonth,
+    enabled: !!query || !!(date && date.from && date.to),
   });
 
   useEffect(() => {
@@ -88,29 +105,53 @@ const ManageOrdersPage = () => {
         </Select>
 
         {queryType === "start" ? (
-          <Datepicker
-            placeholder={t("start")}
-            value={selectedMonth ? new Date(selectedMonth) : null}
-            onChange={(e) => setSelectedMonth(e as unknown as string)}
-            className="w-full"
-            theme={{
-              root: {
-                base: "relative ",
-                input: {
-                  base: "bg-transparent",
-                  field: {
-                    base: "bg-transparent",
-                    icon: {
-                      base: "hidden",
-                    },
-                    input: {
-                      base: "!bg-transparent !border-b-[0.5px] !placeholder-formText !border-formText !w-full !shadow-none !focus:ring-transparent !outline-0 !focus:outline-none !pl-0 !rounded-none !text-base",
-                    },
-                  },
-                },
-              },
-            }}
-          />
+          <div className="flex items-center lg:px-4 py-4 lg:py-0 border-b lg:border-r lg:border-b-0 border-dashed self-stretch ">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "justify-center text-base text-left font-normal outline-none lg:min-w-[20rem] min-w-[10rem] border-none ring-0 focus:outline-none shadow-none flex items-center gap-2 sm:gap-4 lg:gap-2 hover:bg-transparent pl-1 lg:pl-4"
+                  )}
+                >
+                  <Image
+                    src={CalendarIcon}
+                    alt="Calendar"
+                    width={24}
+                    height={24}
+                    className="-translate-y-0.5"
+                  />
+                  {date?.from ? (
+                    format(date.from, "yyyy-MM-dd")
+                  ) : (
+                    <span>{t("startDate")}</span>
+                  )}
+
+                  <Image
+                    src={PlaneIcon}
+                    alt="Plane"
+                    width={24}
+                    height={24}
+                    className="mx-auto lg:mx-6"
+                  />
+                  <span>
+                    {date?.to ? format(date.to, "yyyy-MM-dd") : t("endDate")}
+                  </span>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0 lg:mt-8" align="start">
+                <Calendar
+                  mode="range"
+                  selected={date}
+                  onSelect={setDate}
+                  numberOfMonths={2}
+                  timeZone="UTC"
+                  locale={locale === "ko" ? ko : enUS}
+                  required
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
         ) : (
           <input
             onChange={(e) => setQuery(e.currentTarget.value)}
