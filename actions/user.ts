@@ -97,7 +97,7 @@ export const createEditRequest = async ({
 
     // For Staff 
   sendEmailInstance({
-    params: { name: updatedRequest.user.name,},
+    params: { name: updatedRequest.user.name, orderNumber: updatedRequest.id.toString()},
     emailTemplate:
 staffEmailTemplate.requestSubmitted,
     to: "travelmate@travelinyourpocket.com",
@@ -213,7 +213,7 @@ export const submitEmergencyRequest = async (
       return { message: "Failed to create edit request" };
 
     sendEmailInstance({
-      params: { name: updatedRequest.user.name,},
+      params: { name: updatedRequest.user.name, orderNumber: updatedRequest.id.toString()},
       emailTemplate:
   staffEmailTemplate.requestSubmitted,
       to: "travelmate@travelinyourpocket.com",
