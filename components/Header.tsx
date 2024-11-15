@@ -4,6 +4,7 @@ import { Link } from "@/i18n/routing";
 import MobileMenu from "./layout/MobileMenu";
 import Auth_HeaderMenu from "./layout/Auth_HeaderMenu";
 import { getTranslations } from "next-intl/server";
+import HeaderAboutMenu from "./HeaderAboutMenu";
 
 const Header = async () => {
   const t = await getTranslations("Header");
@@ -31,7 +32,7 @@ const Header = async () => {
         </Link>
         <Link href="/partner-hotels">{t("partnerHotels")}</Link>
         <Link href="/experience-by-tip">{t("experienceByTip")}</Link>
-        <Link href="/about">{t("about")}</Link>
+        <HeaderAboutMenu />
       </nav>
       <Auth_HeaderMenu />
     </header>

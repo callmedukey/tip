@@ -6,7 +6,7 @@
   "HomePage": {
     "title": "Travel in your Pocket",
     "title2": "for your best memories",
-  "stressText": "여행 준비 스트레스 아웃!"
+    "stressText": "여행 준비 스트레스 아웃!"
   },
   "Header": {
     "Languages": "언어",
@@ -14,7 +14,9 @@
     "myProfile": "나의 프로필",
     "partnerHotels": "파트너 호텔",
     "experienceByTip": "액티비티",
-    "about": "ABOUT TIP"
+    "about": "ABOUT TIP",
+    "blog": "블로그",
+    "contact": "문의하기"
   },
   "AuthHeaderMenu": {
     "myAccount": "나의 계정",
@@ -93,12 +95,12 @@
     "seeMyInvoice": "견적서 보기",
     "details": "상세보기"
   },
-  "MyTravelListFinalRequestChangeBox":{
+  "MyTravelListFinalRequestChangeBox": {
     "placeholder": "여행을 취소하거나 급한 요청이 생길 경우에 알려주세요!",
     "submit": "제출하기",
     "submitting": "제출중..."
   },
-  "MyTravelDetails":{
+  "MyTravelDetails": {
     "tripDetails": "여행 상세",
     "adminNotes": "관리자 노트",
     "downloads": "다운로드",
@@ -115,7 +117,7 @@
     "created": "여행 일정 변경 요청 제출 완료되었습니다.",
     "confirm": "여행을 확정하시겠습니까?"
   },
-  "myProfile":{
+  "myProfile": {
     "profile": "프로필",
     "paymentHistory": "결제 내역",
     "orderNo": "주문번호",
@@ -186,8 +188,8 @@
     "travelPlan": "여행 일정",
     "msgToUser": "고객에게 보낼 메시지",
     "save": "저장하기",
-    "add":"추가",
-    "remove":"삭제",
+    "add": "추가",
+    "remove": "삭제",
     "sendToUser": "고객에게 전달하기",
     "quote": "견적서",
     "coupon": "쿠폰",
@@ -242,7 +244,7 @@
     "startDate": "From",
     "endDate": "To"
   },
-  "manageSales":{
+  "manageSales": {
     "manageSales": "매출 관리",
     "searchTerm": "검색어",
     "orderNo": "주문번호",
@@ -257,7 +259,7 @@
     "currencyFilter": "통화 필터",
     "none": "없음"
   },
-  "manageCoupons":{
+  "manageCoupons": {
     "manageCoupons": "쿠폰 관리",
     "number": "순번.",
     "couponCode": "쿠폰 코드",
@@ -334,5 +336,38 @@
   },
   "partnerHotels": {
     "catchPhrase": "엄선된 호텔들을 소개 드립니다. 많은 할인과 혜택으로 좋은 추억만 만들어 가시길 바라겠습니다."
+  },
+  "ContactPage": {
+    "contact": "문의",
+    "firstName": "이름",
+    "lastName": "성",
+    "email": "이메일",
+    "phoneNumber": "전화번호",
+    "where": "여행 목적지",
+    "when": "희망 여행 날짜?",
+    "budget": "예산 여행 비용",
+    "how": "유입 경로 (선택)?",
+    "areThereAnyQuestions": "추가 문의가 있으신가요?",
+    "submit": "제출하기",
+    "success": "문의가 제출되었습니다.",
+    "error": "문의 제출에 실패하였습니다."
+  },
+  "aboutPage": {
+    "allinoneTitle": "All-in-One",
+    "allinoneDescription": "더이상 티켓 찾느라, 여행에 필요한 서류 찾느라 시간 보내지 마세요. 저희 TIP 앱으로 한번에, 한눈에 간편히 찾으세요.",
+    "secondTitle": "나만의 여행을 떠나세요",
+    "secondDescription": "“나”와 “우리 가족” 혹은 “우리 부부”, “우리”만의 아름다운 시간으로 여행을 채워보세요. 더 이상 정확하지 않은 정보로, 혹은 남들이 다 하는 여행이 아닌 취향이 담긴 오롯히 나와 우리를 위한 여행을 해보세요. TIP 여행 전문가들이 함께 합니다.",
+    "thirdTitle": "추억을 기록해드립니다",
+    "thirdDescription": "TIP 앱으로 나의 일정과 장소를 한눈에. 다녀와서 잊어버리는 여행이 아니라 오래 간직할수 있는 여행. TIP 는 당신의 여행 기록이자, 인생의 한 부분의 기록입니다.",
+    "fourthTitle": "선물같은 날들",
+    "fourthDescription": "많은 혜택 받아가세요, 더이상 호텔과 액티비티 그냥 예약하지 마세요. 더 많은 혜택과 더 많은 선물들로 여러분들의 여행을 더욱 풍요롭게 보내세요. TIP 팀이 여러분의 여행을 위해 많은 할인과 혜택 등을 준비하고 있습니다. ",
+    "membershipTitle": "TIP 멤버십 티어",
+    "membershipDescription": "여러가지 혜택들로 멤버쉽을 더욱 풍성하게, 모든 멤버분들이 멋진 여행을 하실 수 있도록 최선을 다하겠습니다.",
+    "benefit": "혜택",
+    "new": "모든 첫 이용자",
+    "20mil": "연간 이용금액 2천만원 이상",
+    "50mil": "연간 이용금액 5천만원 이상",
+    "100mil": "연간 이용금액 1억원 이상",
+    "500mil": "연간 이용금액 5억원 이상"
   }
 }

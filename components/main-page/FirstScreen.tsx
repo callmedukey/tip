@@ -81,7 +81,6 @@ const FirstScreen = () => {
   return (
     <div className={cn(wrapperClassName, "relative isolate min-h-[60rem]")}>
       <div className="flex flex-col absolute top-16 mx-auto text-center lg:hidden">
-        {locale === "ko" && <h2 className="text-white">{t("stressText")}</h2>}
         <Image
           src={Logo}
           alt="Mobile Logo"
@@ -100,22 +99,20 @@ const FirstScreen = () => {
       </div>
 
       <MainPageForm setState={setInitialState} />
-      {locale === "ko" && (
-        <h2 className="text-white mt-[calc(var(--header-height)*4.5)] self-start text-[1.5rem] text-center absolute hidden lg:block">
-          {t("stressText")}
-        </h2>
-      )}
       <Image
         priority
         alt="Logo"
         src={Logo}
         width={99}
         height={99}
-        className="outline absolute size-[600px] hidden lg:block"
+        className="outline absolute size-[600px] -translate-y-[10rem] hidden lg:block"
       />
-      <h1 className="text-center text-[2.5rem] font-medium self-end mb-72 text-white hidden lg:block">
+      <h1 className="text-center text-[2.5rem] font-medium self-end mb-72 -translate-y-[10rem] text-white hidden lg:block">
         Travel In your Pocket <br />
-        For your best and easy way <br /> to make your own travel
+        <span className="italic font-garamond font-medium">
+          For your best and easy way
+        </span>
+        <br /> to make your own travel
       </h1>
     </div>
   );

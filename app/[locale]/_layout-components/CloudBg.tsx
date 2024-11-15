@@ -9,6 +9,7 @@ const CloudBg = () => {
   const params = useParams();
 
   if (
+    pathname.includes("/about") ||
     pathname.includes("/experience-by-tip") ||
     (pathname.includes("/partner-hotels") && !params.slug)
   ) {

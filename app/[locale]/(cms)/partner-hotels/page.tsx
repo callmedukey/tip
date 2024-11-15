@@ -371,14 +371,15 @@ const page = async () => {
         quality={100}
         priority
         placeholder="blur"
-        className="object-cover object-center -z-10 max-h-[100rem]"
+        className="object-cover object-center -z-10 lg:max-h-[100rem] max-h-[70rem]"
       />
-      <h1 className="text-center mx-auto text-white text-[1.25rem] lg:text-[2.5rem] font-normal mt-32 title-indicator font-garamond tracking-normal leading-loose">
-        For your travel, <br /> Your place to stay is the most important. <br />{" "}
-        Our partner hotels are here <br /> to provide you with precious time.
+      <h1 className="text-center mx-auto text-white text-[1.25rem] lg:text-[2.5rem] font-normal mt-32 title-indicator font-garamond tracking-normal">
+        For your travel, <br />{" "}
+        <i className="italic">Your place to stay is the most important.</i>{" "}
+        <br /> Our partner hotels are here to provide you with precious time.
       </h1>
       <article className="mt-[35rem]">
-        <h2 className="text-[2rem] font-nsormal px-4 leading-normal text-center font-inter mt-60 max-w-4xl mx-auto font-garamond">
+        <h2 className="text-[2rem] font-nsormal px-4 leading-normal text-center mt-60 max-w-4xl mx-auto font-garamond">
           {t("catchPhrase")}
         </h2>
         {/* {carousel goes here} */}

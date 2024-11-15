@@ -1,5 +1,17 @@
 import { z } from "zod";
 
+export const ContactFormSchema = z.object({
+  firstName: z.string().min(1, { message: "First name is required" }),
+  lastName: z.string().min(1, { message: "Last name is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  phoneNumber: z.string().min(1, { message: "Phone number is required" }),
+  where: z.string().min(1, { message: "Where is required" }),
+  when: z.string().min(1, { message: "When is required" }),
+  budget: z.string().min(1, { message: "Budget is required" }),
+  how: z.string().optional(),
+  areThereAnyQuestions: z.string().optional(),
+});
+
 export const MainPageFormSchema = z.object({
   city: z.array(z.string()),
   adults: z.coerce.number().min(0),

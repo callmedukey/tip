@@ -13,7 +13,9 @@
       "myProfile": "My Profile",
       "partnerHotels": "Partner Hotels",
       "experienceByTip": "Experience by TIP",
-      "about": "About"
+        "about": "About TIP",
+        "blog": "Blog",
+        "contact": "Contact"
   },
   "AuthHeaderMenu": {
     "myAccount": "My Account",
@@ -333,5 +335,38 @@
   },
   "partnerHotels": {
     "catchPhrase": "We are pleased to introduce a selection of carefully curated hotels. We hope you create wonderful memories with great discounts and benefits."
+  },
+  "ContactPage": {  
+    "contact": "Contact",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "E-mail",
+    "phoneNumber": "Phone Number",
+    "where": "Where would you like to travel",
+    "when": "When would you like to travel",
+    "budget": "Travel budget",
+    "how": "How did you hear about us?",
+    "areThereAnyQuestions": "Do you have any special requests for your travel?",
+    "submit": "Submit",
+    "success": "Your inquiry has been submitted.",
+    "error": "Failed to submit your inquiry."
+  },
+  "aboutPage": {
+    "allinoneTitle": "All-in-One",
+    "allinoneDescription": "Stop wasting time searching for tickets and necessary travel documents. With our TIP app, find everything you need conveniently, all at once.",
+    "secondTitle": "Embark on Your Own Journey",
+    "secondDescription": "Fill your travels with beautiful moments just for “me” or “my family,” or “us as a couple.” Experience a journey tailored to your preferences, free from inaccurate information and clichés. Enjoy a trip that’s truly for you and your loved ones. TIP travel experts are here to assist you.",
+    "thirdTitle": "Document your memories",
+    "thirdDescription": "With the TIP app, view your schedule and locations all at a glance. This will be a journey not easily forgotten but one you can cherish for a long time. TIP is your travel record and a part of your life's story.",
+    "fourthTitle": "Gift-Like Days",
+    "fourthDescription": "Enjoy numerous benefits! Stop booking hotels and activities without consideration. Enrich your travels with more benefits and gifts. The TIP team has prepared many discounts and perks just for your journey.",
+    "membershipTitle": "TIP MEMBERSHIP TIER",
+    "membershipDescription": "We promise to provide a membership program with the best deals and benefits, that ensures an amazing travel experience",
+    "benefit": "Benefit",
+    "new": "All new travelers",
+    "20mil": "Yearly spending +20mil KRW",
+    "50mil": "Yearly spending +50mil KRW",
+    "100mil": "Yearly spending +100mil KRW",
+    "500mil": "Yearly spending +500mil KRW"
   }
 }
