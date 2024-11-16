@@ -17,9 +17,9 @@ const HeaderAboutMenu = () => {
         <DropdownMenuItem asChild>
           <Link href="/about">{t("about")}</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        {/* <DropdownMenuItem asChild>
           <Link href="/blog">{t("blog")}</Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuItem asChild>
           <Link href="/contact">{t("contact")}</Link>
         </DropdownMenuItem>

@@ -66,6 +66,7 @@ const ThirdScreen = ({
   });
 
   const handleSubmit = async (data: z.infer<typeof FinalFormSchema>) => {
+    if (loading) return;
     setSavedInitialData(null);
 
     setLoading(true);
@@ -382,7 +383,6 @@ const ThirdScreen = ({
                 <Button
                   type="button"
                   onClick={() => {
-                    console.log(stage);
                     setStage(1);
                   }}
                   className="bg-egyptianBlue hover:bg-egyptianBlue hover:opacity-80 rounded-full w-full max-w-xs py-6 mt-12 mx-auto flex items-center justify-center shadow-none text-egyptianBlue border-egyptianBlue border font-medium lg:mt-16 text-white"
