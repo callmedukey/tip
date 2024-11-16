@@ -170,7 +170,12 @@ const MainPageForm = ({
               render={() => (
                 <FormItem className="flex flex-col py-2">
                   {serviceCountryAndCities[locale as "en" | "ko"]
-                    .sort((a, b) => a.country.localeCompare(b.country))
+                    .sort((a, b) => {
+                      if (a.country === "ETC" || a.country === "기타") {
+                        return 1;
+                      }
+                      return a.country.localeCompare(b.country);
+                    })
                     .map((city) => (
                       <DropdownMenuSub key={city.country}>
                         <DropdownMenuSubTrigger>
