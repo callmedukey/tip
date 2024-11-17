@@ -75,11 +75,7 @@ const HotelCarousel = ({
               <div className="flex flex-col gap-4 items-center mt-12 col-span-full">
                 <span>{locale === "en" ? data.en_title : data.kr_title}</span>
                 <span className="max-w-[22rem] text-center mx-auto max-h-[10rem] overflow-hidden">
-                  {/* {locale === "en" ? data.en_subText : data.kr_subText} */}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Id
-                  nesciunt velit adipisci veritatis illo est eligendi sunt
-                  reprehenderit quisquam blanditiis. Amet voluptatum voluptate
-                  architecto nobis quae quas quibusdam iusto dignissimos!
+                  {locale === "en" ? data.en_subText : data.kr_subText}
                 </span>
                 <Link
                   href={data.link}
