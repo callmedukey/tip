@@ -383,7 +383,11 @@ const page = async () => {
         locale={locale}
       />
       {uniqueCountries
-        .sort((a, b) => a.localeCompare(b, locale === "ko" ? "ko" : "en"))
+        .sort((a, b) =>
+          a.localeCompare(b, "en", {
+            sensitivity: "base",
+          })
+        )
         .map((country) => (
           <article key={country} className="mt-32 max-w-screen-8xl mx-auto">
             <h3 className="text-[2rem] font-semibold leading-normal text-left font-inter mb-16">
