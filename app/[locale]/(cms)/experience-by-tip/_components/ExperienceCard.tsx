@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { ExperienceData } from "../page";
 import { Link } from "@/i18n/routing";
 import { getLocale } from "next-intl/server";
+import { getImageUrl } from "@/lib/cms";
 
 const ExperienceCard = async ({
   experience,
@@ -13,8 +14,8 @@ const ExperienceCard = async ({
     <li className="space-y-8 bg-white overflow-clip rounded-[1rem]">
       <Link href={`/experience-by-tip/${experience.slug}`} className="">
         <Image
-          // src={getImageUrl(experience.thumbnail.url)}
-          src={experience.thumbnail.url}
+          src={getImageUrl(experience.thumbnail.url)}
+          // src={experience.thumbnail.url}
           alt={
             locale === "en"
               ? experience.thumbnail.en_alt

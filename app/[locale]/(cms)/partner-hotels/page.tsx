@@ -359,9 +359,10 @@ const page = async () => {
   const countries = partnerHotelsData.docs
     .map((hotel) => hotel.country?.name)
     .sort((a, b) => a.localeCompare(b));
-  const uniqueCountries = [...new Set(countries)];
 
+  const uniqueCountries = [...new Set(countries)];
   const locale = await getLocale();
+
   return (
     <main className="py-16 font-inter px-4 relative mt-[-5rem]">
       <Image
@@ -380,7 +381,14 @@ const page = async () => {
       </h1>
       <article className="mt-[35rem]">
         <h2 className="text-[2rem] font-nsormal px-4 leading-normal text-center mt-60 max-w-4xl mx-auto font-garamond">
-          {t("catchPhrase")}
+          {locale === "ko" ? (
+            <span>
+              엄선된 호텔들을 소개 드립니다. <br /> 많은 할인과 혜택으로 좋은
+              추억만 <br /> 만들어 가시길 바라겠습니다.
+            </span>
+          ) : (
+            t("catchPhrase")
+          )}
         </h2>
         {/* {carousel goes here} */}
         <section>

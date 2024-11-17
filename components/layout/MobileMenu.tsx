@@ -9,6 +9,7 @@ import Image from "next/image";
 import LanguageSelectDropDown from "../LanguageSelectDropDown";
 import { useTranslations } from "next-intl";
 import { DialogDescription, DialogTitle } from "../ui/dialog";
+import FakeLink from "../user/FakeLink";
 const links = [
   { href: "/my-profile", name: "myProfile" },
   { href: "/my-travel", name: "myTravel" },
@@ -63,22 +64,31 @@ const MobileMenu = () => {
           </button>
         </div>
         <nav className="flex flex-col justify-start items-start flex-1 gap-6 py-4">
-          {links.map((nav) => (
-            <Link
-              href={nav.href}
-              key={nav.href}
-              className={cn(
-                "w-full text-start",
-                pathname === nav.href
-                  ? "text-murrey underline underline-offset-4"
-                  : ""
-              )}
-              prefetch={false}
-              onClick={() => setOpen(false)}
-            >
-              {t(nav.name)}
-            </Link>
-          ))}
+          {links.map((nav) => {
+            if (nav.name === "experienceByTip") {
+              return (
+                <FakeLink message={t("alert")} key={nav.href}>
+                  {t(nav.name)}
+                </FakeLink>
+              );
+            }
+            return (
+              <Link
+                href={nav.href}
+                key={nav.href}
+                className={cn(
+                  "w-full text-start",
+                  pathname === nav.href
+                    ? "text-murrey underline underline-offset-4"
+                    : ""
+                )}
+                prefetch={false}
+                onClick={() => setOpen(false)}
+              >
+                {t(nav.name)}
+              </Link>
+            );
+          })}
         </nav>
       </DrawerContent>
     </Drawer>

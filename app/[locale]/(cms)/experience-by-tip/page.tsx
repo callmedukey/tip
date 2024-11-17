@@ -306,7 +306,7 @@ export type ExperienceData = {
   country: {
     id: number;
     name: string;
-  };
+  }[];
   order: number;
   id: string;
 };
@@ -344,8 +344,14 @@ const page = async () => {
     await experiencesBottomCarousel.json();
 
   const uniqueCountries = Array.from(
-    new Set(experiencesData.docs.map((experience) => experience.country.name))
+    new Set(
+      experiencesData.docs
+        .map((experience) => experience.country)
+        .flatMap((country) => country)
+        .map((country) => country.name)
+    )
   );
+
   return (
     <main>
       <section className="relative w-full min-h-[min(80vh,120rem)] isolate mt-[-5rem] pt-[8rem]">
@@ -358,7 +364,7 @@ const page = async () => {
           placeholder="blur"
           className="object-cover object-center -z-10"
         />
-        <h1 className="text-center mx-auto text-white text-[1.25rem] lg:text-[2.5rem] font-normal leading-[3rem] mt-32 title-indicator font-garamond tracking-normal leading-loose">
+        <h1 className="text-center mx-auto text-white text-[1.25rem] lg:text-[2.5rem] font-normal mt-32 title-indicator font-garamond tracking-normal leading-loose">
           We offer unique experiences tailored just for you,{" "}
           <br className="hidden sm:block" />
           <span className="italic">beyond the ordinary journey.</span>
@@ -385,7 +391,9 @@ const page = async () => {
             </h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-x-4 gap-y-12 max-w-screen-8xl mx-auto text-[#404040] items-start">
               {experiencesData.docs
-                .filter((experience) => experience.country.name === country)
+                .filter((experience) =>
+                  experience.country.some((c) => c.name === country)
+                )
                 .map((experience) => (
                   <ExperienceCard key={experience.id} experience={experience} />
                 ))}

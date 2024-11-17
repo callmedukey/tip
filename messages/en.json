@@ -15,7 +15,8 @@
       "experienceByTip": "Experience by TIP",
         "about": "About TIP",
         "blog": "Blog",
-        "contact": "Contact"
+    "contact": "Contact",
+    "alert": "Under Construction"
   },
   "AuthHeaderMenu": {
     "myAccount": "My Account",
