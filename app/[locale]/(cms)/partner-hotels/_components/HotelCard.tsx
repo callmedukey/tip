@@ -17,12 +17,12 @@ const HotelCard = async ({ hotel }: { hotel: PartnerHotel }) => {
         quality={100}
         className="rounded-[1rem] w-full h-full object-cover"
       />
-      <p className="text-[1.5rem] font-normal h-24">
+      <p className="text-[1.5rem] font-normal min-h-8">
         {locale === "en" ? hotel.en_title : hotel.kr_title}
       </p>
       <Link
         href={`/partner-hotels/${hotel.slug}`}
-        className="text-[0.75rem] text-[#404040] border border-[#404040] font-normal py-2 px-4 rounded-full w-28 flex items-center justify-between"
+        className="text-[0.75rem] text-[#404040] border !mt-2 border-[#404040] font-normal py-2 px-4 rounded-full w-28 flex items-center justify-between"
       >
         {locale === "en" ? "See more" : "더 보기"}
         <ArrowRightIcon className="w-4 h-4" strokeWidth={1} />
