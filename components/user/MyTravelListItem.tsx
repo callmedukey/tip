@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import MyTravelPlane from "@/public/my-travel-plane.png";
 import { Link } from "@/i18n/routing";
@@ -14,6 +15,7 @@ import MyTravelListItemShareButton from "./MyTravelListItemShareButton";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyTravelPDF from "./MyTravelPDF";
 import { useTranslations } from "next-intl";
+import { cancelTrip } from "@/actions/user";
 
 const MyTravelListItem = ({
   request,
@@ -24,6 +26,24 @@ const MyTravelListItem = ({
 }) => {
   const t = useTranslations("myTravel");
   const t2 = useTranslations("MainFirstForm");
+
+  const handleCancel = async () => {
+    if (!request?.id) return;
+
+    const res = await cancelTrip(request.id, request.paid);
+    if (res.success && request.paid) {
+      alert(t("paidTripCanceled"));
+    }
+
+    if (res.success && !request.paid) {
+      alert(t("tripCanceled"));
+    }
+
+    else {
+      alert(res.message);
+    }
+  };
+  
   if (isLoading)
     return (
       <li className="grid lg:grid-rows-[6rem,auto,6rem] grid-rows-[repeat(3,auto)] py-4">
@@ -201,7 +221,11 @@ const MyTravelListItem = ({
                 </button>
               </QuoteInvoiceModal>
             ) : null}
-            <button className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
+            <button
+              className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium"
+              type="button"
+              onClick={handleCancel}
+            >
               {t("cancel")}
             </button>
           </div>
@@ -231,7 +255,11 @@ const MyTravelListItem = ({
                   </button>
                 </QuoteInvoiceModal>
               ) : null}
-              <button className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
+              <button
+                className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium"
+                type="button"
+                onClick={handleCancel}
+              >
                 {t("cancel")}
               </button>
             </div>
@@ -261,7 +289,11 @@ const MyTravelListItem = ({
                 </QuoteInvoiceModal>
               ) : null}
 
-              <button className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium">
+              <button
+                className="bg-transparent text-cancel border border-cancel max-w-xs w-full lg:w-[15rem] py-4 rounded-full font-medium"
+                type="button"
+                onClick={handleCancel}
+              >
                 {t("cancel")}
               </button>
             </div>

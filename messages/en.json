@@ -68,7 +68,9 @@
     "date": "Date",
     "destination": "Destination",
     "noActiveTravelRequests": "You have no active travel requests",
-    "bookNow": "Book Now"
+    "bookNow": "Book Now",
+    "tripCanceled": "Your trip has been canceled.",
+    "paidTripCanceled": "This trip has already been paid for. Admin will review your request to confirm the cancelation."
   },
   "MyTravelListItemShareButton": {
     "share": "Share",

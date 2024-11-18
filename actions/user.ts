@@ -125,7 +125,7 @@ export const cancelTrip = async (requestId: number, isPaid: boolean) => {
     let updatedRequest;
     if (isPaid) {
       updatedRequest = await prisma.request.update({
-        where: { id: +requestId, userId: session.userId, paid: false },
+        where: { id: +requestId, userId: session.userId },
         data: {  status: "canceled" },
       });
     } else {

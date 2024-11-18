@@ -69,6 +69,8 @@
     "history": "여행 내역",
     "date": "날짜",
     "destination": "목적지",
+    "tripCanceled": "여행이 취소되었습니다.",
+    "paidTripCanceled": "결제가 이미 완료되어 관리자 승인 후 취소됩니다.",
     "noActiveTravelRequests": "진행중인 여행이 없습니다."
   },
   "MyTravelListItemShareButton": {
