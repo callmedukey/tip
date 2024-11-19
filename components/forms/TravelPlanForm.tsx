@@ -85,7 +85,7 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
     const startIndex = result.source.index;
     const endIndex = result.destination?.index;
 
-    if (!endIndex) return;
+    if (endIndex !== 0 && !endIndex) return;
     if (startIndex === endIndex) return;
     move(startIndex, endIndex);
   };
@@ -111,7 +111,12 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
                     index={index}
                   >
                     {(provided) => (
-                      <div className="flex gap-4 items-center h-12 px-4 relative isolate" {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+                      <div
+                        className="flex gap-4 items-center h-12 px-4 relative isolate"
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                        ref={provided.innerRef}
+                      >
                         <FormField
                           control={form.control}
                           name={`json.${index}.date`}
@@ -263,6 +268,21 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
                           )}
                           <button type="button" onClick={() => remove(index)}>
                             {t("delete")}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              insert(index + 1, {
+                                date: new Date(),
+                                day: "",
+                                time: "",
+                                placeName: "",
+                                longitude: "",
+                                latitude: "",
+                              })
+                            }
+                          >
+                            {t("insert")}
                           </button>
                         </div>
                       </div>

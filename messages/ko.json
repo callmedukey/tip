@@ -39,7 +39,9 @@
     "purpose": "목적",
     "business": "출장",
     "leisure": "여행",
-    "getAQuote": "다음"
+    "getAQuote": "다음",
+    "cities": "도시"
+    
   },
   "MainSecondForm": {
     "allInclusive": "전체포함 패키지",
@@ -220,7 +222,8 @@
     "longitude": "경도",
     "sendQuote": "견적 보내기",
     "upload": "업로드",
-    "uploading": "업로드중..."
+    "uploading": "업로드중...",
+    "insert": "삽입"
   },
   "updateSchedule": {
     "updateSchedule": "업데이트 일정 / 취소 요청",

@@ -38,7 +38,8 @@
     "purpose": "Purpose",
     "getAQuote": "Next",
     "business": "Business",
-    "leisure": "Leisure"
+    "leisure": "Leisure",
+    "cities": "Cities"
   },
   "MainSecondForm": {
     "allInclusive": "All inclusive package",
@@ -219,7 +220,8 @@
     "latitude": "Latitude",
     "longitude": "Longitude",
     "upload": "Upload",
-    "uploading": "Uploading..."
+    "uploading": "Uploading...",
+    "insert": "Insert"
   },
   "updateSchedule": {
     "updateSchedule": "Update Schedule / Cancelation Requests",

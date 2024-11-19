@@ -38,6 +38,7 @@ import { initFormWithSession } from "@/actions/main-page";
 import { formatDateToUTC } from "@/lib/time-formmater";
 import type { DateRange } from "react-day-picker";
 import { useLocale, useTranslations } from "next-intl";
+import { Checkbox } from "../ui/checkbox";
 
 const MainPageForm = ({
   setState,
@@ -67,7 +68,31 @@ const MainPageForm = ({
       purpose: "",
     },
   });
+  const handleLocaleLogic = (cities: string[], locale: string) => {
+    if (!cities.length) {
+      return t("city");
+    }
 
+    if (locale === "en") {
+      if (cities.length > 1) {
+        return `${cities[0]} & ${cities.length - 1} more`;
+      }
+
+      if (cities.length === 1) {
+        return cities[0];
+      }
+    }
+
+    if (locale === "ko") {
+      if (cities.length > 1) {
+        return `${cities[0]} 외 ${cities.length - 1}`;
+      }
+
+      if (cities.length === 1) {
+        return cities[0];
+      }
+    }
+  };
   form.watch("adults");
   form.watch("infants");
   form.watch("purpose");
@@ -142,6 +167,7 @@ const MainPageForm = ({
       form.setValue("city", [...form.getValues("city"), city]);
     }
   };
+
   form.watch("city");
 
   return (
@@ -151,17 +177,14 @@ const MainPageForm = ({
         className="absolute max-w-[calc(100vw-2rem)] [@media(max-width:1024px)]:max-w-md mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-2 lg:px-6 py-4 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
       >
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center gap-2 lg:max-w-[10rem] min-w-[10rem] w-full overflow-x-auto border-b lg:border-r lg:border-b-0 border-dashed pb-4 lg:pb-0">
+          <DropdownMenuTrigger className="flex z-50 items-center focus:outline-none gap-2 lg:max-w-[14rem] min-w-[14rem] w-full overflow-x-auto border-b lg:border-r lg:border-b-0 border-dashed pb-4 lg:pb-0 px-4 scrollbar-hide">
             <Image
               src={LocationIcon}
               height={32}
               width={32}
-              className=""
               alt="Location Pin"
             />
-            {form.getValues("city").length > 0
-              ? form.getValues("city").join(", ")
-              : t("city")}
+            {handleLocaleLogic(form.getValues("city"), locale)}
           </DropdownMenuTrigger>
           <DropdownMenuContent className="max-h-[20rem] overflow-y-auto scrollbar-hide lg:mt-8 lg:w-fit">
             <FormField
@@ -182,56 +205,29 @@ const MainPageForm = ({
                           {city.country}
                         </DropdownMenuSubTrigger>
                         <DropdownMenuPortal>
-                          <DropdownMenuSubContent>
+                          <DropdownMenuSubContent className="ml-2">
                             {city.cities
                               .sort((a, b) => a.localeCompare(b))
                               .map((city) => (
-                                <DropdownMenuItem
+                                <div
                                   key={city}
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    handleCityChange(city);
-                                  }}
+                                  className="flex items-center gap-2 justify-between"
                                 >
                                   {city}
-                                </DropdownMenuItem>
+                                  <Checkbox
+                                    key={city}
+                                    onClick={(e) => {
+                                      handleCityChange(city);
+                                    }}
+                                    checked={form
+                                      .getValues("city")
+                                      .includes(city)}
+                                  />
+                                </div>
                               ))}
                           </DropdownMenuSubContent>
                         </DropdownMenuPortal>
                       </DropdownMenuSub>
-                      // <DropdownMenuItem key={city} asChild>
-                      //   <FormField
-                      //     control={form.control}
-                      //     name="city"
-                      //     render={({ field }) => {
-                      //       return (
-                      //         <FormItem
-                      //           key={city}
-                      //           className="flex flex-row items-start space-x-3 space-y-0 hover:opacity-60 py-2"
-                      //         >
-                      //           <FormControl>
-                      //             <Checkbox
-                      //               checked={field.value?.includes(city)}
-                      //               className=""
-                      //               onCheckedChange={(checked) => {
-                      //                 return checked
-                      //                   ? field.onChange([...field.value, city])
-                      //                   : field.onChange(
-                      //                       field.value?.filter(
-                      //                         (value) => value !== city
-                      //                       )
-                      //                     );
-                      //               }}
-                      //             />
-                      //           </FormControl>
-                      //           <FormLabel className="font-normal hover:bg-opacity-60">
-                      //             {city}
-                      //           </FormLabel>
-                      //         </FormItem>
-                      //       );
-                      //     }}
-                      //   />
-                      // </DropdownMenuItem>
                     ))}
                 </FormItem>
               )}
@@ -297,12 +293,7 @@ const MainPageForm = ({
                 : t("persons")}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="text-center lg:mt-8">
-              <DropdownMenuItem
-                asChild
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
+              <DropdownMenuItem asChild onClick={(e) => {}}>
                 <div className="flex items-center gap-4">
                   <span className="block text-center flex-1">
                     {t("adults")}
@@ -332,12 +323,7 @@ const MainPageForm = ({
                   </div>
                 </div>
               </DropdownMenuItem>
-              <DropdownMenuItem
-                asChild
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
+              <DropdownMenuItem asChild onClick={(e) => {}}>
                 <div className="flex items-center gap-4">
                   <span className="flex flex-col flex-1">
                     <span>{t("infants")}</span>
