@@ -91,7 +91,7 @@ try {
       },
       data: {
         quoteLink: link,
-        price: price,
+        price: +price,
         currency: currency,
       },
     });
@@ -140,7 +140,7 @@ export const issueQuote = async ({
       },
       data: {
         status: "invoiced",
-        price: price,
+        price: +price,
         currency: currency,
         quoteLink: link,
       },
