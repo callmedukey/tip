@@ -314,8 +314,8 @@ const TravelDetailsMain = ({
                     </div>
                   </div>
                 )}
-                <div className="flex items-start justify-between gap-4">
-                  <div className="grid grid-cols-2 max-w-[500px] gap-x-2 gap-y-6 min-w-[15rem]">
+                <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
+                  <div className="grid grid-cols-2 max-w-[500px] gap-x-2 gap-y-6 min-w-full sm:min-w-[15rem]">
                     {request.summary &&
                       Array.isArray(request.summary) &&
                       request.summary.map((item: any, index) => (
