@@ -271,16 +271,16 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
                           </button>
                           <button
                             type="button"
-                            onClick={() =>
+                            onClick={() => {
                               insert(index + 1, {
-                                date: new Date(),
+                                date: form.getValues(`json.${index}.date`),
                                 day: "",
                                 time: "",
                                 placeName: "",
                                 longitude: "",
                                 latitude: "",
-                              })
-                            }
+                              });
+                            }}
                           >
                             {t("insert")}
                           </button>
