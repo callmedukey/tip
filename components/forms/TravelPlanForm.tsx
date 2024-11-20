@@ -28,7 +28,7 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { saveTravelPlan } from "@/actions/admin";
 import { useSearchParams } from "next/navigation";
@@ -304,7 +304,10 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
                 append({
                   date:
                     fields.length > 0
-                      ? form.getValues(`json.${fields.length - 1}.date`)
+                      ? addDays(
+                          form.getValues(`json.${fields.length - 1}.date`),
+                          1
+                        )
                       : new Date(),
                   day: "",
                   time: "",
