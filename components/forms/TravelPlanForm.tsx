@@ -302,7 +302,10 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
               type="button"
               onClick={() =>
                 append({
-                  date: new Date(),
+                  date:
+                    fields.length > 0
+                      ? form.getValues(`json.${fields.length - 1}.date`)
+                      : new Date(),
                   day: "",
                   time: "",
                   placeName: "",
