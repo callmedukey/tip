@@ -176,7 +176,7 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
                               <FormControl>
                                 <input
                                   {...field}
-                                  className="p-1 ring-1 ring-black font-normal w-16"
+                                  className="p-1 ring-1 ring-black font-normal w-[12rem]"
                                   placeholder="Day X"
                                 />
                               </FormControl>
