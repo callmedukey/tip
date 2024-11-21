@@ -141,7 +141,7 @@ const TravelDetailsMain = ({
       </button>
       <div className="grid lg:grid-cols-[auto_1fr] gap-4 mt-4 pb-60 lg:pb-12 min-h-[min(50vh,400px)]">
         <aside className="bg-[#F1EFEC] rounded-[2rem] overflow-clip relative max-h-[min(60vh,600px)] overflow-y-auto">
-          <div className="py-4 bg-egyptianBlue px-8 flex items-center text-white gap-8 sticky top-0">
+          <div className="py-4 bg-egyptianBlue px-8 flex items-center text-white sm:gap-8 gap-4 sticky top-0">
             <Image
               src={MyTravelPlane}
               width={712}
@@ -238,7 +238,7 @@ const TravelDetailsMain = ({
             </ul>
           )}
           {selectedDay && (
-            <ul className="py-4 space-y-4 max-w-[25rem] w-full px-2">
+            <ul className="py-4 space-y-4 max-w-[25rem] w-full px-2 overflow-y-auto">
               {Array.isArray(travelPlanDays) &&
                 travelPlanDays.length > 0 &&
                 parsePrisma<TravelPlan[]>(request.travelPlan)
