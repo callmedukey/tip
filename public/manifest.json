@@ -6,7 +6,7 @@
   "display": "standalone",
   "orientation": "any",
   "scope": "/",
-  "start_url": "/",
+  "start_url": "https://travelinyourpocket.com",
   "icons": [
     {
       "src": "/icon-48.png",
@@ -61,5 +61,10 @@
       "sizes": "512x512",
       "purpose": "maskable any"
     }
-  ]
+  ],
+  "dir": "auto",
+  "lang": "en",
+  "categories": ["business", "travel"],
+  "description": "Travel in Your Pocket, a simple yet sophisticated travel planner service for your next trip",
+  "id": "tip"
 }

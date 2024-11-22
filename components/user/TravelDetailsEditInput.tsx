@@ -32,7 +32,7 @@ const TravelDetailsEditInput = ({ requestId }: { requestId: number }) => {
   };
 
   return (
-    <div className="lg:bg-[#FAFAFA]/95 bg-[#FAFAFA]  rounded-[2rem] flex flex-col items-center justify-center p-4 lg:mt-0 mt-8">
+    <div className="lg:bg-[#FAFAFA]/95 bg-[#FAFAFA]  rounded-[2rem] flex flex-col items-center justify-center p-4 lg:mt-0 mt-8 w-full ">
       <div className="lg:bg-white rounded-[1rem] py-4 px-2 w-full flex flex-col gap-4 items-center justify-center lg:block">
         <PenLine className="size-6 mx-auto" />
         <Textarea

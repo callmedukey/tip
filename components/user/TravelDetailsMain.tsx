@@ -352,7 +352,7 @@ const TravelDetailsMain = ({
                       </div>
                     )}
                   </div>
-                  <div className="flex-grow">
+                  <div className="flex-grow w-full">
                     <div className="space-y-4">
                       {request.editRequests?.map((editRequest) => (
                         <div

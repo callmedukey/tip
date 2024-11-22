@@ -95,7 +95,7 @@ const SignupForm = () => {
             className={cn(
               "w-full bg-white text-[0.75rem]/[100%] py-4",
               form.getValues("accountType") === "Business" &&
-                "bg-murrey text-white"
+                "bg-[#173881] text-white"
             )}
             type="button"
             onClick={() => onAccountTypeClick("Business")}
@@ -106,7 +106,7 @@ const SignupForm = () => {
             className={cn(
               "w-full bg-white text-[0.75rem]/[100%] py-4",
               form.getValues("accountType") === "Leisure" &&
-                "bg-murrey text-white"
+                "bg-[#173881] text-white"
             )}
             type="button"
             onClick={() => onAccountTypeClick("Leisure")}

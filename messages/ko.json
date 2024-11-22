@@ -41,7 +41,6 @@
     "leisure": "여행",
     "getAQuote": "다음",
     "cities": "도시"
-    
   },
   "MainSecondForm": {
     "allInclusive": "전체포함 패키지",
@@ -148,7 +147,7 @@
     "referrer": "추천인 이메일",
     "newsletter": "뉴스레터 수신 동의",
     "business": "사업자 계정",
-    "leisure": "여가 계정",
+    "leisure": "개인 계정",
     "name": "이름",
     "email": "이메일",
     "password": "비밀번호",

@@ -49,7 +49,7 @@ export const metadata = {
   keywords:
     "Travel in Your Pocket, Travel Mate, Travel Planner, Travel Assistant, Travel Guide, Travel Assistant, Travel Planner, Travel Guide",
   description:
-    "Travel in Your Pocket, a simple yet sophisticated travel planner for your next trip",
+    "Travel in Your Pocket, a simple yet sophisticated travel planner service for your next trip",
   manifest: "/manifest.json",
 };
 
