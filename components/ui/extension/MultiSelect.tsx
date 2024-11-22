@@ -85,7 +85,6 @@ const MultiSelector = ({
 
   const handleSelect = React.useCallback(
     (e: React.SyntheticEvent<HTMLInputElement>) => {
-      e.preventDefault();
       const target = e.currentTarget;
       const selection = target.value.substring(
         target.selectionStart ?? 0,
@@ -222,7 +221,6 @@ const MultiSelectorTrigger = forwardRef<
   const { value, onValueChange, activeIndex } = useMultiSelect();
 
   const mousePreventDefault = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
   }, []);
 
@@ -348,7 +346,6 @@ const MultiSelectorItem = forwardRef<
   const { value: Options, onValueChange, setInputValue } = useMultiSelect();
 
   const mousePreventDefault = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
   }, []);
 

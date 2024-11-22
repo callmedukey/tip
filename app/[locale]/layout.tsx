@@ -18,6 +18,7 @@ import CloudBg from "./_layout-components/CloudBg";
 import Footer from "@/components/Footer";
 import ChannelTalkProvider from "@/components/layout/ChannelTalkProvider";
 import Script from "next/script";
+import InstallPrompt from "@/components/pwa/InstallPrompt";
 const Inter = InterFont({
   subsets: ["latin"],
   display: "swap",
@@ -49,6 +50,7 @@ export const metadata = {
     "Travel in Your Pocket, Travel Mate, Travel Planner, Travel Assistant, Travel Guide, Travel Assistant, Travel Planner, Travel Guide",
   description:
     "Travel in Your Pocket, a simple yet sophisticated travel planner for your next trip",
+  manifest: "/manifest.json",
 };
 
 export default async function Layout({
@@ -63,6 +65,25 @@ export default async function Layout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <ThemeModeScript />
+        <link
+          rel="apple-touch-icon"
+          href="/apple-touch-icon-iphone-60x60.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="60x60"
+          href="/apple-touch-icon-ipad-76x76.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="114x114"
+          href="/apple-touch-icon-iphone-retina-120x120.png"
+        />
+        <link
+          rel="apple-touch-icon"
+        sizes="144x144"
+          href="/apple-touch-icon-ipad-retina-152x152.png"
+        />
       </head>
       <body
         className={`${Inter.variable} ${Pretendard.variable} ${NotoSansKr.variable} ${Garamond.variable} antialiased relative isolated bg-white break-keep lg:min-h-[min(100vh,80rem)]`}
@@ -97,6 +118,7 @@ export default async function Layout({
             </NextIntlClientProvider>
           </ReactQueryContext>
         </GoogleProvider>
+        {/* <InstallPrompt /> */}
       </body>
     </html>
   );
