@@ -302,7 +302,8 @@ const MainPageForm = ({
                     <button
                       type="button"
                       className="text-center w-full flex  rounded-full justify-center items-center"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         if (form.getValues("adults") > 0) {
                           form.setValue("adults", form.getValues("adults") - 1);
                         }
@@ -314,9 +315,10 @@ const MainPageForm = ({
                     <button
                       type="button"
                       className="text-center w-full flex rounded-full justify-center items-center"
-                      onClick={() =>
-                        form.setValue("adults", form.getValues("adults") + 1)
-                      }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        form.setValue("adults", form.getValues("adults") + 1);
+                      }}
                     >
                       <CirclePlus strokeWidth={1} />
                     </button>
@@ -335,7 +337,8 @@ const MainPageForm = ({
                     <button
                       type="button"
                       className="text-center w-full flex  rounded-full justify-center items-center"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         if (form.getValues("infants") > 0) {
                           form.setValue(
                             "infants",
@@ -350,9 +353,10 @@ const MainPageForm = ({
                     <button
                       type="button"
                       className="text-center w-full flex rounded-full justify-center items-center"
-                      onClick={() =>
-                        form.setValue("infants", form.getValues("infants") + 1)
-                      }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        form.setValue("infants", form.getValues("infants") + 1);
+                      }}
                     >
                       <CirclePlus strokeWidth={1} />
                     </button>

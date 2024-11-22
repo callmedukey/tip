@@ -1,20 +1,21 @@
-{"ui":{
+{
+  "ui": {
     "back": "Back",
     "bookNow": "Book Now"
   },
   "HomePage": {
-      "title": "Travel in your Pocket",
-      "title2": "for your best memories",
-      "about": "Go to the about page"
-    },
-    "Header": {
-      "Languages": "Languages",
-      "myTravel": "My Travel",
-      "myProfile": "My Profile",
-      "partnerHotels": "Partner Hotels",
-      "experienceByTip": "Experience by TIP",
-        "about": "About TIP",
-        "blog": "Blog",
+    "title": "Travel in your Pocket",
+    "title2": "for your best memories",
+    "about": "Go to the about page"
+  },
+  "Header": {
+    "Languages": "Languages",
+    "myTravel": "My Travel",
+    "myProfile": "My Profile",
+    "partnerHotels": "Partner Hotels",
+    "experienceByTip": "Experience by TIP",
+    "about": "About TIP",
+    "blog": "Blog",
     "contact": "Contact",
     "alert": "Under Construction"
   },
@@ -54,7 +55,9 @@
     "other": "Other",
     "hasCoupon": "Do you have a coupon code?",
     "enterCoupon": "Enter your coupon code",
-    "submit": "Book Now"
+    "submit": "Book Now",
+    "languageAndTime": "Language and time to be confirmed",
+    "otherRequests": "Let us know if you have any other requests."
   },
   "myTravel": {
     "myTravel": "My Travel",
@@ -98,12 +101,12 @@
     "seeMyInvoice": "See my invoice",
     "details": "Details"
   },
-  "MyTravelListFinalRequestChangeBox":{
+  "MyTravelListFinalRequestChangeBox": {
     "placeholder": "Please let us know if you cannot cancel your trip or have any emergency requests",
     "submit": "Submit",
     "submitting": "Submitting..."
   },
-  "MyTravelDetails":{
+  "MyTravelDetails": {
     "tripDetails": "Trip Details",
     "adminNotes": "Admin Notes",
     "downloads": "Downloads",
@@ -120,7 +123,7 @@
     "created": "Edit request created successfully",
     "confirm": "Are you sure you want to confirm your trip?"
   },
-  "myProfile":{
+  "myProfile": {
     "profile": "Profile",
     "paymentHistory": "Payment History",
     "orderNo": "Order No.",
@@ -193,8 +196,8 @@
     "travelPlan": "Travel Plan",
     "msgToUser": "Message to User",
     "save": "Save",
-    "add":"Add",
-    "remove":"Remove",
+    "add": "Add",
+    "remove": "Remove",
     "sendToUser": "Send to User",
     "quote": "Quote",
     "coupon": "Coupon",
@@ -248,7 +251,7 @@
     "startDate": "From",
     "endDate": "To"
   },
-  "manageSales":{
+  "manageSales": {
     "manageSales": "Manage Sales",
     "searchTerm": "Search Term",
     "orderNo": "Order No.",
@@ -263,7 +266,7 @@
     "currencyFilter": "Currency Filter",
     "none": "None"
   },
-  "manageCoupons":{
+  "manageCoupons": {
     "manageCoupons": "Manage Coupons",
     "number": "No.",
     "couponCode": "Coupon Code",
@@ -341,7 +344,7 @@
   "partnerHotels": {
     "catchPhrase": "We are pleased to introduce a selection of carefully curated hotels. We hope you create wonderful memories with great discounts and benefits."
   },
-  "ContactPage": {  
+  "ContactPage": {
     "contact": "Contact",
     "firstName": "First Name",
     "lastName": "Last Name",

@@ -275,7 +275,7 @@ const ThirdScreen = ({
             back
           </Button>
           <h3 className="text-[2rem]/[100%] font-medium lg:font-normal lg:text-[1.875rem]">
-            Custom package
+            {t("custom")}
           </h3>
           <Form {...form}>
             <form
@@ -321,7 +321,11 @@ const ThirdScreen = ({
                                 />
                               </FormControl>
                               <FormLabel className="font-normal text-base">
-                                {item.label}
+                                {locale === "ko"
+                                  ? packageOptionsKR[
+                                      item.id as keyof typeof packageOptionsKR
+                                    ]
+                                  : item.label}
                               </FormLabel>
                             </FormItem>
                           );
@@ -369,7 +373,11 @@ const ThirdScreen = ({
                                   />
                                 </FormControl>
                                 <FormLabel className="font-normal text-base">
-                                  {item.label}
+                                  {locale === "ko"
+                                    ? packageOptionsKR[
+                                        item.id as keyof typeof packageOptionsKR
+                                      ]
+                                    : item.label}
                                 </FormLabel>
                               </FormItem>
                             );
@@ -481,14 +489,22 @@ const ThirdScreen = ({
                               </FormControl>
                               {index === 0 ? (
                                 <FormLabel className="font-normal text-base flex flex-col">
-                                  <span>{item.label}</span>
                                   <span>
-                                    Language and time to be confirmed*
+                                    {locale === "ko"
+                                      ? packageOptionsKR[
+                                          item.id as keyof typeof packageOptionsKR
+                                        ]
+                                      : item.label}
                                   </span>
+                                  <span>{t("languageAndTime")}</span>
                                 </FormLabel>
                               ) : (
                                 <FormLabel className="font-normal text-base">
-                                  {item.label}
+                                  {locale === "ko"
+                                    ? packageOptionsKR[
+                                        item.id as keyof typeof packageOptionsKR
+                                      ]
+                                    : item.label}
                                 </FormLabel>
                               )}
                             </FormItem>
@@ -538,7 +554,11 @@ const ThirdScreen = ({
                                   />
                                 </FormControl>
                                 <FormLabel className="font-normal text-base">
-                                  {item.label}
+                                  {locale === "ko"
+                                    ? packageOptionsKR[
+                                        item.id as keyof typeof packageOptionsKR
+                                      ]
+                                    : item.label}
                                 </FormLabel>
                               </FormItem>
                             );
@@ -587,7 +607,11 @@ const ThirdScreen = ({
                                   />
                                 </FormControl>
                                 <FormLabel className="font-normal text-base">
-                                  {item.label}
+                                  {locale === "ko"
+                                    ? packageOptionsKR[
+                                        item.id as keyof typeof packageOptionsKR
+                                      ]
+                                    : item.label}
                                 </FormLabel>
                               </FormItem>
                             );
@@ -604,13 +628,14 @@ const ThirdScreen = ({
                   render={({ field }) => (
                     <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
                       <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
-                        Other<span className="text-egyptianBlue">*</span>
+                        {t("other")}
+                        <span className="text-egyptianBlue">*</span>
                       </FormLabel>
                       <FormControl>
                         <Textarea
                           {...field}
                           className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
-                          placeholder="Let us know if you have any other requests."
+                          placeholder={t("otherRequests")}
                           rows={3}
                         />
                       </FormControl>
@@ -623,14 +648,14 @@ const ThirdScreen = ({
                   render={({ field }) => (
                     <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
                       <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
-                        Do you have a coupon code?{" "}
+                        {t("hasCoupon")}{" "}
                         <span className="text-egyptianBlue"></span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
-                          placeholder="Enter your coupon code"
+                          placeholder={t("enterCoupon")}
                         />
                       </FormControl>
                     </FormItem>
@@ -640,7 +665,7 @@ const ThirdScreen = ({
                   type="submit"
                   className="bg-egyptianBlue hover:bg-egyptianBlue hover:opacity-80 rounded-full w-full max-w-xs py-6 mt-12 mx-auto flex items-center justify-center shadow-none text-egyptianBlue border-egyptianBlue border font-medium lg:mt-16 text-white"
                 >
-                  Next
+                  {t("submit")}
                 </Button>
               </div>
             </form>
