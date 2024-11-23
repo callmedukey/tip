@@ -21,6 +21,8 @@ import { cancelTrip, confirmTrip } from "@/actions/user";
 import { useRouter } from "@/i18n/routing";
 import TravelDetailsDownloadButton from "./TravelDetailsDownloadButton";
 import { useTranslations } from "next-intl";
+import MyTravelPDF from "./MyTravelPDF";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 interface TravelDetailsMainProps extends Request {
   editRequests: EditRequest[];
@@ -292,67 +294,78 @@ const TravelDetailsMain = ({
           >
             {!selectedMarker && (
               <div className="p-8">
-                <h1 className="flex items-center gap-4 text-[1.875rem] font-medium mb-24">
-                  <Image
-                    src={MyTravelPlane}
-                    width={712}
-                    height={656}
-                    placeholder="blur"
-                    quality={100}
-                    alt="My travel plane"
-                    className="max-w-[100px] w-full h-auto shrink-0 rounded-[1rem]"
-                  />
-                  {t("tripDetails")}
+                <h1 className="flex items-center gap-4 text-[1.875rem] font-medium mb-24 justify-between">
+                  <span className="flex items-center gap-4">
+                    <Image
+                      src={MyTravelPlane}
+                      width={712}
+                      height={656}
+                      placeholder="blur"
+                      quality={100}
+                      alt="My travel plane"
+                      className="max-w-[100px] w-full h-auto shrink-0 rounded-[1rem]"
+                    />
+                    {t("tripDetails")}
+                  </span>
+                  {request.paid ||
+                  request.confirmed ||
+                  request.status === "confirmed" ? (
+                    <PDFDownloadLink
+                      document={<MyTravelPDF request={request} />}
+                    >
+                      <span className="text-sm">{t("downloadAsPDF")}</span>
+                    </PDFDownloadLink>
+                  ) : null}
                 </h1>
-                {request.adminNotes && (
-                  <div className="bg-[#E5E5E5]  rounded-[2rem] flex flex-col items-center justify-center p-4 mb-6">
-                    <h2 className="text-[1.25rem] font-medium border-b border-black/40">
-                      {t("adminNotes")}
-                    </h2>
-                    <div className="text-black whitespace-pre-wrap w-full mt-2 font-pretendard">
-                      {request.adminNotes}
-                    </div>
-                  </div>
-                )}
-                <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
-                  <div className="grid grid-cols-2 max-w-[500px] gap-x-2 gap-y-6 min-w-full sm:min-w-[15rem]">
-                    {request.summary &&
-                      Array.isArray(request.summary) &&
-                      request.summary.map((item: any, index) => (
-                        <div
-                          key={index + item.label}
-                          className="flex flex-col gap-2"
-                        >
-                          <span className="text-formText text-[1.25rem] font-medium">
-                            {item.label}
-                          </span>
-                          <span className="text-accountGrayText text-[1rem] font-normal">
-                            {item.value}
-                          </span>
-                        </div>
-                      ))}
-                    {request.uploads && request.uploads.length > 0 && (
-                      <div className="col-span-full">
-                        <h2 className="text-[1.25rem] font-medium border-b border-black/40">
-                          {t("downloads")}
-                        </h2>
-                        <div>
-                          {request.uploads.map((upload) => (
-                            <div
-                              key={upload.id}
-                              className="flex items-center justify-between gap-2 border-b border-accountGrayText py-2"
-                            >
-                              <span className="max-w-[15rem] text-wrap break-words">
-                                {upload.title}
-                              </span>
-                              <TravelDetailsDownloadButton upload={upload} />
-                            </div>
-                          ))}
-                        </div>
+                <div className="grid grid-cols-2 gap-x-2 gap-y-6 min-w-full sm:min-w-[15rem] mb-12">
+                  {request.summary &&
+                    Array.isArray(request.summary) &&
+                    request.summary.map((item: any, index) => (
+                      <div
+                        key={index + item.label}
+                        className="flex flex-col gap-2"
+                      >
+                        <span className="text-formText text-[1.25rem] font-medium">
+                          {item.label}
+                        </span>
+                        <span className="text-accountGrayText text-[1rem] font-normal">
+                          {item.value}
+                        </span>
                       </div>
-                    )}
-                  </div>
-                  <div className="flex-grow w-full">
+                    ))}
+                  {request.uploads && request.uploads.length > 0 && (
+                    <div className="col-span-full">
+                      <h2 className="text-[1.25rem] font-medium border-b border-black/40">
+                        {t("downloads")}
+                      </h2>
+                      <div>
+                        {request.uploads.map((upload) => (
+                          <div
+                            key={upload.id}
+                            className="flex items-center justify-between gap-2 border-b border-accountGrayText py-2"
+                          >
+                            <span className="max-w-[15rem] text-wrap break-words">
+                              {upload.title}
+                            </span>
+                            <TravelDetailsDownloadButton upload={upload} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="flex items-start justify-between gap-4 flex-col lg:flex-row">
+                  {request.adminNotes && (
+                    <div className="bg-[#E5E5E5]  rounded-[2rem] flex flex-col items-center justify-center p-4 mb-6 basis-1/2 flex-grow w-full">
+                      <h2 className="text-[1.25rem] font-medium border-b border-black/40">
+                        {t("adminNotes")}
+                      </h2>
+                      <div className="text-black whitespace-pre-wrap w-full mt-2 font-pretendard">
+                        {request.adminNotes}
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex-grow w-full lg:basis-1/2">
                     <div className="space-y-4">
                       {request.editRequests?.map((editRequest) => (
                         <div

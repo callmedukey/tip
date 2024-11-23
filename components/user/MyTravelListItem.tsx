@@ -37,13 +37,11 @@ const MyTravelListItem = ({
 
     if (res.success && !request.paid) {
       alert(t("tripCanceled"));
-    }
-
-    else {
+    } else {
       alert(res.message);
     }
   };
-  
+
   if (isLoading)
     return (
       <li className="grid lg:grid-rows-[6rem,auto,6rem] grid-rows-[repeat(3,auto)] py-4">
@@ -118,13 +116,15 @@ const MyTravelListItem = ({
           <div className="flex lg:flex-row flex-col items-center text-center lg:text-left lg:justify-between lg:items-start lg:gap-0 gap-3">
             <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium mb-6 flex flex-col gap-2 lg:flex-row">
               {t("myTravel")}
-              {request.paid && (
+              {request.paid ||
+              request.status === "confirmed" ||
+              request.confirmed ? (
                 <PDFDownloadLink document={<MyTravelPDF request={request} />}>
                   <span className="underline underline-offset-4 text-sm ml-4">
                     {t("downloadAsPDF")}
                   </span>
                 </PDFDownloadLink>
-              )}
+              ) : null}
             </h2>
 
             {request.status !== "pending" ? (

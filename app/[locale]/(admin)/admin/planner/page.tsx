@@ -13,6 +13,7 @@ import PlannerSaveAndSend from "./_components/PlannerSaveAndSend";
 import AdminFileUploads from "./_components/AdminFileUploads";
 import AdminRequestNote from "./_components/AdminRequestNote";
 import { getTranslations } from "next-intl/server";
+import DownloadWrapper from "./_components/DownloadWrapper";
 
 export const dynamic = "force-dynamic";
 
@@ -160,6 +161,7 @@ const AdminPlannerPage = async ({
           <h2 className="text-xl font-bold">{t("travelSummary")}</h2>
         </div>
         <TravelSummaryForm summary={order.summary as SummaryArray} />
+        {order.summary && <DownloadWrapper order={order} />}
         <div className="mt-12">
           <h2 className="text-xl font-bold">{t("travelPlan")}</h2>
         </div>

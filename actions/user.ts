@@ -80,32 +80,35 @@ export const createEditRequest = async ({
           requestId: +requestId,
           editRequestType: "normal",
         },
-        
       }),
       prisma.request.update({
         where: { id: +requestId },
         data: { status: "initialEditing" },
-        include:{
-          user:{
-            select:{
+        include: {
+          user: {
+            select: {
               name: true,
-            }
-          }
-        }
+            },
+          },
+        },
       }),
     ]);
 
-    // For Staff 
-  sendEmailInstance({
-    params: { name: updatedRequest.user.name, orderNumber: updatedRequest.id.toString()},
-    emailTemplate:
-staffEmailTemplate.requestSubmitted,
-    to: "travelmate@travelinyourpocket.com",
-  }).then((data) => {
-    console.log("Sign up email sent to staff successfully");
-  }).catch((error) => {
-    console.log(error);
-  });
+    // For Staff
+    sendEmailInstance({
+      params: {
+        name: updatedRequest.user.name,
+        orderNumber: updatedRequest.id.toString(),
+      },
+      emailTemplate: staffEmailTemplate.requestSubmitted,
+      to: "travelmate@travelinyourpocket.com",
+    })
+      .then((data) => {
+        console.log("Sign up email sent to staff successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     if (!created || !updatedRequest)
       return { message: "Failed to create edit request" };
@@ -126,7 +129,7 @@ export const cancelTrip = async (requestId: number, isPaid: boolean) => {
     if (isPaid) {
       updatedRequest = await prisma.request.update({
         where: { id: +requestId, userId: session.userId },
-        data: {  status: "canceled" },
+        data: { status: "canceled" },
       });
     } else {
       updatedRequest = await prisma.request.update({
@@ -152,7 +155,7 @@ export const confirmTrip = async (requestId: number) => {
 
     const updatedRequest = await prisma.request.update({
       where: { id: +requestId, userId: session.userId, paid: false },
-      data: { status: "confirmed" },
+      data: { status: "confirmed", confirmed: true },
       include: {
         user: {
           select: {
@@ -166,10 +169,11 @@ export const confirmTrip = async (requestId: number) => {
 
     const locale = await getLocale();
     sendEmailInstance({
-      params: {
-      },
+      params: {},
       emailTemplate:
-        locale === "ko" ? emailTemplate.requestConfirmedKO : emailTemplate.requestConfirmed,
+        locale === "ko"
+          ? emailTemplate.requestConfirmedKO
+          : emailTemplate.requestConfirmed,
       to: updatedRequest.user.email,
     });
     return { success: true };
@@ -199,13 +203,13 @@ export const submitEmergencyRequest = async (
       prisma.request.update({
         where: { id: +requestId },
         data: { status: "editing" },
-        include:{
-          user:{
-            select:{
+        include: {
+          user: {
+            select: {
               name: true,
-            }
-          }
-        }
+            },
+          },
+        },
       }),
     ]);
 
@@ -213,16 +217,19 @@ export const submitEmergencyRequest = async (
       return { message: "Failed to create edit request" };
 
     sendEmailInstance({
-      params: { name: updatedRequest.user.name, orderNumber: updatedRequest.id.toString()},
-      emailTemplate:
-  staffEmailTemplate.requestSubmitted,
+      params: {
+        name: updatedRequest.user.name,
+        orderNumber: updatedRequest.id.toString(),
+      },
+      emailTemplate: staffEmailTemplate.requestSubmitted,
       to: "travelmate@travelinyourpocket.com",
-    }).then((data) => {
-      console.log("Sign up email sent to staff successfully");
-    }).catch((error) => {
-      console.log(error);
-    });
-  
+    })
+      .then((data) => {
+        console.log("Sign up email sent to staff successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     return { message: "Edit request created successfully" };
   } catch (error) {

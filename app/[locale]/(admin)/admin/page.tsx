@@ -6,7 +6,7 @@ import React from "react";
 const AdminPage = async () => {
   const locale = await getLocale();
   return (
-    <main className="flex items-center justify-center ">
+    <main className="flex items-start justify-center min-h-screen">
       <div className="bg-white rounded-[2rem] max-w-lg w-full mx-auto p-4 py-12">
         <nav className="flex flex-col gap-4 items-center">
           {(locale === "ko" ? adminLinksKR : adminLinksEN).map((adminLink) => (

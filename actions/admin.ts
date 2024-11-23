@@ -77,8 +77,18 @@ export const saveTravelPlan = async ({
   }
 };
 
-export const saveQuote = async ({requestId, price, currency, link}:{requestId:string, price:number, currency:string, link:string})=>{
-try {
+export const saveQuote = async ({
+  requestId,
+  price,
+  currency,
+  link,
+}: {
+  requestId: string;
+  price: number;
+  currency: string;
+  link: string;
+}) => {
+  try {
     const session = await verifySession();
 
     if (!session || !session.userId || session.accountType !== "Admin") {
@@ -102,19 +112,16 @@ try {
     revalidatePath("/[locale]/admin/manage-orders", "page");
     revalidatePath("/[locale]/admin/update-request", "page");
 
-
-
     if (!updatedRequest) {
       return { error: "업데이트 오류입니다" };
     }
 
-    
     return { success: true };
   } catch (error) {
     console.log(error);
     return { error: "서버에서 업데이트 오류입니다" };
   }
-}
+};
 
 export const issueQuote = async ({
   requestId,
@@ -163,18 +170,25 @@ export const issueQuote = async ({
     revalidatePath("/[locale]/admin/update-request", "page");
 
     const locale = await getLocale();
-   
 
     sendEmailInstance({
       params: {},
       emailTemplate:
-        locale === "ko" ? emailTemplate.invoiceIssuedKO : emailTemplate.invoiceIssued,
+        locale === "ko"
+          ? emailTemplate.invoiceIssuedKO
+          : emailTemplate.invoiceIssued,
       to: updatedRequest.user.email,
-    }).then((data) => {
-      console.log("Invoice issued email sent to " + updatedRequest.user.email + " successfully");
-    }).catch((error) => {
-      console.log(error);
-    });
+    })
+      .then((data) => {
+        console.log(
+          "Invoice issued email sent to " +
+            updatedRequest.user.email +
+            " successfully"
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     return { success: true };
   } catch (error) {
     console.log(error);
@@ -232,7 +246,7 @@ export const togglePaid = async ({
         paidAt: !currentStatus == true ? dateToUTC(new Date()) : null,
         status: !currentStatus == true ? "paid" : undefined,
       },
-      include:{
+      include: {
         user: {
           select: {
             email: true,
@@ -250,10 +264,11 @@ export const togglePaid = async ({
     const locale = await getLocale();
     if (updatedRequest.paid) {
       sendEmailInstance({
-        params: {
-        },
+        params: {},
         emailTemplate:
-          locale === "ko" ? emailTemplate.paymentSuccessKO : emailTemplate.paymentSuccess,
+          locale === "ko"
+            ? emailTemplate.paymentSuccessKO
+            : emailTemplate.paymentSuccess,
         to: updatedRequest.user.email,
       });
     }
@@ -308,13 +323,21 @@ export const sendRequestToCustomer = async ({
         name: updatedRequest.user.name,
       },
       emailTemplate:
-        locale === "ko" ? emailTemplate.requestEditedKO : emailTemplate.requestEdited,
+        locale === "ko"
+          ? emailTemplate.requestEditedKO
+          : emailTemplate.requestEdited,
       to: updatedRequest.user.email,
-    }).then((data) => {
-      console.log("Request confirmed email sent to " + updatedRequest.user.email + " successfully");
-    }).catch((error) => {
-      console.log(error);
-    });
+    })
+      .then((data) => {
+        console.log(
+          "Request confirmed email sent to " +
+            updatedRequest.user.email +
+            " successfully"
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     return { success: true };
   } catch (error) {
@@ -355,10 +378,11 @@ export const updateUserLevel = async ({
 
     const locale = await getLocale();
     sendEmailInstance({
-      params: {
-      },
+      params: {},
       emailTemplate:
-        locale === "ko" ? emailTemplate.accountLeveledUpKO : emailTemplate.accountLeveledUp,
+        locale === "ko"
+          ? emailTemplate.accountLeveledUpKO
+          : emailTemplate.accountLeveledUp,
       to: updatedUser.email,
     });
     return { success: true };
@@ -495,9 +519,8 @@ export const updateRequestNote = async ({
       return { message: "Unauthorized Access" };
     }
 
-
-    if (!note.trim() || !requestId){
-      return {message:"Note cannot be empty"}
+    if (!note.trim() || !requestId) {
+      return { message: "Note cannot be empty" };
     }
     const updatedRequest = await prisma.request.update({
       where: {
@@ -516,5 +539,51 @@ export const updateRequestNote = async ({
   } catch (error) {
     console.error(error);
     return { message: "Server Error - Updating Request Note" };
+  }
+};
+
+export const importTravelPlan = async ({
+  targetId,
+  currentId,
+}: {
+  targetId: string;
+  currentId: string;
+}) => {
+  try {
+    const session = await verifySession();
+    if (!session || !session.userId || session.accountType !== "Admin") {
+      return { error: "Unauthorized Access" };
+    }
+
+    const target = await prisma.request.findUnique({
+      where: {
+        id: +targetId,
+      },
+      select: {
+        travelPlan: true,
+      },
+    });
+
+    if (!target) {
+      return { message: "Request not found" };
+    }
+
+    const updated = await prisma.request.update({
+      where: {
+        id: +currentId,
+      },
+      data: {
+        travelPlan: target.travelPlan as any,
+      },
+    });
+
+    if (!updated) {
+      return { message: "Error updating travel plan" };
+    }
+
+    return { success: true, travelPlan: target.travelPlan };
+  } catch (error) {
+    console.error(error);
+    return { message: "Server Error - Importing Travel Plan" };
   }
 };

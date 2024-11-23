@@ -39,11 +39,11 @@ async function generateSplashScreens() {
         width: size.width,
         height: size.height,
         channels: 4,
-        background: { r: 24, g: 157, b: 251 }, // #189DFB
+        background: { r: 3, g: 23, b: 50 }, // #189DFB
       },
     })
-      .jpeg({ quality: 100 })
-      .toFile(`./public/splash/apple-splash-${size.width}-${size.height}.jpg`);
+      .png({ quality: 100 })
+      .toFile(`./public/splash/apple-splash-${size.width}-${size.height}.png`);
   }
 }
 

@@ -30,12 +30,16 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { addDays, format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { saveTravelPlan } from "@/actions/admin";
+import { importTravelPlan, saveTravelPlan } from "@/actions/admin";
 import { useSearchParams } from "next/navigation";
 import { formatDateToUTC } from "@/lib/time-formmater";
 import { useTranslations } from "next-intl";
+import { Input } from "../ui/input";
+import { useState } from "react";
 
 const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
+  const [importing, setImporting] = useState(false);
+  const [targetId, setTargetId] = useState("");
   const t = useTranslations("adminPlanner");
   const searchParams = useSearchParams();
   const requestId = searchParams.get("id");
@@ -90,239 +94,272 @@ const TravelPlanForm = ({ plan }: { plan?: TravelPlanArray | null }) => {
     move(startIndex, endIndex);
   };
 
+  const onImport = async () => {
+    if (!requestId) return;
+    setImporting(true);
+    const response = await importTravelPlan({
+      targetId,
+      currentId: requestId!,
+    });
+    if (response?.message) {
+      setImporting(false);
+      return alert(response.message);
+    }
+
+    if (response?.travelPlan) {
+      form.reset({ json: response.travelPlan as any });
+    }
+    setImporting(false);
+  };
+
   return (
-    <Form {...form}>
-      <DragDropContext
-        onDragEnd={onDragEnd}
-        onDragStart={() => {}}
-        onDragUpdate={() => {}}
-      >
-        <form
-          className="mt-6 w-full overflow-x-auto"
-          onSubmit={form.handleSubmit(onSubmit)}
+    <>
+      <p className="font-medium mt-6 mb-2">주문번호 입력 후 덮어쓰기</p>
+      <div className="flex items-center gap-4 max-w-lg">
+        <Input
+          type="text"
+          className="bg-white border-black"
+          placeholder="주문번호"
+          value={targetId}
+          onChange={(e) => setTargetId(e.target.value)}
+        />
+        <Button variant="outline" onClick={onImport} disabled={importing}>
+          불러오기
+        </Button>
+      </div>
+      <Form {...form}>
+        <DragDropContext
+          onDragEnd={onDragEnd}
+          onDragStart={() => {}}
+          onDragUpdate={() => {}}
         >
-          <Droppable droppableId="droppable">
-            {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                {fields.map((field, index) => (
-                  <Draggable
-                    key={field.id}
-                    draggableId={field.id}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <div
-                        className="flex gap-4 items-center h-12 px-4 relative isolate"
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                      >
-                        <FormField
-                          control={form.control}
-                          name={`json.${index}.date`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <Popover>
-                                  <PopoverTrigger asChild>
-                                    <Button
-                                      variant={"outline"}
-                                      className={cn(
-                                        "justify-start text-left font-normal outline-none border-none focus:outline-none shadow-none flex items-center gap-6 lg:gap-2 ring-black rounded-none ring-1 w-[10rem] hover:bg-transparent pl-1 lg:pl-4"
-                                        // !searchDate && "text-muted-foreground"
-                                      )}
+          <form
+            className="mt-6 w-full overflow-x-auto"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <Droppable droppableId="droppable">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  {fields.map((field, index) => (
+                    <Draggable
+                      key={field.id}
+                      draggableId={field.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          className="flex gap-4 items-center h-12 px-4 relative isolate"
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                        >
+                          <FormField
+                            control={form.control}
+                            name={`json.${index}.date`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Popover>
+                                    <PopoverTrigger asChild>
+                                      <Button
+                                        variant={"outline"}
+                                        className={cn(
+                                          "justify-start text-left font-normal outline-none border-none focus:outline-none shadow-none flex items-center gap-6 lg:gap-2 ring-black rounded-none ring-1 w-[10rem] hover:bg-transparent pl-1 lg:pl-4"
+                                          // !searchDate && "text-muted-foreground"
+                                        )}
+                                      >
+                                        <Image
+                                          src={CalendarIcon}
+                                          alt="Calendar"
+                                          width={24}
+                                          height={24}
+                                          className="-translate-y-0.5"
+                                        />
+                                        {field.value ? (
+                                          format(field.value, "yyyy-MM-dd")
+                                        ) : (
+                                          <span>{t("date")}</span>
+                                        )}
+                                      </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent
+                                      className="w-auto p-0 mt-8"
+                                      align="start"
                                     >
-                                      <Image
-                                        src={CalendarIcon}
-                                        alt="Calendar"
-                                        width={24}
-                                        height={24}
-                                        className="-translate-y-0.5"
+                                      <Calendar
+                                        locale={ko}
+                                        mode="single"
+                                        selected={
+                                          new Date(field.value as Date) ||
+                                          undefined
+                                        }
+                                        onSelect={(day) =>
+                                          field.onChange(day || null)
+                                        }
                                       />
-                                      {field.value ? (
-                                        format(field.value, "yyyy-MM-dd")
-                                      ) : (
-                                        <span>{t("date")}</span>
-                                      )}
-                                    </Button>
-                                  </PopoverTrigger>
-                                  <PopoverContent
-                                    className="w-auto p-0 mt-8"
-                                    align="start"
-                                  >
-                                    <Calendar
-                                      locale={ko}
-                                      mode="single"
-                                      selected={
-                                        new Date(field.value as Date) ||
-                                        undefined
-                                      }
-                                      onSelect={(day) =>
-                                        field.onChange(day || null)
-                                      }
-                                    />
-                                  </PopoverContent>
-                                </Popover>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name={`json.${index}.day`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <input
-                                  {...field}
-                                  className="p-1 ring-1 ring-black font-normal w-[12rem]"
-                                  placeholder="Day X"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name={`json.${index}.time`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <input
-                                  {...field}
-                                  className="p-1 ring-1 ring-black font-normal w-16"
-                                  placeholder="00:00"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name={`json.${index}.placeName`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <input
-                                  {...field}
-                                  className="p-1 ring-1 ring-black font-normal"
-                                  placeholder={t("placeName")}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name={`json.${index}.latitude`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <input
-                                  {...field}
-                                  className="p-1 ring-1 ring-black font-normal"
-                                  placeholder={t("latitude")}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name={`json.${index}.longitude`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <input
-                                  {...field}
-                                  className="p-1 ring-1 ring-black font-normal"
-                                  placeholder={t("longitude")}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                                    </PopoverContent>
+                                  </Popover>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`json.${index}.day`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <input
+                                    {...field}
+                                    className="p-1 ring-1 ring-black font-normal w-[12rem]"
+                                    placeholder="Day X"
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`json.${index}.time`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <input
+                                    {...field}
+                                    className="p-1 ring-1 ring-black font-normal w-16"
+                                    placeholder="00:00"
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`json.${index}.placeName`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <input
+                                    {...field}
+                                    className="p-1 ring-1 ring-black font-normal"
+                                    placeholder={t("placeName")}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`json.${index}.latitude`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <input
+                                    {...field}
+                                    className="p-1 ring-1 ring-black font-normal"
+                                    placeholder={t("latitude")}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name={`json.${index}.longitude`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <input
+                                    {...field}
+                                    className="p-1 ring-1 ring-black font-normal"
+                                    placeholder={t("longitude")}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
 
-                        <div className="flex justify-end items-center gap-4 col-span-2">
-                          {index > 0 && (
+                          <div className="flex justify-end items-center gap-4 col-span-2">
+                            {index > 0 && (
+                              <button
+                                type="button"
+                                onClick={() => move(index, index - 1)}
+                              >
+                                {t("up")}
+                              </button>
+                            )}
+                            {index < fields.length - 1 && (
+                              <button
+                                type="button"
+                                onClick={() => move(index, index + 1)}
+                              >
+                                {t("down")}
+                              </button>
+                            )}
+                            <button type="button" onClick={() => remove(index)}>
+                              {t("delete")}
+                            </button>
                             <button
                               type="button"
-                              onClick={() => move(index, index - 1)}
+                              onClick={() => {
+                                insert(index + 1, {
+                                  date: form.getValues(`json.${index}.date`),
+                                  day: "",
+                                  time: "",
+                                  placeName: "",
+                                  longitude: "",
+                                  latitude: "",
+                                });
+                              }}
                             >
-                              {t("up")}
+                              {t("insert")}
                             </button>
-                          )}
-                          {index < fields.length - 1 && (
-                            <button
-                              type="button"
-                              onClick={() => move(index, index + 1)}
-                            >
-                              {t("down")}
-                            </button>
-                          )}
-                          <button type="button" onClick={() => remove(index)}>
-                            {t("delete")}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              insert(index + 1, {
-                                date: form.getValues(`json.${index}.date`),
-                                day: "",
-                                time: "",
-                                placeName: "",
-                                longitude: "",
-                                latitude: "",
-                              });
-                            }}
-                          >
-                            {t("insert")}
-                          </button>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
 
-          <div className="flex justify-end items-center gap-4 mt-4">
-            <Button variant="outline" type="submit">
-              {t("save")}
-            </Button>
-            <Button
-              type="button"
-              onClick={() =>
-                append({
-                  date:
-                    fields.length > 0
-                      ? addDays(
-                          form.getValues(`json.${fields.length - 1}.date`),
-                          1
-                        )
-                      : new Date(),
-                  day: "",
-                  time: "",
-                  placeName: "",
-                  longitude: "",
-                  latitude: "",
-                })
-              }
-            >
-              {t("add")}
-            </Button>
-          </div>
-        </form>
-      </DragDropContext>
-    </Form>
+            <div className="flex justify-end items-center gap-4 mt-4">
+              <Button variant="outline" type="submit">
+                {t("save")}
+              </Button>
+              <Button
+                type="button"
+                onClick={() =>
+                  append({
+                    date:
+                      fields.length > 0
+                        ? addDays(
+                            form.getValues(`json.${fields.length - 1}.date`),
+                            1
+                          )
+                        : new Date(),
+                    day: "",
+                    time: "",
+                    placeName: "",
+                    longitude: "",
+                    latitude: "",
+                  })
+                }
+              >
+                {t("add")}
+              </Button>
+            </div>
+          </form>
+        </DragDropContext>
+      </Form>
+    </>
   );
 };
 

@@ -107,6 +107,7 @@
     "submitting": "제출중..."
   },
   "MyTravelDetails": {
+    "downloadAsPDF": "PDF 다운로드",
     "tripDetails": "여행 상세",
     "adminNotes": "관리자 노트",
     "downloads": "다운로드",
@@ -174,6 +175,8 @@
     "planner": "플래너"
   },
   "adminPlanner": {
+    "totalPrice": "총액",
+    "downloadAsPDF": "PDF 다운로드",
     "planner": "플래너",
     "orderNo": "주문번호",
     "name": "이름",

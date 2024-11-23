@@ -107,6 +107,7 @@
     "submitting": "Submitting..."
   },
   "MyTravelDetails": {
+    "downloadAsPDF": "Download as PDF",
     "tripDetails": "Trip Details",
     "adminNotes": "Admin Notes",
     "downloads": "Downloads",
@@ -174,6 +175,8 @@
     "planner": "Planner"
   },
   "adminPlanner": {
+    "downloadAsPDF": "Download as PDF",
+    "totalPrice": "Total Amount",
     "planner": "Planner",
     "orderNo": "Order No.",
     "name": "Name",
