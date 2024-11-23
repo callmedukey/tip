@@ -23,6 +23,7 @@ import TravelDetailsDownloadButton from "./TravelDetailsDownloadButton";
 import { useTranslations } from "next-intl";
 import MyTravelPDF from "./MyTravelPDF";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import TravelDetailsConfirmDialog from "./TravelDetailsConfirmDialog";
 
 interface TravelDetailsMainProps extends Request {
   editRequests: EditRequest[];
@@ -47,6 +48,7 @@ const TravelDetailsMain = ({
 
   const t = useTranslations("MyTravelDetails");
   const ui = useTranslations("ui");
+  const [openDialog, setOpenDialog] = useState(false);
 
   const travelPlanDays = useMemo(() => {
     if (!request.travelPlan) return [];
@@ -83,8 +85,7 @@ const TravelDetailsMain = ({
     }
 
     if (res.success) {
-      alert(t("confirmed"));
-      window.location.reload();
+      setOpenDialog(true);
     }
     setLoading(false);
   };
@@ -442,6 +443,7 @@ const TravelDetailsMain = ({
           </div>
         </section>
       </div>
+      <TravelDetailsConfirmDialog open={openDialog} setOpen={setOpenDialog} />
     </>
   );
 };

@@ -112,7 +112,7 @@ export const createEditRequest = async ({
 
     if (!created || !updatedRequest)
       return { message: "Failed to create edit request" };
-    return { message: "Edit request created successfully" };
+    return { success: true };
   } catch (error) {
     console.error(error);
     return { message: "Failed to create edit request" };

@@ -5,10 +5,12 @@ import React, { useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { createEditRequest } from "@/actions/user";
 import { useTranslations } from "next-intl";
+import EditDialog from "./EditDialog";
 
 const TravelDetailsEditInput = ({ requestId }: { requestId: number }) => {
   const t = useTranslations("MyTravelDetails");
   const [loading, setLoading] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [text, setText] = useState("");
 
   const handleSubmit = async () => {
@@ -24,9 +26,10 @@ const TravelDetailsEditInput = ({ requestId }: { requestId: number }) => {
 
     if (res.message) {
       alert(res.message);
-    } else {
-      alert(t("created"));
-      window.location.reload();
+    }
+
+    if (res.success) {
+      setEditDialogOpen(true);
     }
     setLoading(false);
   };
@@ -49,6 +52,7 @@ const TravelDetailsEditInput = ({ requestId }: { requestId: number }) => {
       >
         {t("submit")}
       </button>
+      <EditDialog open={editDialogOpen} setOpen={setEditDialogOpen} />
     </div>
   );
 };

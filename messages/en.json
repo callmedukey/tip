@@ -379,5 +379,15 @@
     "50mil": "Yearly spending +50mil KRW",
     "100mil": "Yearly spending +100mil KRW",
     "500mil": "Yearly spending +500mil KRW"
+  },
+  "EditDialog": {
+    "title": "You have requested edits",
+    "line1": "Our itinerary coordinator will get back to you within 24 hours",
+    "line2": "Please check my travel details"
+  },
+  "TravelDetailsConfirmDialog": {
+    "title": "You have confirmed your itinerary",
+    "line1": "Our team will send you a quote within 24 hours",
+    "line2": "Please check back later for the next step."
   }
 }
