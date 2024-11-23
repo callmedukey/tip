@@ -336,7 +336,6 @@ export default async function Layout({
             </NextIntlClientProvider>
           </ReactQueryContext>
         </GoogleProvider>
-        {/* <InstallPrompt /> */}
       </body>
     </html>
   );
