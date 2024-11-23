@@ -286,24 +286,21 @@ export default async function Layout({
           name="viewport"
           content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
         />
-        <link
-          rel="apple-touch-icon"
-          href="/apple-touch-icon-iphone-60x60.png"
-        />
+        <link rel="apple-touch-icon" href="/apple-touch-icon-60x60.png" />
         <link
           rel="apple-touch-icon"
           sizes="60x60"
-          href="/apple-touch-icon-ipad-76x76.png"
+          href="/apple-touch-icon-76x76.png"
         />
         <link
           rel="apple-touch-icon"
           sizes="114x114"
-          href="/apple-touch-icon-iphone-retina-120x120.png"
+          href="/apple-touch-icon-114x114.png"
         />
         <link
           rel="apple-touch-icon"
           sizes="144x144"
-          href="/apple-touch-icon-ipad-retina-152x152.png"
+          href="/apple-touch-icon-144x144.png"
         />
       </head>
       <body
