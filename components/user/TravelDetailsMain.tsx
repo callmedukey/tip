@@ -295,7 +295,7 @@ const TravelDetailsMain = ({
           >
             {!selectedMarker && (
               <div className="p-8">
-                <h1 className="flex items-center gap-4 text-[1.875rem] font-medium mb-24 justify-between">
+                <h1 className="flex items-center gap-4 text-[1.875rem] font-medium lg:mb-24 mb-12 justify-between">
                   <span className="flex items-center gap-4">
                     <Image
                       src={MyTravelPlane}

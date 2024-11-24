@@ -74,7 +74,8 @@
     "noActiveTravelRequests": "You have no active travel requests",
     "bookNow": "Book Now",
     "tripCanceled": "Your trip has been canceled.",
-    "paidTripCanceled": "This trip has already been paid for. Admin will review your request to confirm the cancelation."
+    "paidTripCanceled": "This trip has already been paid for. Admin will review your request to confirm the cancelation.",
+    "cancelTripConfirmation": "Are you sure you want to cancel your trip? This action cannot be undone."
   },
   "MyTravelListItemShareButton": {
     "share": "Share",

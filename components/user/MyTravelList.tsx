@@ -23,11 +23,20 @@ const MyTravelList = () => {
 
   return (
     <ul className="divide-y-2 divide-accountGrayText">
-      {isLoading && <MyTravelListItem isLoading={true} />}
+      {isLoading && (
+        <MyTravelListItem
+          isLoading={true}
+          queryKey={["my-travel", timezone, todayUTC.current]}
+        />
+      )}
       {data &&
         data.length > 0 &&
         data.map((request) => (
-          <MyTravelListItem key={request.id} request={request} />
+          <MyTravelListItem
+            key={request.id}
+            request={request}
+            queryKey={["my-travel", timezone, todayUTC.current]}
+          />
         ))}
 
       {data && data.length === 0 && <MyTravelListItem />}

@@ -24,7 +24,7 @@ const Header = async () => {
           src={Logo}
           width={99}
           height={99}
-          className="outline"
+          className="hidden lg:block"
         />
       </Link>
       <nav className="items-center gap-8 hidden lg:flex font-normal text-[1.125rem]">

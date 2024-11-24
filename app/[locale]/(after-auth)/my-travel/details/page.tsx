@@ -2,7 +2,6 @@ import { verifySession } from "@/actions/session";
 import TravelDetailsMain from "@/components/user/TravelDetailsMain";
 import { redirect } from "@/i18n/routing";
 import prisma from "@/lib/prisma";
-import { LoadScript } from "@react-google-maps/api";
 
 const TravelDetailsPage = async ({
   searchParams,

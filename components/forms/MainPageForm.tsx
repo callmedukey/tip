@@ -186,7 +186,10 @@ const MainPageForm = ({
             />
             {handleLocaleLogic(form.getValues("city"), locale)}
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="max-h-[20rem] overflow-y-auto scrollbar-hide lg:mt-8 lg:w-fit">
+          <DropdownMenuContent
+            className="max-h-[20rem] overflow-y-auto scrollbar-hide lg:mt-8 lg:w-fit"
+            align="start"
+          >
             <FormField
               control={form.control}
               name="city"
@@ -397,7 +400,7 @@ const MainPageForm = ({
         </div>
         <Button
           type="submit"
-          className="rounded-full bg-formButton py-6 px-4 font-normal hover:bg-formButton/90 my-6 lg:my-0 min-w-[6rem]"
+          className="rounded-full bg-formButton py-6 px-4 font-normal hover:bg-formButton/90 mt-4 lg:my-0 min-w-[6rem]"
         >
           {t("getAQuote")}
         </Button>

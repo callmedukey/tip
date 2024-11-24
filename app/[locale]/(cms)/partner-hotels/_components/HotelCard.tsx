@@ -8,16 +8,16 @@ import { ArrowRightIcon } from "lucide-react";
 const HotelCard = async ({ hotel }: { hotel: PartnerHotel }) => {
   const locale = await getLocale();
   return (
-    <li className="space-y-8 bg-white overflow-clip rounded-[1rem]">
+    <li className="bg-white overflow-clip rounded-[1rem]">
       <Image
         src={getImageUrl(hotel.thumbnail.url)}
         alt={locale === "en" ? hotel.thumbnail.en_alt : hotel.thumbnail.kr_alt}
         width={hotel.thumbnail.width}
         height={hotel.thumbnail.height}
         quality={100}
-        className="rounded-[1rem] w-full h-full object-cover"
+        className="rounded-[1rem] h-60 sm:h-full sm:w-full"
       />
-      <p className="text-[1.5rem] font-normal min-h-8">
+      <p className="text-[1.5rem] font-normal min-h-8 mt-2">
         {locale === "en" ? hotel.en_title : hotel.kr_title}
       </p>
       <Link

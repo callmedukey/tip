@@ -34,7 +34,7 @@ const HotelCarousel = ({
         {hotelCarousel.map((data, i) => (
           <SplideSlide key={i}>
             <div key={data.id} className="flex flex-col items-center">
-              <div className="w-full h-full lg:grid lg:grid-cols-3 gap-16 px-24 items-center flex justify-center">
+              <div className="w-full h-full lg:grid lg:grid-cols-3 gap-16 sm:px-24 lg:items-center flex justify-center px-2">
                 <Image
                   src={getImageUrl(data.leftThumbnail.url)}
                   alt={
@@ -45,7 +45,7 @@ const HotelCarousel = ({
                   width={data.leftThumbnail.width}
                   height={data.leftThumbnail.height}
                   quality={100}
-                  className=" hidden lg:block mx-auto w-full object-fill max-h-[20rem]"
+                  className=" hidden lg:block mx-auto w-full object-fill h-[20rem]"
                 />
                 <Image
                   src={getImageUrl(data.centerThumbnail.url)}
@@ -57,7 +57,7 @@ const HotelCarousel = ({
                   width={data.centerThumbnail.width}
                   height={data.centerThumbnail.height}
                   quality={100}
-                  className=" mx-auto w-full object-fill max-h-[20rem]"
+                  className=" mx-auto w-full object-cover object-center lg:object-fill lg:h-[20rem] min-w-full h-[15rem]"
                 />
                 <Image
                   src={getImageUrl(data.rightThumbnail.url)}
@@ -69,7 +69,7 @@ const HotelCarousel = ({
                   width={data.rightThumbnail.width}
                   height={data.rightThumbnail.height}
                   quality={100}
-                  className=" hidden lg:block mx-auto w-full object-fill max-h-[20rem]"
+                  className=" hidden lg:block mx-auto w-full object-fill h-[20rem]"
                 />
               </div>
               <div className="flex flex-col gap-4 items-center mt-12 col-span-full">

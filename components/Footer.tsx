@@ -12,9 +12,9 @@ const Footer = async () => {
   const locale = await getLocale();
 
   return (
-    <footer className="bg-[#1E4B8E] px-4 pb-6 lg:pb-0 font-inter border-t border-black text-white">
+    <footer className="bg-[#1E4B8E] px-4 pb-6 lg:pb-0 font-inter text-white standalone:hidden">
       <div className="max-w-7xl mx-auto hidden lg:block">
-        <div className="grid sm:grid-cols-2 gap-6 mt-4">
+        <div className="grid sm:grid-cols-2 gap-6 mt-4 lg:mt-0">
           {locale === "ko" ? (
             <ul className="place-self-start translate-y-4">
               <li className="font-semibold flex items-center gap-2">

@@ -4,7 +4,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Link, usePathname } from "@/i18n/routing";
 import Menu from "@/public/icons/menu.svg";
 import { cn } from "@/lib/utils";
-import DarkLogo from "@/public/dark-logo.png";
+import DarkLogo from "@/public/dark-logo-svg.svg";
 import Image from "next/image";
 import LanguageSelectDropDown from "../LanguageSelectDropDown";
 import { useTranslations } from "next-intl";
@@ -36,12 +36,20 @@ const MobileMenu = () => {
         </DialogDescription>
         <div className="grid grid-cols-[1fr,auto,1fr] items-center">
           <LanguageSelectDropDown isMobile={true} />
-          <Image
-            src={DarkLogo}
-            alt="Dark version logo"
-            width={99}
-            height={99}
-          />
+          <Link
+            href="/"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            <Image
+              src={DarkLogo}
+              alt="Dark version logo"
+              width={99}
+              height={99}
+              className="scale-[70%]"
+            />
+          </Link>
           <button
             className="text-[#A3A3A3] justify-self-end"
             type="button"

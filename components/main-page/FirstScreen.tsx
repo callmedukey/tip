@@ -14,7 +14,7 @@ const FirstScreen = () => {
   const t = useTranslations("HomePage");
 
   const wrapperClassName =
-    "min-h-[100rem] lg:min-h-[80rem] h-screen justify-center items-center flex";
+    "min-h-[100rem] lg:min-h-[80rem] justify-center items-center flex";
 
   const [savedInitialData, setSavedInitialData] = useLocalStorage<Record<
     string,
@@ -86,14 +86,11 @@ const FirstScreen = () => {
           alt="Mobile Logo"
           width={539}
           height={273}
-          className={cn(
-            "h-auto w-[12rem] mx-autok",
-            locale === "ko" && "mt-10"
-          )}
+          className={cn("h-auto w-[12rem] mx-auto", locale === "ko" && "mt-10")}
         />
         <h1
           className={cn(
-            "text-center text-[0.75rem] mt-6 font-medium text-white",
+            "text-center text-[1.25rem] mt-6 font-medium text-white font-garamond italic",
             locale === "ko" && "mt-0"
           )}
         >

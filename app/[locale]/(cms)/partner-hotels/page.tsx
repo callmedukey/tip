@@ -379,12 +379,13 @@ const page = async () => {
         <i className="italic">Your place to stay is the most important.</i>{" "}
         <br /> Our partner hotels are here to provide you with precious time.
       </h1>
-      <article className="mt-[35rem]">
-        <h2 className="text-[2rem] font-nsormal px-4 leading-normal text-center mt-60 max-w-4xl mx-auto font-garamond">
+      <article className="lg:mt-[35rem]">
+        <h2 className="lg:text-[2rem] text-[1.875rem] font-nsormal px-4 leading-normal text-center mt-60 max-w-4xl mx-auto font-garamond">
           {locale === "ko" ? (
             <span>
-              엄선된 호텔들을 소개 드립니다. <br /> 많은 할인과 혜택으로 좋은
-              추억만 <br /> 만들어 가시길 바라겠습니다.
+              엄선된 호텔들을 소개 드립니다. <br className="hidden sm:block" />{" "}
+              많은 할인과 혜택으로 좋은 추억만{" "}
+              <br className="hidden sm:block" /> 만들어 가시길 바라겠습니다.
             </span>
           ) : (
             t("catchPhrase")
@@ -407,8 +408,11 @@ const page = async () => {
           })
         )
         .map((country) => (
-          <article key={country} className="mt-32 max-w-screen-8xl mx-auto">
-            <h3 className="text-[2rem] font-semibold leading-normal text-left font-inter mb-16">
+          <article
+            key={country}
+            className="mt-16 lg:mt-32 max-w-screen-8xl mx-auto"
+          >
+            <h3 className="lg:text-[2rem] font-semibold leading-normal text-left font-inter lg:mb-16 mb-4">
               {country}
             </h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-x-4 gap-y-8 max-w-screen-8xl mx-auto text-[#404040] items-start">

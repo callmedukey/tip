@@ -103,10 +103,9 @@ const ThirdScreen = ({
             returnToSecondScreen();
           }}
         >
-          <ArrowLeft strokeWidth={1} />
           {ui("back")}
         </Button>
-        <div className="bg-formBg rounded-2xl py-12 px-8 lg:py-16 lg:px-16 self-start mt-[calc(var(--header-height)+6rem)] w-full mx-4 mb-16 lg:max-h-[120rem] max-w-7xl overflow-clip text-formText">
+        <div className="bg-formBg rounded-2xl py-12 px-8 lg:py-16 lg:px-16 self-start mt-[calc(var(--header-height)+6rem)] w-full mx-4 lg:mb-16 mb-28 lg:max-h-[120rem] max-w-7xl overflow-clip text-formText">
           <Button
             className="hidden text-murrey shadow-none px-0 gap-2 lg:flex items-center bg-transparent hover:bg-transparent hover:opacity-80 mb-12"
             type="button"
@@ -433,7 +432,7 @@ const ThirdScreen = ({
           <ArrowLeft strokeWidth={1} />
           back
         </Button>
-        <div className="bg-formBg rounded-2xl py-12 px-8 lg:py-16 lg:px-16 self-start mt-[calc(var(--header-height)+6rem)] w-full mx-4 mb-16 lg:max-h-[120rem] max-w-7xl overflow-clip text-formText">
+        <div className="bg-formBg rounded-2xl py-12 px-8 lg:py-16 lg:px-16 self-start mt-[calc(var(--header-height)+6rem)] w-full mx-4 mb-28 lg:mb-16 lg:max-h-[120rem] max-w-7xl overflow-clip text-formText">
           <Button
             className="hidden text-murrey shadow-none px-0 gap-2 lg:flex items-center bg-transparent hover:bg-transparent hover:opacity-80 mb-12"
             type="button"

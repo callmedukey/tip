@@ -16,30 +16,42 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyTravelPDF from "./MyTravelPDF";
 import { useTranslations } from "next-intl";
 import { cancelTrip } from "@/actions/user";
+import { type QueryKey, useQueryClient } from "@tanstack/react-query";
 
 const MyTravelListItem = ({
   request,
   isLoading = false,
+  queryKey,
 }: {
   request?: Request;
   isLoading?: boolean;
+  queryKey?: QueryKey;
 }) => {
   const t = useTranslations("myTravel");
   const t2 = useTranslations("MainFirstForm");
 
+  const queryClient = useQueryClient();
   const handleCancel = async () => {
     if (!request?.id) return;
 
+    if (!confirm(t("cancelTripConfirmation"))) return;
+
     const res = await cancelTrip(request.id, request.paid);
     if (res.success && request.paid) {
+      handleRevalidate();
       alert(t("paidTripCanceled"));
     }
 
     if (res.success && !request.paid) {
+      handleRevalidate();
       alert(t("tripCanceled"));
     } else {
       alert(res.message);
     }
+  };
+
+  const handleRevalidate = () => {
+    queryClient.invalidateQueries({ queryKey });
   };
 
   if (isLoading)
@@ -58,7 +70,7 @@ const MyTravelListItem = ({
             {t("myTravel")}
           </h2>
         </div>
-        <div className="flex items-start lg:items-center gap-12 lg:flex-row flex-col mt-24 lg:mt-0">
+        <div className="flex items-start lg:items-center gap-12 lg:flex-row flex-col mt-8 lg:mt-0">
           <Image
             src={MyTravelPlane}
             width={712}
@@ -150,7 +162,7 @@ const MyTravelListItem = ({
               </Link>
             ) : null}
           </div>
-          <div className="flex items-start lg:items-center gap-4 lg:gap-4 lg:flex-row flex-col mt-24 lg:mt-0">
+          <div className="flex items-start lg:items-center gap-4 lg:gap-4 lg:flex-row flex-col mt-8 lg:mt-0">
             <Image
               src={MyTravelPlane}
               width={712}
@@ -200,7 +212,7 @@ const MyTravelListItem = ({
               </p>
             </div>
           </div>
-          <div className="items-center justify-end lg:gap-8 lg:flex-row lg:mt-0 mt-16 gap-6 hidden lg:flex">
+          <div className="items-center justify-end lg:gap-8 lg:flex-row lg:mt-0 mt-4 gap-6 hidden lg:flex">
             <MyTravelListItemShareButton
               requestId={request.id.toString()}
               sharedLink={request.sharedLink}
