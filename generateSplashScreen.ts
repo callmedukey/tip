@@ -3,6 +3,17 @@ import * as fs from "fs";
 
 async function generateSplashScreens() {
   const sizes = [
+    { width: 16, height: 16 },
+    { width: 48, height: 48 },
+    { width: 72, height: 72 },
+    { width: 96, height: 96 },
+    { width: 128, height: 128 },
+    { width: 144, height: 144 },
+    { width: 152, height: 152 },
+    { width: 192, height: 192 },
+    { width: 256, height: 256 },
+    { width: 512, height: 512 },
+
     // { width: 2048, height: 2732 },
     // { width: 2732, height: 2048 },
     // { width: 1668, height: 2388 },
@@ -25,9 +36,9 @@ async function generateSplashScreens() {
     // { width: 2436, height: 1125 },
     // { width: 1242, height: 2688 },
     // { width: 2688, height: 1242 },
-    { width: 60, height: 60 },
-    { width: 114, height: 114 },
-    { width: 144, height: 144 },
+    // { width: 60, height: 60 },
+    // { width: 114, height: 114 },
+    // { width: 144, height: 144 },
     // { width: 128, height: 128 },
     // { width: 96, height: 96 },
     // { width: 144, height: 144 },
@@ -46,8 +57,14 @@ async function generateSplashScreens() {
   for (const { width, height } of sizes) {
     await sharp(inputImage)
       .resize(width, height, { background: { r: 3, g: 23, b: 50 } })
-      .toFile(`./public/apple-touch-icon-${width}x${height}.png`);
+      .toFile(`./public/icon-${width}.png`);
   }
+  // const inputImage = "./public/apple-touch-icon.png";
+  // for (const { width, height } of sizes) {
+  //   await sharp(inputImage)
+  //     .resize(width, height, { background: { r: 3, g: 23, b: 50 } })
+  //     .toFile(`./public/apple-touch-icon-${width}x${height}.png`);
+  // }
 
   // fs.mkdir("./public/splash", (err) => {
   //   if (err) {
