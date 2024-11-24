@@ -12,7 +12,6 @@ export const sendEmailInstance = ({
   emailTemplate,
   to,
 }: EmailProps) => {
-  return;
   const apiInstance = new brevo.TransactionalEmailsApi();
   //@ts-ignore
   const apiKey = apiInstance.authentications["apiKey"];
