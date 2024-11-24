@@ -43,7 +43,13 @@ const NotoSansKr = NotoSansKrFont({
   display: "swap",
   variable: "--font-noto-sans-kr",
 });
-
+export const viewport = {
+  themeColor: "#163986",
+  userScalable: false,
+  viewportFit: "cover",
+  width: "device-width",
+  initialScale: 1,
+};
 export const metadata: Metadata = {
   title: "Travel in your pocket",
   keywords:
@@ -54,7 +60,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     title: "Travel in your pocket",
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     startupImage: [
       {
         url: "splash_screens/iPhone_16_Pro_Max_landscape.png",
@@ -282,10 +288,6 @@ export default async function Layout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <ThemeModeScript />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
-        />
         <link rel="apple-touch-icon" href="/apple-touch-icon-60x60.png" />
         <link
           rel="apple-touch-icon"

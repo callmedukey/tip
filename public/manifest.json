@@ -1,12 +1,12 @@
 {
   "name": "Travel in your pocket",
   "short_name": "Travel Pocket",
-  "theme_color": "#FFFFFF",
+  "theme_color": "#163986",
   "background_color": "#163986",
   "display": "standalone",
   "orientation": "any",
   "scope": "/",
-  "start_url": "https://travelinyourpocket.com",
+  "start_url": "/",
   "icons": [
     {
       "src": "/icon-48.png",
