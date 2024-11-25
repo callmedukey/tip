@@ -7,7 +7,9 @@ const HeaderCushion = ({ disablePath }: { disablePath?: boolean }) => {
 
   if (pathName === "/" && !disablePath) return null;
 
-  return <div className="h-[var(--header-height)]" />;
+  return (
+    <div className="h-[var(--header-height)] standalone:mb-[env(safe-area-inset-top)]" />
+  );
 };
 
 export default HeaderCushion;

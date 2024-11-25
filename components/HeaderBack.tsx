@@ -21,7 +21,7 @@ const HeaderBack = ({ className }: { className?: string }) => {
   return (
     <Button
       className={cn(
-        "absolute lg:hidden top-[calc(var(--header-height))] left-4 z-20 bg-transparent text-white text-[0.75rem] shadow-none gap-2 flex items-center hover:bg-transparent hover:opacity-80",
+        "absolute lg:hidden top-[calc(var(--header-height))] left-0 z-20 bg-transparent text-white text-[0.75rem] shadow-none gap-2 flex items-center hover:bg-transparent hover:opacity-80",
         className
       )}
       type="button"

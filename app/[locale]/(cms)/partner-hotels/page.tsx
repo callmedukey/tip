@@ -3,6 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import HotelCarousel from "./_components/HotelCarousel";
 import Image from "next/image";
 import BackgroundImage from "@/public/second-bg.png";
+
 export const dynamic = "force-dynamic";
 
 export type PartnerHotelCarousel = {

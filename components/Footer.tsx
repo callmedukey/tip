@@ -33,7 +33,7 @@ const Footer = async () => {
               <li>연락처 : 010-8005-3936 (한국) +33 6 95 96 39 88 (파리)</li>
             </ul>
           ) : (
-            <ul className="place-self-start">
+            <ul className="place-self-start translate-y-4">
               <li className="font-semibold flex items-center gap-2">
                 <Image
                   src={KoreanFlag}
@@ -148,7 +148,7 @@ const Footer = async () => {
               <li>Siret : 978537413 RCS Paris</li>
             </ul>
           ) : (
-            <ul>
+            <ul className="order-2 sm:order-3 -translate-y-20">
               <li className="font-semibold flex items-center gap-2">
                 <Image
                   src={FrenchFlag}

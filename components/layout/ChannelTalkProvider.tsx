@@ -19,6 +19,7 @@ const ChannelTalkProvider = () => {
           profile: {
             name: session?.name as string,
           },
+          
         }
       : {
           pluginKey: process.env.NEXT_PUBLIC_CHANNEL_PLUGIN_KEY as string,
