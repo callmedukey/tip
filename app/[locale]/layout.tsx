@@ -289,6 +289,10 @@ export default async function Layout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <ThemeModeScript />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover, theme-color=#163986"
+        />
         <link rel="apple-touch-icon" href="/apple-touch-icon-60x60.png" />
         <link
           rel="apple-touch-icon"
