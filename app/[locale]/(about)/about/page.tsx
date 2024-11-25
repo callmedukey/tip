@@ -1,4 +1,3 @@
-import React from "react";
 import Rome from "@/public/rome.webp";
 import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -23,7 +22,7 @@ const AboutPage = async () => {
 
   return (
     <main className="text-[#404040] font-noto">
-      <div className="relative min-h-[min(calc(100vh-var(--header-height)),60rem)] -mt-[var(--header-height)] flex justify-center bg-[#004ACA]/60 items-start px-4">
+      <div className="relative lg:min-h-[min(calc(100vh-var(--header-height)),60rem)] min-h-[min(calc(100vh-var(--header-height)),40rem)] -mt-[var(--header-height)] flex justify-center bg-[#004ACA]/60 items-start px-4">
         <Image
           src={Rome}
           alt="About Img"
@@ -39,13 +38,13 @@ const AboutPage = async () => {
         </h1>
       </div>
       <article className="px-4 pt-32">
-        <h2 className="text-[2.5rem] max-w-[69rem] mx-auto text-center font-inter">
+        <h2 className="text-[1.825rem] lg:text-[2.5rem] max-w-[69rem] mx-auto text-center font-inter mb-24 lg:mb-0">
           {locale === "ko" ? (
             <>
               <span className="font-bold">TIP</span>으로 여행 준비부터 일정 관리
-              <br />
-              맞춤 혜택까지 한눈에! <br />
-              <span className="font-bold">특별한 추억을 오래 간직하세요</span>
+              <br className="hidden md:block" />
+              맞춤 혜택까지 한눈에! <br className="hidden md:block" />
+              <span className="font-bold ">특별한 추억을 오래 간직하세요</span>
             </>
           ) : (
             <>
@@ -121,13 +120,13 @@ const AboutPage = async () => {
         </div>
       </article>
       <article className="px-4 pb-32">
-        <h3 className="font-noto text-[2.5rem] text-center font-bold">
+        <h3 className="font-noto text-[2rem] lg:text-[2.5rem] text-center font-bold">
           {t("membershipTitle")}
         </h3>
-        <p className="text-center text-[1.825rem] mt-4 font-noto max-w-[68rem] mx-auto">
+        <p className="text-pretty text-center text-[1.825rem] mt-4 font-noto max-w-[68rem] mx-auto">
           {t("membershipDescription")}
         </p>
-        <ul className="mt-32 flex flex-wrap gap-16 justify-center items-start">
+        <ul className="mt-16 flex flex-wrap gap-16 justify-center items-start">
           <MembershipCard title="TIP WHITE" description={t("new")}>
             <li>
               <Image

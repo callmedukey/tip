@@ -18,7 +18,7 @@ import CloudBg from "./_layout-components/CloudBg";
 import Footer from "@/components/Footer";
 import ChannelTalkProvider from "@/components/layout/ChannelTalkProvider";
 import Script from "next/script";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 const Inter = InterFont({
   subsets: ["latin"],
   display: "swap",
@@ -43,11 +43,12 @@ const NotoSansKr = NotoSansKrFont({
   display: "swap",
   variable: "--font-noto-sans-kr",
 });
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: "#163986",
   userScalable: false,
   viewportFit: "cover",
   width: "device-width",
+  maximumScale: 1,
   initialScale: 1,
 };
 export const metadata: Metadata = {

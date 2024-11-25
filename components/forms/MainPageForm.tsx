@@ -174,7 +174,7 @@ const MainPageForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="absolute max-w-[calc(100vw-2rem)] [@media(max-width:1024px)]:max-w-md mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-2 lg:px-6 py-4 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
+        className="absolute max-w-[calc(100vw-2rem)] [@media(max-width:1024px)]:max-w-md mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-2 lg:px-6 pt-4 pb-2 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
       >
         <DropdownMenu>
           <DropdownMenuTrigger className="flex z-50 items-center focus:outline-none gap-2 lg:max-w-[14rem] min-w-[14rem] w-full overflow-x-auto border-b lg:border-r lg:border-b-0 border-dashed pb-4 lg:pb-0 px-4 scrollbar-hide">
@@ -238,7 +238,7 @@ const MainPageForm = ({
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <div className="flex items-center lg:px-4 py-4 lg:py-0 border-b lg:border-r lg:border-b-0 border-dashed self-stretch ">
+        <div className="flex items-center lg:px-4 py-4 lg:py-0 border-b lg:border-r lg:border-b-0 border-dashed self-stretch pl-4 lg:pl-0">
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -285,7 +285,7 @@ const MainPageForm = ({
             </PopoverContent>
           </Popover>
         </div>
-        <div className="flex items-center lg:px-4 pl-1 border-b lg:border-r lg:border-b-0 border-dashed py-6 lg:py-0 w-full lg:w-fit">
+        <div className="flex items-center lg:px-4 pl-1 border-b lg:border-r lg:border-b-0 border-dashed py-6 lg:py-0 w-full lg:w-fit pl-4 lg:pl-0">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center lg:gap-2 gap-2 w-[8rem] ring-0 focus:ring-0">
               <Image src={Person} alt="Person Icon" width={24} height={24} />
@@ -369,7 +369,7 @@ const MainPageForm = ({
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="flex items-center lg:px-4 py-4 lg:py-0 w-full lg:w-fit pl-1 border-b border-dashed lg:border-b-0">
+        <div className="flex items-center lg:px-4 py-4 lg:py-0 w-full lg:w-fit pl-1 border-b border-dashed lg:border-b-0 pl-4 lg:pl-0">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2 lg:gap-2 w-[8rem] ring-0 focus:ring-0 capitalize">
               <Image

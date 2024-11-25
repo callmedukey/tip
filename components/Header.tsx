@@ -6,6 +6,7 @@ import Auth_HeaderMenu from "./layout/Auth_HeaderMenu";
 import { getTranslations } from "next-intl/server";
 import HeaderAboutMenu from "./main-page/HeaderAboutMenu";
 import FakeLink from "./user/FakeLink";
+import HeaderBack from "./HeaderBack";
 
 const Header = async () => {
   const t = await getTranslations("Header");
@@ -37,6 +38,7 @@ const Header = async () => {
         <HeaderAboutMenu />
       </nav>
       <Auth_HeaderMenu />
+      <HeaderBack className="lg:hidden" />
     </header>
   );
 };

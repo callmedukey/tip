@@ -74,7 +74,7 @@ const ManageUsersPage = () => {
               <TableHead className="w-[100px] font-bold">
                 {t("number")}
               </TableHead>
-              <TableHead className="w-[100px] font-bold">{t("name")}</TableHead>
+              <TableHead className="w-[6rem] font-bold">{t("name")}</TableHead>
               <TableHead className="font-bold">{t("email")}</TableHead>
               <TableHead className="font-bold">{t("accountLevel")}</TableHead>
               <TableHead className="font-bold">{t("personalInfo")}</TableHead>
@@ -91,7 +91,7 @@ const ManageUsersPage = () => {
                   <TableCell className="w-[100px]">
                     {queryData.length - index}
                   </TableCell>
-                  <TableCell className="min-w-[20rem]">{user.name}</TableCell>
+                  <TableCell className="min-w-[6rem]">{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
                     <UpdateUserLevel

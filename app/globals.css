@@ -119,7 +119,7 @@ body {
 }
 
 .about-section > section {
-  @apply px-4 my-32;
+  @apply px-4 my-8 lg:my-32;
 
   display: flex;
   align-items: center;
