@@ -13,7 +13,11 @@ const HeaderBack = ({ className }: { className?: string }) => {
   const ui = useTranslations("ui");
   const path = usePathname();
   const handleReturnToFirstScreen = () => {
-    router.back();
+    if (window && window.history.length > 1) {
+      router.back();
+    } else {
+      router.replace("/");
+    }
   };
 
   if (noReturnPaths.includes(path)) return null;

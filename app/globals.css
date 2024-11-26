@@ -7,7 +7,7 @@ body {
     env(safe-area-inset-bottom) env(safe-area-inset-left); */
   font-family: var(--font-inter);
   font-weight: 400;
-
+  background-color: #163986;
   /* @media all and (display-mode: standalone) {
     padding-top: env(safe-area-inset-top);
   } */
@@ -57,7 +57,7 @@ body {
     --header-height: 5rem;
 
     --egyptian-blue: 205 97% 37%;
-    --murrey: 332 100% 27%;
+    --murrey: white;
     --cancel: 0 96% 65%;
     --oneOneToFive: 1.125rem;
 

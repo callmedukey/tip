@@ -381,7 +381,7 @@ const page = async () => {
         <br /> Our partner hotels are here to provide you with precious time.
       </h1>
       <article className="lg:mt-[35rem]">
-        <h2 className="lg:text-[2rem] text-[1.875rem] font-nsormal px-4 leading-normal text-center mt-60 max-w-4xl mx-auto font-garamond">
+        <h2 className="lg:text-[2rem] text-[1.5rem] font-normal px-4 leading-normal text-center mt-72 max-w-4xl mx-auto font-garamond">
           {locale === "ko" ? (
             <span>
               엄선된 호텔들을 소개 드립니다. <br className="hidden sm:block" />{" "}
@@ -389,7 +389,11 @@ const page = async () => {
               <br className="hidden sm:block" /> 만들어 가시길 바라겠습니다.
             </span>
           ) : (
-            t("catchPhrase")
+            <span>
+              We are pleased to introduce a selection of carefully curated
+              hotels. <br /> We hope you create wonderful memories with great
+              discounts and benefits.
+            </span>
           )}
         </h2>
         {/* {carousel goes here} */}

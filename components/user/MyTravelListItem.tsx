@@ -66,7 +66,7 @@ const MyTravelListItem = ({
           className="max-w-[6rem] w-full h-auto flex-1 shrink-0 lg:hidden absolute left-1/2 -translate-x-1/2 -top-12 rounded-[2rem] bg-white"
         />
         <div className="flex lg:flex-row flex-col items-center text-center lg:text-left lg:justify-between lg:items-start lg:gap-0 gap-3 mb-6">
-          <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium">
+          <h2 className="text-formText lg:text-gray-500 text-base lg:text-[1.5rem] lg:font-medium">
             {t("myTravel")}
           </h2>
         </div>
@@ -80,25 +80,25 @@ const MyTravelListItem = ({
             className="max-w-[178px] w-full h-auto flex-1 shrink-0 lg:block hidden"
           />
           <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
-            <p className="text-formText text-base lg:text-[1.25rem] font-medium">
+            <p className="text-formText text-base text-[1.5rem] font-medium">
               {t("destination")}
             </p>
             <Skeleton className="w-full  h-[2rem]" />
           </div>
           <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
-            <p className="text-formText text-base lg:text-[1.25rem] font-medium">
+            <p className="text-formText text-base text-[1.5rem] font-medium">
               {t("date")}
             </p>
             <Skeleton className="w-full h-[2rem]" />
           </div>
           <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
-            <p className="text-formText text-base lg:text-[1.25rem] font-medium">
+            <p className="text-formText text-base text-[1.5rem] font-medium">
               {t2("persons")}
             </p>
             <Skeleton className="w-full  h-[2rem]" />
           </div>
           <div className="flex flex-col gap-2 flex-1 lg:items-end w-full">
-            <p className="text-formText text-base lg:text-[1.25rem] font-medium">
+            <p className="text-formText text-base text-[1.5rem] font-medium">
               {t2("purpose")}
             </p>
             <Skeleton className="w-full h-[2rem]" />
@@ -126,7 +126,7 @@ const MyTravelListItem = ({
         />
         <div className="lg:grid-rows-[6rem,auto,6rem] grid-rows-[repeat(3,auto)]">
           <div className="flex lg:flex-row flex-col items-center text-center lg:text-left lg:justify-between lg:items-start lg:gap-0 gap-3">
-            <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium mb-6 flex flex-col gap-2 lg:flex-row">
+            <h2 className="text-formText lg:text-gray-500 text-base lg:text-[1.5rem] lg:font-medium mb-6 flex flex-col gap-2 lg:flex-row">
               {t("myTravel")}
               {request.paid ||
               request.status === "confirmed" ||
@@ -142,7 +142,7 @@ const MyTravelListItem = ({
             {request.status !== "pending" ? (
               <Link
                 href={`/my-travel/details?id=${request.id}`}
-                className="flex items-center lg:gap-2 gap-3 lg:no-underline underline underline-offset-4 lg:text-accountGrayText text-egyptianBlue lg:text-[1.5rem] font-medium"
+                className="flex items-center lg:gap-2 gap-3 lg:no-underline underline underline-offset-4 lg:text-gray-500 text-egyptianBlue lg:text-[1.5rem] font-medium"
               >
                 {t("details")}
                 <svg
@@ -172,18 +172,18 @@ const MyTravelListItem = ({
               className="max-w-[6rem] xl:max-w-[10rem] w-full h-auto flex-1 shrink-0 lg:block hidden"
             />
             <div className="flex flex-col gap-2 flex-1 ">
-              <p className="text-formText text-base lg:text-[1.25rem] font-medium">
+              <p className="text-formText text-base  text-[1.5rem] font-medium">
                 {t("destination")}
               </p>
-              <p className="text-[0.75rem] lg:text-base text-accountGrayText">
+              <p className="text-base lg:text-base text-gray-500">
                 {request.city.join(", ")}
               </p>
             </div>
             <div className="flex flex-col gap-2 flex-1 lg:items-end shrink-0">
-              <p className="text-formText text-base lg:text-[1.25rem] font-medium mr-auto">
+              <p className="text-formText text-base text-[1.5rem] font-medium mr-auto">
                 {t("date")}
               </p>
-              <p className="text-[0.75rem] lg:text-base text-accountGrayText mr-auto whitespace-nowrap">
+              <p className="text-base lg:text-base text-gray-500 mr-auto whitespace-nowrap">
                 {formatDateToLocaleString(
                   formatDateToUserLocalFromDB(
                     request.from as unknown as string
@@ -198,16 +198,16 @@ const MyTravelListItem = ({
               </p>
             </div>
             <div className="flex flex-col gap-2 flex-1 lg:items-end">
-              <p className="text-formText text-base lg:text-[1.25rem] font-medium">
+              <p className="text-formText text-base text-[1.5rem] font-medium">
                 {t2("persons")}
               </p>
-              <p className="text-[0.75rem] lg:text-base text-accountGrayText whitespace-nowrap">{`Adults: ${request.adults} Infants: ${request.infants}`}</p>
+              <p className="text-base lg:text-base text-gray-500 whitespace-nowrap">{`Adults: ${request.adults} Infants: ${request.infants}`}</p>
             </div>
             <div className="flex flex-col gap-2 flex-1 lg:items-end">
-              <p className="text-formText text-base lg:text-[1.25rem] font-medium">
+              <p className="text-formText text-base text-[1.5rem] font-medium">
                 {t2("purpose")}
               </p>
-              <p className="text-[0.75rem] lg:text-base text-accountGrayText capitalize">
+              <p className="text-base lg:text-base text-gray-500 capitalize">
                 {request.purpose}
               </p>
             </div>
@@ -325,7 +325,7 @@ const MyTravelListItem = ({
         className="max-w-[6rem] w-full h-auto flex-1 shrink-0 lg:hidden absolute left-1/2 -translate-x-1/2 -top-12 rounded-[2rem] bg-white"
       />
       <div className="flex lg:flex-row flex-col items-center text-center lg:text-left lg:justify-between lg:items-start lg:gap-0 gap-3">
-        <h2 className="text-formText lg:text-accountGrayText text-base lg:text-[1.5rem] lg:font-medium mb-6">
+        <h2 className="text-formText lg:text-gray-500 text-base lg:text-[1.5rem] lg:font-medium mb-6">
           {t("myTravel")}
         </h2>
       </div>
@@ -338,7 +338,7 @@ const MyTravelListItem = ({
           alt="My travel plane"
           className="max-w-[178px] w-full h-auto flex-1 shrink-0 lg:block hidden"
         />
-        <div className="w-full text-accountGrayText">
+        <div className="w-full text-gray-500">
           {t("noActiveTravelRequests")}
         </div>
       </div>

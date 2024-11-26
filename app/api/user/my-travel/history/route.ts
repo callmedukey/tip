@@ -15,6 +15,10 @@ export async function GET(req: NextRequest) {
     const histories = await prisma.request.findMany({
       where: {
         userId: session?.userId,
+        canceled: false,
+        status: {
+          not: "canceled",
+        },
       },
       orderBy: {
         createdAt: "desc",
