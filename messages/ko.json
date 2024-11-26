@@ -355,9 +355,9 @@
     "email": "이메일",
     "phoneNumber": "전화번호",
     "where": "여행 목적지",
-    "when": "희망 여행 날짜?",
+    "when": "희망 여행 날짜",
     "budget": "예산 여행 비용",
-    "how": "유입 경로 (선택)?",
+    "how": "유입 경로 (선택)",
     "areThereAnyQuestions": "추가 문의가 있으신가요?",
     "submit": "제출하기",
     "success": "문의가 제출되었습니다.",
@@ -390,5 +390,14 @@
     "title": "여행 일정이 확정되었습니다.",
     "line1": "24시간 내로 담당자가 연락드리겠습니다.",
     "line2": "연락 후 여행 상세를 확인해주세요."
+  },
+  "TravelCancelDialog": {
+    "areYouSure": "여행을 취소하시겠습니까?",
+    "undo": "이 작업은 되돌릴 수 없습니다.",
+    "confirmCancel": "취소하기",
+    "exit": "나가기",
+    "paidTripCanceled": "이미 결제된 여행입니다.",
+    "secondLine": "관리자가 취소 요청을 검토합니다.",
+    "tripCanceled": "여행이 취소되었습니다."
   }
 }

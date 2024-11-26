@@ -383,7 +383,7 @@ const page = async () => {
       <article className="lg:mt-[35rem]">
         <h2 className="lg:text-[2rem] text-[1.5rem] font-normal px-4 leading-normal text-center mt-72 max-w-4xl mx-auto font-garamond">
           {locale === "ko" ? (
-            <span>
+            <span className="text-pretty">
               엄선된 호텔들을 소개 드립니다. <br className="hidden sm:block" />{" "}
               많은 할인과 혜택으로 좋은 추억만{" "}
               <br className="hidden sm:block" /> 만들어 가시길 바라겠습니다.
@@ -417,7 +417,7 @@ const page = async () => {
             key={country}
             className="mt-16 lg:mt-32 max-w-screen-8xl mx-auto"
           >
-            <h3 className="lg:text-[2rem] font-semibold leading-normal text-left font-inter lg:mb-16 mb-4">
+            <h3 className="lg:text-[2rem] text-[1.5rem] font-semibold leading-normal text-left font-inter lg:mb-16 mb-4">
               {country}
             </h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-x-4 gap-y-8 max-w-screen-8xl mx-auto text-[#404040] items-start">

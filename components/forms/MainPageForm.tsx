@@ -133,11 +133,6 @@ const MainPageForm = ({
       return;
     }
 
-    if (date.to && date.from && date.to <= date.from) {
-      alert("To date must be after From date");
-      return;
-    }
-
     setSavedInitialData(data);
     await initFormWithSession();
     setState({
@@ -174,7 +169,7 @@ const MainPageForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="absolute max-w-[calc(100vw-2rem)] [@media(max-width:1024px)]:max-w-md mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-2 lg:px-6 pt-4 pb-2 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
+        className="absolute max-w-[calc(100vw-2rem)] [@media(max-width:1024px)]:max-w-md mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-2 lg:px-6 pt-4 lg:pt-2 pb-2 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
       >
         <DropdownMenu>
           <DropdownMenuTrigger className="flex z-50 items-center focus:outline-none gap-2 lg:max-w-[14rem] min-w-[14rem] w-full overflow-x-auto border-b lg:border-r lg:border-b-0 border-dashed pb-4 lg:pb-0 px-4 scrollbar-hide">
@@ -400,7 +395,7 @@ const MainPageForm = ({
         </div>
         <Button
           type="submit"
-          className="rounded-full bg-formButton py-6 px-4 font-normal hover:bg-formButton/90 mt-4 lg:my-0 min-w-[6rem]"
+          className="rounded-full bg-formButton py-6 px-4 font-normal hover:bg-formButton/90 mt-2 lg:my-0 min-w-[6rem]"
         >
           {t("getAQuote")}
         </Button>

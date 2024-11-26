@@ -8,6 +8,7 @@ import {
   EB_Garamond,
   Inter as InterFont,
   Noto_Sans_KR as NotoSansKrFont,
+  Raleway as RalewayFont,
 } from "next/font/google";
 import localFont from "next/font/local";
 import HeaderCushion from "@/components/HeaderCushion";
@@ -23,6 +24,12 @@ const Inter = InterFont({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+});
+
+const Raleway = RalewayFont({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-raleway",
 });
 
 const Garamond = EB_Garamond({
@@ -62,7 +69,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     title: "Travel in your pocket",
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     startupImage: [
       {
         url: "splash_screens/iPhone_16_Pro_Max_landscape.png",
@@ -313,7 +320,7 @@ export default async function Layout({
         />
       </head>
       <body
-        className={`${Inter.variable} ${Pretendard.variable} ${NotoSansKr.variable} ${Garamond.variable} antialiased relative isolated bg-white break-keep lg:min-h-[min(100vh,80rem)]`}
+        className={`${Inter.variable} ${Pretendard.variable} ${Raleway.variable} ${NotoSansKr.variable} ${Garamond.variable} antialiased relative isolated bg-white break-keep lg:min-h-[min(100vh,80rem)]`}
       >
         <GoogleProvider>
           <ReactQueryContext>

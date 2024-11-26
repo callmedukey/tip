@@ -16,9 +16,6 @@ export async function GET(req: NextRequest) {
       where: {
         userId: session?.userId,
         canceled: false,
-        status: {
-          not: "canceled",
-        },
       },
       orderBy: {
         createdAt: "desc",

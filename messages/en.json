@@ -354,8 +354,8 @@
     "lastName": "Last Name",
     "email": "E-mail",
     "phoneNumber": "Phone Number",
-    "where": "Where would you like to travel",
-    "when": "When would you like to travel",
+    "where": "Where would you like to travel?",
+    "when": "When would you like to travel?",
     "budget": "Travel budget",
     "how": "How did you hear about us?",
     "areThereAnyQuestions": "Do you have any special requests for your travel?",
@@ -390,5 +390,14 @@
     "title": "You have confirmed your itinerary",
     "line1": "Our team will send you a quote within 24 hours",
     "line2": "Please check back later for the next step."
+  },
+  "TravelCancelDialog": {
+    "areYouSure": "Are you sure you want to cancel your trip?",
+    "undo": "This action cannot be undone.",
+    "confirmCancel": "Cancel",
+    "exit": "Exit",
+    "paidTripCanceled": "This trip has already been paid for",
+    "secondLine": "Admin will review your request to confirm the cancelation.",
+    "tripCanceled": "Your trip has been canceled."
   }
 }

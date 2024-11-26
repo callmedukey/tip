@@ -15,6 +15,7 @@ const config: Config = {
         pretendard: ["var(--font-pretendard)"],
         noto: ["var(--font-noto-sans-kr)"],
         garamond: ["var(--font-garamond)"],
+        raleway: ["var(--font-raleway)"],
       },
       screens: {
         "8xl": "90rem",
@@ -108,6 +109,7 @@ const config: Config = {
     require("tailwindcss-animate"),
     require("tailwind-scrollbar-hide"),
     require("tailwindcss-displaymodes"),
+    require("tailwindcss-motion"),
   ],
 };
 export default config;

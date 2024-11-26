@@ -29,7 +29,7 @@ const HotelCarousel = ({
   };
 
   return (
-    <ul className="mt-32 px-4">
+    <ul className="mt-24 lg:mt-32 px-4">
       <Splide options={splideOptions1}>
         {hotelCarousel.map((data, i) => (
           <SplideSlide key={i}>
@@ -73,7 +73,9 @@ const HotelCarousel = ({
                 />
               </div>
               <div className="flex flex-col gap-4 items-center mt-12 col-span-full">
-                <span>{locale === "en" ? data.en_title : data.kr_title}</span>
+                <span className="text-xl">
+                  {locale === "en" ? data.en_title : data.kr_title}
+                </span>
                 <span className="max-w-[22rem] text-center mx-auto max-h-[10rem] overflow-hidden">
                   {locale === "en" ? data.en_subText : data.kr_subText}
                 </span>

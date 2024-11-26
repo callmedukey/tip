@@ -22,7 +22,7 @@ const AboutPage = async () => {
 
   return (
     <main className="text-[#404040] font-noto">
-      <div className="relative lg:min-h-[min(calc(100vh-var(--header-height)),60rem)] min-h-[min(calc(100vh-var(--header-height)),40rem)] -mt-[var(--header-height)] flex justify-center bg-[#004ACA]/60 items-start px-4">
+      <div className="relative lg:min-h-[min(calc(100vh-var(--header-height)),60rem)] overflow-clip min-h-[min(calc(100vh-var(--header-height)),40rem)] -mt-[var(--header-height)] flex justify-center items-center bg-[#004ACA]/60 items-start px-4">
         <Image
           src={Rome}
           alt="About Img"
@@ -32,7 +32,7 @@ const AboutPage = async () => {
           quality={100}
           className="object-cover -z-10"
         />
-        <h1 className="text-center font-garamond font-normal text-[2.5rem] mt-[20rem] text-white -translate-y-[5rem] title-indicator">
+        <h1 className="text-center font-garamond font-normal text-[2.5rem] text-white title-indicator">
           <span className="italic block">Advantages of</span> Travel in Your
           Pocket
         </h1>
@@ -68,7 +68,9 @@ const AboutPage = async () => {
             <div className="about-text-section">
               <p>
                 <strong className="italic">{t("allinoneTitle")}</strong>
-                <span className="mt-4 ">{t("allinoneDescription")}</span>
+                <span className="mt-4 text-[1.3rem] text-pretty">
+                  {t("allinoneDescription")}
+                </span>
               </p>
             </div>
           </section>
@@ -83,7 +85,9 @@ const AboutPage = async () => {
             <div className="about-text-section">
               <p>
                 <strong className="">{t("secondTitle")}</strong>
-                <span className="mt-4 ">{t("secondDescription")}</span>
+                <span className="mt-4 text-[1.3rem] text-pretty">
+                  {t("secondDescription")}
+                </span>
               </p>
             </div>
           </section>
@@ -98,7 +102,9 @@ const AboutPage = async () => {
             <div className="about-text-section">
               <p>
                 <strong className="">{t("thirdTitle")}</strong>
-                <span className="mt-4 ">{t("thirdDescription")}</span>
+                <span className="mt-4 text-[1.3rem] text-pretty">
+                  {t("thirdDescription")}
+                </span>
               </p>
             </div>
           </section>
@@ -113,7 +119,9 @@ const AboutPage = async () => {
             <div className="about-text-section">
               <p>
                 <strong className="">{t("fourthTitle")}</strong>
-                <span className="mt-4 ">{t("fourthDescription")}</span>
+                <span className="mt-4 text-[1.3rem] text-pretty">
+                  {t("fourthDescription")}
+                </span>
               </p>
             </div>
           </section>

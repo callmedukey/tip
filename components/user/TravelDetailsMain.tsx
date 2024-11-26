@@ -4,7 +4,7 @@ import MyTravelPlane from "@/public/my-travel-plane.png";
 import DaySelectIcon from "@/public/select-day.png";
 import Image from "next/image";
 import type { EditRequest, Request, Upload } from "@prisma/client";
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   dateToLocalFormattedWithoutTime,
   formatDateToLocaleString,
@@ -24,6 +24,7 @@ import { useTranslations } from "next-intl";
 import MyTravelPDF from "./MyTravelPDF";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import TravelDetailsConfirmDialog from "./TravelDetailsConfirmDialog";
+import TravelCancelDialog from "./TravelCancelDialog";
 
 interface TravelDetailsMainProps extends Request {
   editRequests: EditRequest[];
@@ -49,6 +50,7 @@ const TravelDetailsMain = ({
   const t = useTranslations("MyTravelDetails");
   const ui = useTranslations("ui");
   const [openDialog, setOpenDialog] = useState(false);
+  const [openCancelDialog, setCancelDialog] = useState(false);
 
   const travelPlanDays = useMemo(() => {
     if (!request.travelPlan) return [];
@@ -113,15 +115,23 @@ const TravelDetailsMain = ({
     setLoading(false);
   };
 
+  const handleRevalidate = useCallback(() => {
+    setTimeout(() => {
+      router.refresh();
+    }, 3000);
+  }, [router]);
+
   return (
     <>
       <button
         type="button"
-        className={cn(
-          "mt-16 text-white flex items-center gap-2",
-          !selectedDay && "invisible"
-        )}
+        className={cn("mt-8 text-white flex items-center gap-2")}
         onClick={() => {
+          if (!selectedDay && !selectedMarker) {
+            router.back();
+            return;
+          }
+
           setSelectedDay(null);
           setSelectedMarker(null);
         }}
@@ -393,7 +403,7 @@ const TravelDetailsMain = ({
                             {t("ilike")}
                           </button>
                           <button
-                            className="p-4 rounded-full bg-murrey text-white flex-1"
+                            className="p-4 rounded-full bg-white border border-black text-black flex-1"
                             type="button"
                             onClick={handleCancelTrip}
                             disabled={loading}
@@ -444,6 +454,12 @@ const TravelDetailsMain = ({
         </section>
       </div>
       <TravelDetailsConfirmDialog open={openDialog} setOpen={setOpenDialog} />
+      <TravelCancelDialog
+        open={openCancelDialog}
+        setOpen={setCancelDialog}
+        request={request}
+        handleRevalidate={handleRevalidate}
+      />
     </>
   );
 };

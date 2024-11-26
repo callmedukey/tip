@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-const noReturnPaths = ["/", "/my-travel"];
+const noReturnPaths = ["/", "/my-travel", "/my-travel/details"];
 
 const HeaderBack = ({ className }: { className?: string }) => {
   const router = useRouter();

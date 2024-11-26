@@ -86,12 +86,11 @@ const FirstScreen = () => {
           alt="Mobile Logo"
           width={539}
           height={273}
-          className={cn("h-auto w-[12rem] mx-auto", locale === "ko" && "mt-10")}
+          className={cn("h-auto w-[12rem] mx-auto")}
         />
         <h1
           className={cn(
-            "text-center text-[1.25rem] mt-6 font-medium text-white font-garamond italic",
-            locale === "ko" && "mt-0"
+            "text-center text-[1.25rem] mt-6 font-medium text-white font-garamond"
           )}
         >
           Travel in your Pocket <br /> for your best memories

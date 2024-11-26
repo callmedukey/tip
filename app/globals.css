@@ -7,7 +7,7 @@ body {
     env(safe-area-inset-bottom) env(safe-area-inset-left); */
   font-family: var(--font-inter);
   font-weight: 400;
-  background-color: #163986;
+  background-color: #153981;
   /* @media all and (display-mode: standalone) {
     padding-top: env(safe-area-inset-top);
   } */

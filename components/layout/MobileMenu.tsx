@@ -29,7 +29,7 @@ const MobileMenu = () => {
       <DrawerTrigger className="focus:outline-none" aria-label="모바일 메뉴">
         <Image src={Menu} alt="Menu" width={38} height={14} />
       </DrawerTrigger>
-      <DrawerContent className="px-8 text-xl flex standalone:pt-[env(safe-area-inset-top)]">
+      <DrawerContent className="px-8 text-xl flex standalone:pt-[env(safe-area-inset-top)] font-raleway">
         <DialogTitle className="sr-only">Mobile Menu</DialogTitle>
         <DialogDescription className="sr-only">
           This is a mobile menu

@@ -15,8 +15,9 @@ import MyTravelListItemShareButton from "./MyTravelListItemShareButton";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyTravelPDF from "./MyTravelPDF";
 import { useTranslations } from "next-intl";
-import { cancelTrip } from "@/actions/user";
 import { type QueryKey, useQueryClient } from "@tanstack/react-query";
+import { useState, useCallback } from "react";
+import TravelCancelDialog from "./TravelCancelDialog";
 
 const MyTravelListItem = ({
   request,
@@ -27,32 +28,24 @@ const MyTravelListItem = ({
   isLoading?: boolean;
   queryKey?: QueryKey;
 }) => {
+  const [openCancelDialog, setOpenCancelDialog] = useState(false);
   const t = useTranslations("myTravel");
   const t2 = useTranslations("MainFirstForm");
 
   const queryClient = useQueryClient();
+
   const handleCancel = async () => {
     if (!request?.id) return;
 
-    if (!confirm(t("cancelTripConfirmation"))) return;
-
-    const res = await cancelTrip(request.id, request.paid);
-    if (res.success && request.paid) {
-      handleRevalidate();
-      alert(t("paidTripCanceled"));
-    }
-
-    if (res.success && !request.paid) {
-      handleRevalidate();
-      alert(t("tripCanceled"));
-    } else {
-      alert(res.message);
-    }
+    setOpenCancelDialog(true);
   };
 
-  const handleRevalidate = () => {
-    queryClient.invalidateQueries({ queryKey });
-  };
+  const handleRevalidate = useCallback(() => {
+    if (!queryKey) return;
+    setTimeout(() => {
+      queryClient.invalidateQueries({ queryKey });
+    }, 3000);
+  }, [queryClient, queryKey]);
 
   if (isLoading)
     return (
@@ -213,10 +206,15 @@ const MyTravelListItem = ({
             </div>
           </div>
           <div className="items-center justify-end lg:gap-8 lg:flex-row lg:mt-0 mt-4 gap-6 hidden lg:flex">
-            <MyTravelListItemShareButton
-              requestId={request.id.toString()}
-              sharedLink={request.sharedLink}
-            />
+            {request.travelPlan &&
+              request.summary &&
+              request.status !== "pending" && (
+                <MyTravelListItemShareButton
+                  requestId={request.id.toString()}
+                  sharedLink={request.sharedLink}
+                />
+              )}
+
             {request.price &&
             request.price > 0 &&
             request.currency &&
@@ -308,6 +306,12 @@ const MyTravelListItem = ({
               >
                 {t("cancel")}
               </button>
+              <TravelCancelDialog
+                open={openCancelDialog}
+                setOpen={setOpenCancelDialog}
+                request={request}
+                handleRevalidate={handleRevalidate}
+              />
             </div>
           </>
         )}
