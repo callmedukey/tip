@@ -23,7 +23,7 @@ const TravelCancelDialog = ({
   open: boolean;
   setOpen: (open: boolean) => void;
   request: Request;
-  handleRevalidate: () => void;
+  handleRevalidate: (boolean?: boolean) => void;
 }) => {
   const t = useTranslations("TravelCancelDialog");
   const [canceled, setCanceled] = useState(false);
@@ -44,7 +44,7 @@ const TravelCancelDialog = ({
         setCurrentMessage(t("tripCanceled"));
         setCanceled(true);
         setSecondLine("");
-        handleRevalidate();
+        handleRevalidate(true);
       } else {
         setCurrentMessage(res.message || "");
         setSecondLine("");

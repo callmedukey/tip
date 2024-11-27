@@ -86,12 +86,19 @@ const TravelDetailsMain = ({
     setCancelDialog(true);
   };
 
-  const handleRevalidate = useCallback(() => {
-    setTimeout(() => {
-      router.refresh();
-      setCancelDialog(false);
-    }, 2000);
-  }, [router]);
+  const handleRevalidate = useCallback(
+    (boolean?: boolean) => {
+      setTimeout(() => {
+        if (boolean) {
+          router.replace("/my-travel");
+        } else {
+          router.refresh();
+          setCancelDialog(false);
+        }
+      }, 2000);
+    },
+    [router]
+  );
 
   return (
     <>
