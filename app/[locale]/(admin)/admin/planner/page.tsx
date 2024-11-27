@@ -157,6 +157,10 @@ const AdminPlannerPage = async ({
         <div className="max-w-md bg-gray-300  p-2 rounded-md">
           {order.extra && order.extra !== "" ? order.extra : t("noEtcRequests")}
         </div>
+        <div className="font-bold mt-8">{t("budget")}</div>
+        <div className="max-w-md bg-gray-300  p-2 rounded-md">
+          {order.budget && order.budget !== "" ? order.budget : t("noBudget")}
+        </div>
         <div className="mt-12">
           <h2 className="text-xl font-bold">{t("travelSummary")}</h2>
         </div>

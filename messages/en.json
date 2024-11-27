@@ -57,7 +57,8 @@
     "enterCoupon": "Enter your coupon code",
     "submit": "Book Now",
     "languageAndTime": "Language and time to be confirmed",
-    "otherRequests": "Let us know if you have any other requests."
+    "otherRequests": "Let us know if you have any other requests.",
+    "budget": "Budget"
   },
   "myTravel": {
     "myTravel": "My Travel",
@@ -205,7 +206,6 @@
     "sendToUser": "Send to User",
     "quote": "Quote",
     "coupon": "Coupon",
-    "totalPrice": "Total Amount",
     "currency": "Currency Code",
     "paymentLink": "Payment Link",
     "sendQuote": "Send Quote",
@@ -228,7 +228,9 @@
     "longitude": "Longitude",
     "upload": "Upload",
     "uploading": "Uploading...",
-    "insert": "Insert"
+    "insert": "Insert",
+    "budget": "Budget",
+    "noBudget": "No budget"
   },
   "updateSchedule": {
     "updateSchedule": "Update Schedule / Cancelation Requests",
@@ -376,10 +378,10 @@
     "membershipDescription": "We promise to provide a membership program with the best deals and benefits, that ensures an amazing travel experience",
     "benefit": "Benefit",
     "new": "All new travelers",
-    "20mil": "Yearly spending +20mil KRW",
-    "50mil": "Yearly spending +50mil KRW",
-    "100mil": "Yearly spending +100mil KRW",
-    "500mil": "Yearly spending +500mil KRW"
+    "20mil": "Yearly spending 15,000 USD",
+    "50mil": "Yearly spending 35,000 USD",
+    "100mil": "Yearly spending 80,000 USD",
+    "500mil": "Yearly spending 400,000 USD"
   },
   "EditDialog": {
     "title": "You have requested edits",

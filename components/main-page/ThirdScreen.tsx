@@ -62,6 +62,7 @@ const ThirdScreen = ({
       options: [],
       extra: "",
       code: "",
+      budget: "",
     },
   });
 
@@ -196,6 +197,28 @@ const ThirdScreen = ({
 `
                           }
                           rows={8}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="budget"
+                  render={({ field }) => (
+                    <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
+                      <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
+                        {t("budget")}
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
+                          placeholder={
+                            locale === "en"
+                              ? `Let us know your budget so we can plan your trip accordingly`
+                              : `여행 계획에 맞게 예산을 알려주세요.`
+                          }
                         />
                       </FormControl>
                     </FormItem>
@@ -520,7 +543,7 @@ const ThirdScreen = ({
                 render={() => (
                   <FormItem className="flex flex-col gap-8 mt-12">
                     {customOptions
-                      .slice(5, customOptions.length - 1)
+                      .slice(5, customOptions.length)
                       .map((item, index) => (
                         <FormField
                           key={item.id}
@@ -567,60 +590,7 @@ const ThirdScreen = ({
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="options"
-                render={() => (
-                  <FormItem className="flex flex-col gap-8 mt-12 h-fit row-start-1 col-start-3">
-                    {customOptions
-                      .slice(customOptions.length - 1)
-                      .map((item, index) => (
-                        <FormField
-                          key={item.id}
-                          control={form.control}
-                          name="options"
-                          render={({ field }) => {
-                            return (
-                              <FormItem
-                                key={item.id}
-                                className={cn(
-                                  "flex flex-row items-center space-x-6 space-y-0"
-                                )}
-                              >
-                                <FormControl>
-                                  <Checkbox
-                                    className="data-[state=checked]:bg-egyptianBlue border-formText size-6 rounded-[0.25rem] text-base"
-                                    checked={field.value?.includes(item.id)}
-                                    onCheckedChange={(checked) => {
-                                      return checked
-                                        ? field.onChange([
-                                            ...field.value,
-                                            item.id,
-                                          ])
-                                        : field.onChange(
-                                            field.value?.filter(
-                                              (value) => value !== item.id
-                                            )
-                                          );
-                                    }}
-                                  />
-                                </FormControl>
-                                <FormLabel className="font-normal text-base">
-                                  {locale === "ko"
-                                    ? packageOptionsKR[
-                                        item.id as keyof typeof packageOptionsKR
-                                      ]
-                                    : item.label}
-                                </FormLabel>
-                              </FormItem>
-                            );
-                          }}
-                        />
-                      ))}
-                  </FormItem>
-                )}
-              />
-              <div className="col-start-3 row-start-1 lg:mt-16">
+              <div className="col-start-3 row-start-1">
                 <FormField
                   control={form.control}
                   name="extra"
@@ -643,9 +613,31 @@ const ThirdScreen = ({
                 />
                 <FormField
                   control={form.control}
+                  name="budget"
+                  render={({ field }) => (
+                    <FormItem className="relative isolate flex flex-col items-start gap-2 mt-4">
+                      <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
+                        {t("budget")}
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
+                          placeholder={
+                            locale === "en"
+                              ? `Let us know your budget so we can plan your trip accordingly`
+                              : `여행 계획에 맞게 예산을 알려주세요.`
+                          }
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name="code"
                   render={({ field }) => (
-                    <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
+                    <FormItem className="relative isolate flex flex-col items-start gap-2 mt-4">
                       <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
                         {t("hasCoupon")}{" "}
                         <span className="text-egyptianBlue"></span>
@@ -662,7 +654,7 @@ const ThirdScreen = ({
                 />
                 <Button
                   type="submit"
-                  className="bg-egyptianBlue hover:bg-egyptianBlue hover:opacity-80 rounded-full w-full max-w-xs py-6 mt-12 mx-auto flex items-center justify-center shadow-none text-egyptianBlue border-egyptianBlue border font-medium lg:mt-16 text-white"
+                  className="bg-egyptianBlue hover:bg-egyptianBlue hover:opacity-80 rounded-full w-full max-w-xs py-6 mt-8 mx-auto flex items-center justify-center shadow-none text-egyptianBlue border-egyptianBlue border font-medium lg:mt-8 text-white"
                 >
                   {t("submit")}
                 </Button>

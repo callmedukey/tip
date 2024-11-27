@@ -92,6 +92,8 @@ model Request {
   options     String[]
   extra       String?
 
+  budget String?
+
   adminNotes String?
 
   price    Int?

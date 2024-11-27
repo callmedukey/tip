@@ -23,6 +23,7 @@ export const FinalFormSchema = z.object({
   options: z.array(z.string()),
   extra: z.string().optional(),
   code: z.string().optional(),
+  budget: z.string().optional(),
 });
 
 export const RequestFormSchema = z.object({
@@ -81,8 +82,16 @@ export const AdminQuoteFormSchema = z.object({
 });
 
 export const CouponSchema = z.object({
-  code: z.string().min(1, { message: "코드는 필수입니다." }).trim().toUpperCase(),
-  description: z.string().min(1, { message: "설명은 필수입니다." }).trim().toUpperCase(),
+  code: z
+    .string()
+    .min(1, { message: "코드는 필수입니다." })
+    .trim()
+    .toUpperCase(),
+  description: z
+    .string()
+    .min(1, { message: "설명은 필수입니다." })
+    .trim()
+    .toUpperCase(),
 });
 
 export const AdminFileUploadsSchema = z.object({
@@ -91,10 +100,12 @@ export const AdminFileUploadsSchema = z.object({
   requestId: z.coerce.number().min(1, { message: "요청 ID는 필수입니다." }),
 });
 
-export const finalResetPasswordSchema = z.object({
-  password: z.string().min(1, { message: "This field is required." }),
-  confirmPassword: z.string().min(1, { message: "This field is required." }),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords do not match.",
-  path: ["confirmPassword"],
-});
+export const finalResetPasswordSchema = z
+  .object({
+    password: z.string().min(1, { message: "This field is required." }),
+    confirmPassword: z.string().min(1, { message: "This field is required." }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match.",
+    path: ["confirmPassword"],
+  });

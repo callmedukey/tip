@@ -57,7 +57,8 @@
     "enterCoupon": "쿠폰 코드 입력",
     "submit": "예약하기",
     "languageAndTime": "언어 및 시간 확정 예정",
-    "otherRequests": "기타 요청사항이 있으신가요?"
+    "otherRequests": "기타 요청사항이 있으신가요?",
+    "budget": "예산"
   },
   "myTravel": {
     "myTravel": "나의 여행",
@@ -228,7 +229,9 @@
     "sendQuote": "견적 보내기",
     "upload": "업로드",
     "uploading": "업로드중...",
-    "insert": "삽입"
+    "insert": "삽입",
+    "budget": "예산",
+    "noBudget": "예산 없음"
   },
   "updateSchedule": {
     "updateSchedule": "업데이트 일정 / 취소 요청",

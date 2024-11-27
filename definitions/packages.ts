@@ -23,6 +23,7 @@ export const inclusiveOptions = [
     id: "car",
     label: "Car",
   },
+  { id: "budget", label: "Budget" },
 ] as const;
 
 export const customOptions = [
@@ -93,10 +94,10 @@ export const packageOptionsKR = {
 };
 
 export const packageTypeLocale = {
-  "ko": {
-    "all_inclusive": "전체 포함 여행 패키지",
-    "custom": "커스컴 여행 패키지"
-  }, 
+  ko: {
+    all_inclusive: "전체 포함 여행 패키지",
+    custom: "커스컴 여행 패키지",
+  },
   en: {
     all_inclusive: "All Inclusive Travel Package",
     custom: "Custom Travel Package",
