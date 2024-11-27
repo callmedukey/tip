@@ -12,7 +12,7 @@ export const sendEmailInstance = ({
   emailTemplate,
   to,
 }: EmailProps) => {
-  if (process.env.NODE_ENV === "development") return;
+  // if (process.env.NODE_ENV === "development") return;
   const apiInstance = new brevo.TransactionalEmailsApi();
   //@ts-ignore
   const apiKey = apiInstance.authentications["apiKey"];
