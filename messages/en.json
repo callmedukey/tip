@@ -390,9 +390,13 @@
     "line2": "Please check my travel details"
   },
   "TravelDetailsConfirmDialog": {
-    "title": "You have confirmed your itinerary",
+    "confirm": "Are you sure you want to confirm your itinerary?",
+    "confirmed": "You have confirmed your itinerary",
+    "description": "Our team will send you a quote within 24 hours",
     "line1": "Our team will send you a quote within 24 hours",
-    "line2": "Please check back later for the next step."
+    "line2": "Please check back later for the next step.",
+    "accept": "Confirm",
+    "exit": "Close"
   },
   "TravelCancelDialog": {
     "areYouSure": "Are you sure you want to cancel your trip?",

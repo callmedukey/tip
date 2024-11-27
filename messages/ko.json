@@ -391,9 +391,13 @@
     "line2": "여행 상세를 확인해주세요."
   },
   "TravelDetailsConfirmDialog": {
-    "title": "여행 일정이 확정되었습니다.",
+    "confirm": "여행 일정을 확정하시겠습니까?",
+    "confirmed": "여행 일정이 확정되었습니다.",
+    "description": "24시간 내로 담당자가 연락드리겠습니다.",
     "line1": "24시간 내로 담당자가 연락드리겠습니다.",
-    "line2": "연락 후 여행 상세를 확인해주세요."
+    "line2": "연락 후 여행 상세를 확인해주세요.",
+    "accept": "확정하기",
+    "exit": "나가기"
   },
   "TravelCancelDialog": {
     "areYouSure": "여행을 취소하시겠습니까?",

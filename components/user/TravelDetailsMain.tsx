@@ -79,46 +79,18 @@ const TravelDetailsMain = ({
   }, [request.travelPlan, selectedDay]);
 
   const handleConfirmTrip = async () => {
-    if (!confirm(t("confirm"))) return;
-    setLoading(true);
-    const res = await confirmTrip(request.id);
-    if (res.message) {
-      alert(res.message);
-    }
-
-    if (res.success) {
-      setOpenDialog(true);
-    }
-    setLoading(false);
+    setOpenDialog(true);
   };
 
   const handleCancelTrip = async () => {
-    if (!confirm(t("cancelConfirm"))) return;
-    setLoading(true);
-
-    if (request.status === "canceled" && !request.canceled) {
-      alert(t("canceledReview"));
-      setLoading(false);
-      return;
-    }
-
-    if (request.paid) {
-      alert(t("alreadyPaid"));
-    }
-    const res = await cancelTrip(request.id, request.paid);
-    if (res.message) alert(res.message);
-
-    if (res.success) {
-      alert(t("canceled"));
-      router.replace("/my-travel");
-    }
-    setLoading(false);
+    setCancelDialog(true);
   };
 
   const handleRevalidate = useCallback(() => {
     setTimeout(() => {
       router.refresh();
-    }, 3000);
+      setCancelDialog(false);
+    }, 2000);
   }, [router]);
 
   return (
