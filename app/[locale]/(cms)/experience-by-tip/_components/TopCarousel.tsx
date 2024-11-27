@@ -47,7 +47,7 @@ const TopCarousel = ({
                 }
                 width={data.thumbnail.width}
                 height={data.thumbnail.height}
-                className="object-cover object-center flex-1 w-full rounded-[2rem]"
+                className="object-cover object-center flex-1 w-full rounded-[2rem] max-h-full"
               />
               <div className="flex-1">
                 <span className="uppercase block text-[0.625rem] font-normal text-egyptianBlue">

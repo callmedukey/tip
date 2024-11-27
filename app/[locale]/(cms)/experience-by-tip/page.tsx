@@ -389,7 +389,10 @@ const page = async () => {
           })
         )
         .map((country) => (
-          <article key={country} className="mt-32 max-w-screen-8xl mx-auto">
+          <article
+            key={country}
+            className="mt-32 max-w-screen-8xl mx-auto px-4"
+          >
             <h3 className="text-[2rem] font-semibold leading-normal text-left font-inter mb-16">
               {country}
             </h3>

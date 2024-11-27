@@ -11,7 +11,7 @@ const ExperienceCard = async ({
 }) => {
   const locale = await getLocale();
   return (
-    <li className="space-y-8 bg-white overflow-clip rounded-[2rem] overflow-">
+    <li className="space-y-8 bg-white overflow-clip rounded-[2rem] overflow-clip">
       <Link href={`/experience-by-tip/${experience.slug}`} className="">
         <Image
           src={getImageUrl(experience.thumbnail.url)}
@@ -24,7 +24,7 @@ const ExperienceCard = async ({
           width={experience.thumbnail.width}
           height={experience.thumbnail.height}
           quality={100}
-          className="rounded-[1rem] w-full h-full object-cover rounded-[2rem]"
+          className="w-full h-full object-cover rounded-[2rem]"
         />
         <p className="text-[1.5rem] font-normal h-16 mt-4">
           {locale === "en" ? experience.en_title : experience.kr_title}
