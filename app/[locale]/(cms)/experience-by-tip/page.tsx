@@ -393,7 +393,7 @@ const page = async () => {
             <h3 className="text-[2rem] font-semibold leading-normal text-left font-inter mb-16">
               {country}
             </h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-x-4 gap-y-8 max-w-screen-8xl mx-auto text-[#404040] items-start">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-x-4 gap-y-4 max-w-screen-8xl mx-auto text-[#404040] items-start">
               {experiencesData.docs
                 .filter((experience) =>
                   experience.country.some((c) => c.name === country)

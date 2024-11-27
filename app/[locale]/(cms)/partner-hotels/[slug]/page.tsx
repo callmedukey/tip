@@ -54,7 +54,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <main className="py-16 px-4">
-      <article className="px-4 py-8 rounded-md max-w-7xl mx-auto bg-gradient-to-b from-white/75 to-white/100">
+      <article className="rounded-md max-w-7xl mx-auto bg-gradient-to-b from-white/75 to-white/100">
         <section className="p-4 rounded-md my-8 whitespace-pre-wrap  text-center">
           {locale === "en" ? (
             <ContentRenderer content={data.docs[0].en_content} />
