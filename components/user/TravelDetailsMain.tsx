@@ -17,7 +17,6 @@ import { cn } from "@/lib/utils";
 import TravelDetailAddress from "@/app/[locale]/(after-auth)/my-travel/details/_components/TravelDetailAddress";
 import TravelDetailsEditInput from "./TravelDetailsEditInput";
 import { PenLine } from "lucide-react";
-import { cancelTrip, confirmTrip } from "@/actions/user";
 import { useRouter } from "@/i18n/routing";
 import TravelDetailsDownloadButton from "./TravelDetailsDownloadButton";
 import { useTranslations } from "next-intl";
