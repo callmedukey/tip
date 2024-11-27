@@ -15,7 +15,7 @@ const HotelCard = async ({ hotel }: { hotel: PartnerHotel }) => {
         width={hotel.thumbnail.width}
         height={hotel.thumbnail.height}
         quality={100}
-        className="rounded-[1rem] h-60 sm:h-full sm:w-full"
+        className="rounded-[1rem] h-60 sm:size-full"
       />
       <p className="text-[1.25rem] font-normal min-h-8 mt-2">
         {locale === "en" ? hotel.en_title : hotel.kr_title}

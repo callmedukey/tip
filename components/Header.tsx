@@ -33,8 +33,7 @@ const Header = async () => {
           {t("myTravel")}
         </Link>
         <Link href="/partner-hotels">{t("partnerHotels")}</Link>
-        <FakeLink message={t("alert")}>{t("experienceByTip")}</FakeLink>
-        {/* <Link href="/experience-by-tip">{t("experienceByTip")}</Link> */}
+        <Link href="/experience-by-tip">{t("experienceByTip")}</Link>
         <HeaderAboutMenu />
       </nav>
       <Auth_HeaderMenu />

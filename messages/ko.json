@@ -17,7 +17,8 @@
     "about": "ABOUT TIP",
     "blog": "블로그",
     "contact": "문의하기",
-    "alert": "아직 준비중입니다."
+    "alert": "아직 준비중입니다.",
+    "membership": "멤버쉽"
   },
   "AuthHeaderMenu": {
     "myAccount": "나의 계정",

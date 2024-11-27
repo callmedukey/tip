@@ -17,7 +17,8 @@
     "about": "About TIP",
     "blog": "Blog",
     "contact": "Contact",
-    "alert": "Under Construction"
+    "alert": "Under Construction",
+    "membership": "Membership"
   },
   "AuthHeaderMenu": {
     "myAccount": "My Account",

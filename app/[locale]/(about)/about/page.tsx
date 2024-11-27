@@ -127,7 +127,7 @@ const AboutPage = async () => {
           </section>
         </div>
       </article>
-      <article className="px-4 pb-32">
+      <article className="px-4 pb-32" id="membership">
         <h3 className="font-noto text-[2rem] lg:text-[2.5rem] text-center font-bold">
           {t("membershipTitle")}
         </h3>

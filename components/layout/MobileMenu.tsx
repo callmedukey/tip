@@ -17,7 +17,6 @@ const links = [
   { href: "/experience-by-tip", name: "experienceByTip" },
   { href: "/about", name: "about" },
   { href: "/contact", name: "contact" },
-  // { href: "/blog", name: "blog" },
 ];
 
 const MobileMenu = () => {
@@ -73,13 +72,13 @@ const MobileMenu = () => {
         </div>
         <nav className="flex flex-col justify-start items-start flex-1 gap-6 py-4">
           {links.map((nav) => {
-            if (nav.name === "experienceByTip") {
-              return (
-                <FakeLink message={t("alert")} key={nav.href}>
-                  {t(nav.name)}
-                </FakeLink>
-              );
-            }
+            // if (nav.name === "experienceByTip") {
+            //   return (
+            //     <FakeLink message={t("alert")} key={nav.href}>
+            //       {t(nav.name)}
+            //     </FakeLink>
+            //   );
+            // }
             return (
               <Link
                 href={nav.href}

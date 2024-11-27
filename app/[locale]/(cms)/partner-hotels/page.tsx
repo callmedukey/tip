@@ -3,6 +3,14 @@ import { getLocale, getTranslations } from "next-intl/server";
 import HotelCarousel from "./_components/HotelCarousel";
 import Image from "next/image";
 import BackgroundImage from "@/public/second-bg.png";
+import { ChevronDownIcon } from "lucide-react";
+import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const dynamic = "force-dynamic";
 
@@ -406,6 +414,30 @@ const page = async () => {
           />
         </section>
       </article>
+      <aside className="flex justify-end px-4 mt-16">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="bg-transparent text-egyptianBlue border border-egyptianBlue max-w-xs w-full lg:w-[15rem] gap-4 py-4 rounded-full font-medium flex items-center justify-center">
+            <span>{locale === "en" ? "Country" : "국가"}</span>
+            <ChevronDownIcon className="w-4 h-4" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="center"
+            className="min-w-full lg:w-[15rem]"
+          >
+            {uniqueCountries.map((country) => (
+              <DropdownMenuItem key={country} asChild>
+                <Link
+                  href={`#${country.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="w-full cursor-pointer py-2"
+                >
+                  {country}
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </aside>
+
       {uniqueCountries
         .sort((a, b) =>
           a.localeCompare(b, locale === "ko" ? "ko" : "en", {
@@ -415,7 +447,8 @@ const page = async () => {
         .map((country) => (
           <article
             key={country}
-            className="mt-16 lg:mt-32 max-w-screen-8xl mx-auto"
+            id={country.toLowerCase().replace(/\s+/g, "-")}
+            className="mt-16 lg:mt-32 max-w-screen-8xl mx-auto scroll-mt-32"
           >
             <h3 className="lg:text-[2rem] text-[1.5rem] font-semibold leading-normal text-left font-inter lg:mb-16 mb-4">
               {country}

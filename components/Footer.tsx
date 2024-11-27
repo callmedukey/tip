@@ -148,7 +148,7 @@ const Footer = async () => {
               <li>Siret : 978537413 RCS Paris</li>
             </ul>
           ) : (
-            <ul className="order-2 sm:order-3 -translate-y-20">
+            <ul className="order-2 sm:order-3 -translate-y-20 lg:-translate-y-8">
               <li className="font-semibold flex items-center gap-2">
                 <Image
                   src={FrenchFlag}

@@ -206,3 +206,7 @@ li[data-color="TIP DIAMOND"] > div:first-of-type {
 .membership-card-list > li {
   @apply flex items-center gap-8 font-noto;
 }
+
+html {
+  scroll-behavior: smooth;
+}
