@@ -422,13 +422,13 @@ const page = async () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="center"
-            className="min-w-full lg:w-[15rem]"
+            className="min-w-full lg:w-[15rem] border-egyptianBlue"
           >
             {uniqueCountries.map((country) => (
               <DropdownMenuItem key={country} asChild>
                 <Link
                   href={`#${country.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="w-full cursor-pointer py-2"
+                  className="w-full cursor-pointer py-2 text-egyptianBlue"
                 >
                   {country}
                 </Link>
