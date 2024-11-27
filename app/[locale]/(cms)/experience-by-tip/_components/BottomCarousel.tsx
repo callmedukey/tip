@@ -66,7 +66,7 @@ const BottomCarousel = ({
                   }
                   width={data.leftThumbnail.width}
                   height={data.leftThumbnail.height}
-                  className="object-cover object-center lg:self-start w-full lg:max-w-[25rem] lg:max-h-[80%] lg:w-fit max-h-[15rem]"
+                  className="object-cover object-center lg:self-start w-full lg:max-w-[25rem] lg:max-h-[80%] lg:w-fit max-h-[15rem] rounded-[2rem]"
                 />
                 <Image
                   src={getImageUrl(data.rightThumbnail.url)}
@@ -77,7 +77,7 @@ const BottomCarousel = ({
                   }
                   width={data.rightThumbnail.width}
                   height={data.rightThumbnail.height}
-                  className="object-cover object-center lg:self-end w-full lg:max-w-[25rem] lg:max-h-[80%] lg:w-fit max-h-[15rem]"
+                  className="object-cover object-center lg:self-end w-full lg:max-w-[25rem] lg:max-h-[80%] lg:w-fit max-h-[15rem] rounded-[2rem]"
                 />
               </div>
             </div>
