@@ -9,13 +9,13 @@ import Image from "next/image";
 import LanguageSelectDropDown from "../LanguageSelectDropDown";
 import { useTranslations } from "next-intl";
 import { DialogDescription, DialogTitle } from "../ui/dialog";
-import FakeLink from "../user/FakeLink";
 const links = [
   { href: "/my-profile", name: "myProfile" },
   { href: "/my-travel", name: "myTravel" },
   { href: "/partner-hotels", name: "partnerHotels" },
   { href: "/experience-by-tip", name: "experienceByTip" },
   { href: "/about", name: "about" },
+  { href: "/about#membership", name: "membership" },
   { href: "/contact", name: "contact" },
 ];
 
@@ -79,6 +79,7 @@ const MobileMenu = () => {
             //     </FakeLink>
             //   );
             // }
+
             return (
               <Link
                 href={nav.href}

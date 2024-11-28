@@ -50,8 +50,8 @@ const TravelDetailsConfirmDialog = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="p-0 overflow-clip max-w-[500px] w-full !rounded-[3rem]">
+    <Dialog open={true} onOpenChange={setOpen}>
+      <DialogContent className="p-0 overflow-clip max-w-[450px] w-full !rounded-[3rem]">
         <DialogHeader className="sr-only">
           <DialogTitle className="sr-only">{t("confirm")}</DialogTitle>
           <DialogDescription className="sr-only">
@@ -59,7 +59,7 @@ const TravelDetailsConfirmDialog = ({
           </DialogDescription>
         </DialogHeader>
         <div className="relative isolate flex flex-col text-white items-center justify-center gap-8 py-8 px-4">
-          <p className="text-[1.875rem] font-bold text-center max-w-[25rem] mx-auto">
+          <p className="text-[1.5rem] font-bold text-center max-w-[25rem] mx-auto">
             {title}
           </p>
           <div className="text-center">

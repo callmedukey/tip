@@ -60,7 +60,7 @@ const TravelCancelDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="p-0 overflow-clip max-w-[500px] w-full !rounded-[3rem]">
+      <DialogContent className="p-0 overflow-clip max-w-[400px] w-full !rounded-[3rem] border-none">
         <DialogHeader className="sr-only">
           <DialogTitle className="sr-only">{t("areYouSure")}</DialogTitle>
           <DialogDescription className="sr-only">
@@ -68,7 +68,7 @@ const TravelCancelDialog = ({
           </DialogDescription>
         </DialogHeader>
         <div className="relative isolate flex flex-col text-white items-center justify-center gap-8 py-8 px-4">
-          <p className="text-[1.875rem] font-bold text-center font-garamond text-pretty max-w-[20rem]">
+          <p className="text-[1.5rem] font-bold text-center font-garamond text-pretty max-w-[20rem]">
             {currentMessage}
           </p>
           <div className="text-center text-slate-200 font-garamond text-pretty text-lg font-medium">
