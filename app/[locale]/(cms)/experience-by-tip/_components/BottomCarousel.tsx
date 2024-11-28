@@ -39,7 +39,7 @@ const BottomCarousel = ({
               key={data.id}
               className="flex gap-6 lg:gap-24 items-center lg:flex-row-reverse flex-col lg:h-[30rem] text-left"
             >
-              <div className="w-full max-w-sm ml-0 mr-auto lg:mx-auto">
+              <div className="w-full max-w-sm ml-0 mr-auto lg:mx-auto order-2 lg:order-1">
                 <span className="uppercase block text-[0.625rem] font-normal text-egyptianBlue">
                   Featured Experience
                 </span>
@@ -56,7 +56,7 @@ const BottomCarousel = ({
                   더보기 <ArrowRightIcon className="w-4 h-4" />
                 </Link>
               </div>
-              <div className="flex-1 flex gap-2 self-stretch flex-col sm:flex-row">
+              <div className="flex-1 flex gap-2 self-stretch flex-col sm:flex-row order-2 lg:order-1">
                 <Image
                   src={getImageUrl(data.leftThumbnail.url)}
                   alt={

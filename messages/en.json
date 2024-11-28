@@ -1,7 +1,8 @@
 {
   "ui": {
     "back": "Back",
-    "bookNow": "Book Now"
+    "bookNow": "Book Now",
+    "scrollUp": "TOP"
   },
   "HomePage": {
     "title": "Travel in your Pocket",

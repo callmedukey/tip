@@ -27,7 +27,7 @@ const ExperienceCard = async ({
             className="w-full rounded-[2rem] h-full object-fill"
           />
         </div>
-        <p className="text-[1.5rem] font-normal h-16 mt-4">
+        <p className="text-[1.5rem] font-normal min-h-16 mt-4">
           {locale === "en" ? experience.en_title : experience.kr_title}
         </p>
       </Link>

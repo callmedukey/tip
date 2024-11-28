@@ -1,7 +1,8 @@
 {
   "ui": {
     "back": "뒤로가기",
-    "bookNow": "예약하기"
+    "bookNow": "예약하기",
+    "scrollUp": "상위로"
   },
   "HomePage": {
     "title": "Travel in your Pocket",

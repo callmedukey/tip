@@ -6,6 +6,7 @@ import type { CMSCall, PartnerHotelThumbnail } from "../partner-hotels/page";
 import TopCarousel from "./_components/TopCarousel";
 import BottomCarousel from "./_components/BottomCarousel";
 import ExperienceCard from "./_components/ExperienceCard";
+import { cn } from "@/lib/utils";
 export const dynamic = "force-dynamic";
 
 // const fakeTopData: ExperienceTopCarousel[] = [
@@ -388,12 +389,12 @@ const page = async () => {
             sensitivity: "base",
           })
         )
-        .map((country) => (
+        .map((country, i) => (
           <article
             key={country}
-            className="mt-32 max-w-screen-8xl mx-auto px-4"
+            className={cn("max-w-screen-8xl mx-auto px-4", i !== 0 && "mt-32")}
           >
-            <h3 className="text-[2rem] font-semibold leading-normal text-left font-inter mb-6">
+            <h3 className="text-[2rem] font-semibold leading-normal text-left font-inter mb-2">
               {country}
             </h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-x-4 gap-y-4 max-w-screen-8xl mx-auto text-[#404040] items-start">
