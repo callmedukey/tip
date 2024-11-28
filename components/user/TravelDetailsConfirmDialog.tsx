@@ -50,7 +50,7 @@ const TravelDetailsConfirmDialog = ({
   };
 
   return (
-    <Dialog open={true} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="p-0 overflow-clip max-w-[450px] w-full !rounded-[3rem]">
         <DialogHeader className="sr-only">
           <DialogTitle className="sr-only">{t("confirm")}</DialogTitle>
