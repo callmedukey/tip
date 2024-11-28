@@ -3,6 +3,10 @@ import Image from "next/image";
 
 const ContentRenderer = ({ content }: { content: CMS_Content_RichText[] }) => {
   return content.map((node, i) => {
+    if (i === content.length - 1 && node?.text === "") {
+      return null;
+    }
+
     if (node.type === "link") {
       return (
         <a

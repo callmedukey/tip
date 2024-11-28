@@ -20,6 +20,7 @@ import Footer from "@/components/Footer";
 import ChannelTalkProvider from "@/components/layout/ChannelTalkProvider";
 import Script from "next/script";
 import type { Metadata, Viewport } from "next";
+import { ScrollManager } from "@/components/ScrollManager";
 const Inter = InterFont({
   subsets: ["latin"],
   display: "swap",
@@ -342,6 +343,7 @@ export default async function Layout({
                   gtag('config', 'G-JNMGX8NNN6');
                 `}</Script>
                 )}
+                <ScrollManager />
                 <Header />
                 <HeaderCushion />
                 <CloudBg />

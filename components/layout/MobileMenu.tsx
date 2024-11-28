@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import { Link, usePathname } from "@/i18n/routing";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
 import Menu from "@/public/icons/menu.svg";
 import { cn } from "@/lib/utils";
 import DarkLogo from "@/public/dark-logo-svg.svg";
@@ -9,6 +9,13 @@ import Image from "next/image";
 import LanguageSelectDropDown from "../LanguageSelectDropDown";
 import { useTranslations } from "next-intl";
 import { DialogDescription, DialogTitle } from "../ui/dialog";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 const links = [
   { href: "/my-profile", name: "myProfile" },
   { href: "/my-travel", name: "myTravel" },
@@ -23,8 +30,9 @@ const MobileMenu = () => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("Header");
+  const router = useRouter();
   return (
-    <Drawer direction="left" open={open} onOpenChange={setOpen}>
+    <Drawer direction="left" open={open} onOpenChange={setOpen} modal={false}>
       <DrawerTrigger className="focus:outline-none" aria-label="모바일 메뉴">
         <Image src={Menu} alt="Menu" width={38} height={14} />
       </DrawerTrigger>
@@ -79,7 +87,67 @@ const MobileMenu = () => {
             //     </FakeLink>
             //   );
             // }
+            if (nav.name === "about") {
+              return (
+                <Accordion
+                  type="single"
+                  collapsible
+                  key={nav.href}
+                  className="w-full"
+                >
+                  <AccordionItem value="item-1" className="border-b-0 w-full">
+                    <AccordionTrigger
+                      className={cn(
+                        "w-full text-xl font-normal gap-4 py-0",
+                        pathname === nav.href
+                          ? "text-murrey underline underline-offset-4"
+                          : ""
+                      )}
+                    >
+                      {t("about")}
+                    </AccordionTrigger>
+                    <AccordionContent className="flex flex-col gap-4 pl-4 pt-4">
+                      <Link
+                        className="text-lg w-full"
+                        href={nav.href}
+                        onClick={() => setOpen(false)}
+                      >
+                        {t("about")}
+                      </Link>
+                      <Link
+                        className="text-lg w-full"
+                        href={"/about#membership"}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setOpen(false);
 
+                          setTimeout(() => {
+                            const hash = window.location?.hash;
+                            if (pathname.includes("/about")) {
+                              history.scrollRestoration = "manual";
+                              window.scrollTo({
+                                top: document.getElementById(hash.slice(1))
+                                  ?.offsetTop,
+                                behavior: "smooth",
+                              });
+                            }
+                            if (!hash) {
+                              router.push("/about#membership");
+                            }
+                          }, 800);
+                        }}
+                      >
+                        {t("membership")}
+                      </Link>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              );
+            }
+
+            if (nav.name === "membership") {
+              return null;
+            }
             return (
               <Link
                 href={nav.href}

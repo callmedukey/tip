@@ -353,7 +353,7 @@ const page = async () => {
   );
 
   return (
-    <main>
+    <main className="pb-[4rem] lg:pb-[8rem]">
       <section className="relative w-full min-h-[min(80vh,120rem)] isolate mt-[-5rem] pt-[8rem]">
         <Image
           src={BackgroundImage}

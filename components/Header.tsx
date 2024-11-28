@@ -5,7 +5,6 @@ import MobileMenu from "./layout/MobileMenu";
 import Auth_HeaderMenu from "./layout/Auth_HeaderMenu";
 import { getTranslations } from "next-intl/server";
 import HeaderAboutMenu from "./main-page/HeaderAboutMenu";
-import FakeLink from "./user/FakeLink";
 import HeaderBack from "./HeaderBack";
 
 const Header = async () => {
