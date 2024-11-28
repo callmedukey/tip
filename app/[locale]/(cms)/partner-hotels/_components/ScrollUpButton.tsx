@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 const ScrollUpButton = () => {
   const t = useTranslations("ui");
   return (
-    <div className="w-fit  fixed bottom-4 left-4 z-50 flex flex-col items-center justify-center">
+    <div className="w-fit fixed top-1/2 -translate-y-1/2 right-4 z-50 flex flex-col items-center justify-center">
       <span className="text-sm text-egyptianBlue font-bold">
         {t("scrollUp")}
       </span>
