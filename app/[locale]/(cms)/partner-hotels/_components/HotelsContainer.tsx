@@ -76,7 +76,7 @@ const HotelsContainer = ({
           <article
             key={country}
             id={country.toLowerCase().replace(/\s+/g, "-")}
-            className="mt-16 lg:mt-32 max-w-screen-8xl mx-auto scroll-mt-32"
+            className="mt-16 lg:mt-32 max-w-screen-8xl mx-auto"
           >
             <h3 className="lg:text-[2rem] text-[1.5rem] font-semibold leading-normal text-left font-inter lg:mb-16 mb-4">
               {country}
