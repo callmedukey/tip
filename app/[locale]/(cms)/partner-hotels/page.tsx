@@ -1,16 +1,8 @@
-import HotelCard from "./_components/HotelCard";
 import { getLocale, getTranslations } from "next-intl/server";
 import HotelCarousel from "./_components/HotelCarousel";
 import Image from "next/image";
 import BackgroundImage from "@/public/second-bg.png";
-import { ChevronDownIcon } from "lucide-react";
-import Link from "next/link";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import HotelsContainer from "./_components/HotelsContainer";
 
 export const dynamic = "force-dynamic";
@@ -415,29 +407,7 @@ const page = async () => {
           />
         </section>
       </article>
-      <aside className="flex justify-end px-4 mt-16" id="country-dropdown">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="bg-transparent text-egyptianBlue border border-egyptianBlue max-w-xs w-full lg:w-[15rem] gap-4 py-4 rounded-full font-medium flex items-center justify-center">
-            <span>{locale === "en" ? "Country" : "국가"}</span>
-            <ChevronDownIcon className="w-4 h-4" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="center"
-            className="min-w-full lg:w-[15rem] border-egyptianBlue max-h-[10rem] overflow-y-auto"
-          >
-            {uniqueCountries.map((country) => (
-              <DropdownMenuItem key={country} asChild>
-                <Link
-                  href={`#${country.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="w-full cursor-pointer py-2 text-egyptianBlue"
-                >
-                  {country}
-                </Link>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </aside>
+      
       <HotelsContainer
         uniqueCountries={uniqueCountries}
         partnerHotelsData={partnerHotelsData}
