@@ -2,7 +2,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import HotelCarousel from "./_components/HotelCarousel";
 import Image from "next/image";
 import BackgroundImage from "@/public/second-bg.png";
-
+import HotelCard from "./_components/HotelCard";
 import HotelsContainer from "./_components/HotelsContainer";
 
 export const dynamic = "force-dynamic";
@@ -407,12 +407,37 @@ const page = async () => {
           />
         </section>
       </article>
-      
+
       <HotelsContainer
         uniqueCountries={uniqueCountries}
         partnerHotelsData={partnerHotelsData}
         locale={locale}
-      />
+      >
+        {uniqueCountries
+          .sort((a, b) =>
+            a.localeCompare(b, locale === "ko" ? "ko" : "en", {
+              sensitivity: "base",
+            })
+          )
+          .map((country) => (
+            <article
+              key={country}
+              id={country.toLowerCase().replace(/\s+/g, "-")}
+              className="mt-16 lg:mt-32 max-w-screen-8xl mx-auto"
+            >
+              <h3 className="lg:text-[2rem] text-[1.5rem] font-semibold leading-normal text-left font-inter lg:mb-16 mb-4">
+                {country}
+              </h3>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-x-4 gap-y-8 max-w-screen-8xl mx-auto text-[#404040] items-start">
+                {partnerHotelsData.docs
+                  .filter((hotel: any) => hotel.country?.name === country)
+                  .map((hotel: any) => (
+                    <HotelCard key={hotel.id} hotel={hotel} />
+                  ))}
+              </ul>
+            </article>
+          ))}
+      </HotelsContainer>
     </main>
   );
 };

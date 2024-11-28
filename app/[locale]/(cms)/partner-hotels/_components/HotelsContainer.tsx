@@ -18,10 +18,12 @@ const HotelsContainer = ({
   uniqueCountries,
   partnerHotelsData,
   locale,
+  children,
 }: {
   uniqueCountries: string[];
   partnerHotelsData: any;
   locale: string;
+  children: React.ReactNode;
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref);
@@ -49,14 +51,20 @@ const HotelsContainer = ({
                     e.preventDefault();
                     setOpenDropdown(false);
                     setTimeout(() => {
-                      history.scrollRestoration = "manual";
-                      window.scrollTo({
-                        top: document.getElementById(
-                          country.toLowerCase().replace(/\s+/g, "-")
-                        )?.offsetTop,
-                        behavior: "smooth",
-                      });
-                    }, 800);
+                      const element = document.getElementById(
+                        country.toLowerCase().replace(/\s+/g, "-")
+                      );
+                      if (element) {
+                        const elementPosition =
+                          element.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.scrollY;
+
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: "smooth",
+                        });
+                      }
+                    }, 500); // Reduced timeout to make scrolling feel more responsive
                   }}
                 >
                   {country}
@@ -66,30 +74,7 @@ const HotelsContainer = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </aside>
-      {uniqueCountries
-        .sort((a, b) =>
-          a.localeCompare(b, locale === "ko" ? "ko" : "en", {
-            sensitivity: "base",
-          })
-        )
-        .map((country) => (
-          <article
-            key={country}
-            id={country.toLowerCase().replace(/\s+/g, "-")}
-            className="mt-16 lg:mt-32 max-w-screen-8xl mx-auto"
-          >
-            <h3 className="lg:text-[2rem] text-[1.5rem] font-semibold leading-normal text-left font-inter lg:mb-16 mb-4">
-              {country}
-            </h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-x-4 gap-y-8 max-w-screen-8xl mx-auto text-[#404040] items-start">
-              {partnerHotelsData.docs
-                .filter((hotel: any) => hotel.country?.name === country)
-                .map((hotel: any) => (
-                  <HotelCard key={hotel.id} hotel={hotel} />
-                ))}
-            </ul>
-          </article>
-        ))}
+      {children}
       {isInView && <ScrollUpButton />}
     </div>
   );
