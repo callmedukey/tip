@@ -56,7 +56,7 @@ const BottomCarousel = ({
                   더보기 <ArrowRightIcon className="w-4 h-4" />
                 </Link>
               </div>
-              <div className="flex-1 flex gap-2 self-stretch flex-col sm:flex-row order-2 lg:order-1">
+              <div className="flex-1 flex gap-2 self-stretch flex-col sm:flex-row order-1 lg:order-2">
                 <Image
                   src={getImageUrl(data.leftThumbnail.url)}
                   alt={
