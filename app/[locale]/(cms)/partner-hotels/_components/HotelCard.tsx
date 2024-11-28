@@ -1,12 +1,13 @@
+"use client";
 import Image from "next/image";
 import type { PartnerHotel } from "../page";
 import { getImageUrl } from "@/lib/cms";
 import { Link } from "@/i18n/routing";
-import { getLocale } from "next-intl/server";
 import { ArrowRightIcon } from "lucide-react";
+import { useLocale } from "next-intl";
 
-const HotelCard = async ({ hotel }: { hotel: PartnerHotel }) => {
-  const locale = await getLocale();
+const HotelCard = ({ hotel }: { hotel: PartnerHotel }) => {
+  const locale = useLocale();
   return (
     <li className="bg-white overflow-clip rounded-[1rem]">
       <Image
