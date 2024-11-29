@@ -1,16 +1,14 @@
 import prisma from "@/lib/prisma";
 
 async function findRequest() {
-  const request = await prisma.request.findUnique({
+  await prisma.request.update({
     where: {
       id: 17,
     },
-    include: {
-      user: true,
+    data: {
+      canceled: false,
     },
   });
-
-  console.log(request);
 }
 
 findRequest();
