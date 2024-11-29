@@ -31,7 +31,7 @@
     "admin": "관리자"
   },
   "MainFirstForm": {
-    "city": "도시",
+    "city": "도시 (출발/-/도착)",
     "startDate": "출발일",
     "endDate": "종료일",
     "persons": "인원",
@@ -60,7 +60,8 @@
     "submit": "예약하기",
     "languageAndTime": "언어 및 시간 확정 예정",
     "otherRequests": "기타 요청사항이 있으신가요?",
-    "budget": "예산"
+    "budget": "예산",
+    "etc": "기타 도시를 선택하셨습니다. 기타 도시를 알려주세요."
   },
   "myTravel": {
     "myTravel": "나의 여행",

@@ -186,6 +186,12 @@ const ThirdScreen = ({
                         {t("other")}
                         <span className="text-egyptianBlue">*</span>
                       </FormLabel>
+                      {initialState.city.includes("ETC") ||
+                      initialState.city.includes("기타") ? (
+                        <p className="text-egyptianBlue text-xs font-bold">
+                          {t("etc")}
+                        </p>
+                      ) : null}
                       <FormControl>
                         <Textarea
                           {...field}

@@ -31,7 +31,7 @@
     "admin": "Admin"
   },
   "MainFirstForm": {
-    "city": "City",
+    "city": "City (Start/-/End)",
     "startDate": "From",
     "endDate": "To",
     "persons": "Persons",
@@ -60,7 +60,8 @@
     "submit": "Book Now",
     "languageAndTime": "Language and time to be confirmed",
     "otherRequests": "Let us know if you have any other requests.",
-    "budget": "Budget"
+    "budget": "Budget",
+    "etc": "Kindly inform us of the city you have chosen for ETC."
   },
   "myTravel": {
     "myTravel": "My Travel",
