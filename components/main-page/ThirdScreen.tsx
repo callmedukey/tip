@@ -188,6 +188,7 @@ const ThirdScreen = ({
                     <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
                       <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
                         {t("startCity")}
+                        <span className="text-egyptianBlue">*</span>
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -200,6 +201,7 @@ const ThirdScreen = ({
                           }
                         />
                       </FormControl>
+
                     </FormItem>
                   )}
                 />
@@ -630,6 +632,7 @@ const ThirdScreen = ({
                     <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
                       <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
                         {t("startCity")}
+                        <span className="text-egyptianBlue">*</span>
                       </FormLabel>
                       <FormControl>
                         <Input
