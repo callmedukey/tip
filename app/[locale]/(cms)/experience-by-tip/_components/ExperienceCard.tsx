@@ -13,7 +13,7 @@ const ExperienceCard = async ({
   return (
     <li className="space-y-8 bg-white rounded-[2rem]">
       <Link href={`/experience-by-tip/${experience.slug}`} className="">
-        <div className="w-full h-[300px] md:h-[450px] lg:h-[650px] aspect-square">
+        <div className="w-full max-h-[650px] aspect-square">
           <Image
             src={getImageUrl(experience.thumbnail.url)}
             alt={
