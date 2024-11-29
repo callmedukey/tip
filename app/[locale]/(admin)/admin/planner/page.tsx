@@ -121,10 +121,6 @@ const AdminPlannerPage = async ({
             : t("noOrderTravelStyle")}
         </div>
         <div className="flex gap-2 mt-4">
-          <div>{t("startCity")}:</div>
-          <div>{order?.startCity ?? "--"}</div>
-        </div>
-        <div className="flex gap-2 mt-4">
           <div>{t("city")}:</div>
           <div>{order.city.join(", ")}</div>
         </div>
@@ -164,6 +160,10 @@ const AdminPlannerPage = async ({
         <div className="font-bold mt-8">{t("budget")}</div>
         <div className="max-w-md bg-gray-300  p-2 rounded-md">
           {order.budget && order.budget !== "" ? order.budget : t("noBudget")}
+        </div>
+        <div className="font-bold mt-8">{t("startCity")}</div>
+        <div className="max-w-md bg-gray-300  p-2 rounded-md">
+          {order?.startCity && order?.startCity !== "" ? order.startCity : "-"}
         </div>
         <div className="mt-12">
           <h2 className="text-xl font-bold">{t("travelSummary")}</h2>

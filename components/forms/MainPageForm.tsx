@@ -14,7 +14,6 @@ import { Form, FormField, FormItem } from "@/components/ui/form";
 import { serviceCountryAndCities } from "@/definitions/service-cities";
 import LocationIcon from "@/public/icons/location.svg";
 import { MainPageFormSchema } from "@/definitions/zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
@@ -46,6 +45,7 @@ const MainPageForm = ({
   setState: (state: Record<string, string | number | Date | any>) => void;
 }) => {
   const locale = useLocale();
+  const [error, setError] = useState(false);
   const t = useTranslations("MainFirstForm");
   const [savedInitialData, setSavedInitialData] = useLocalStorage<Record<
     string,
@@ -92,38 +92,38 @@ const MainPageForm = ({
       }
     }
   };
-  form.watch("adults");
-  form.watch("infants");
-  form.watch("purpose");
+  const adults = form.watch("adults");
+  const infants = form.watch("infants");
+  const purpose = form.watch("purpose");
 
   const onSubmit = async (data: z.infer<typeof MainPageFormSchema>) => {
     if (!data.city) {
-      alert("Please select a city");
+      setError(true);
       return;
     }
 
     if (!date.from) {
-      alert("Please select a From date");
+      setError(true);
       return;
     }
 
     if (!date.to) {
-      alert("Please select a To date");
+      setError(true);
       return;
     }
 
     if (!data.adults) {
-      alert("Please select a number of adults");
+      setError(true);
       return;
     }
 
     if (!data.purpose) {
-      alert("Please select a purpose");
+      setError(true);
       return;
     }
 
     if (!new Date(date.from) || !new Date(date.to)) {
-      alert("Please select a From date and To date");
+      setError(true);
       return;
     }
 
@@ -162,7 +162,11 @@ const MainPageForm = ({
     }
   };
 
-  form.watch("city");
+  const cities = form.watch("city");
+
+  useEffect(() => {
+    setError(false);
+  }, [cities, adults, infants, purpose, date.from, date.to]);
 
   return (
     <Form {...form}>
@@ -171,7 +175,12 @@ const MainPageForm = ({
         className="absolute max-w-[calc(100vw-2rem)] [@media(max-width:1024px)]:max-w-md mt-[calc(var(--header-height)*4)]  lg:mt-[calc(var(--header-height)*2)] self-start bg-white px-2 lg:px-6 pt-4 lg:pt-2 pb-2 lg:rounded-full rounded-[2rem] mx-4 flex lg:flex-row flex-col w-full lg:max-w-fit lg:mx-auto items-center text-formTex font-pretendard font-normal"
       >
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex z-50 items-center focus:outline-none gap-2 lg:max-w-[14rem] min-w-[14rem] w-full overflow-x-auto border-b lg:border-r lg:border-b-0 border-dashed pb-4 lg:pb-0 px-4 scrollbar-hide">
+          <DropdownMenuTrigger
+            className={cn(
+              "flex z-50 items-center focus:outline-none gap-2 lg:max-w-[14rem] min-w-[14rem] w-full overflow-x-auto border-b lg:border-r lg:border-b-0 border-dashed pb-4 lg:pb-0 px-4 scrollbar-hide",
+              error && cities.length === 0 && "text-red-500"
+            )}
+          >
             <Image
               src={LocationIcon}
               height={32}
@@ -238,7 +247,8 @@ const MainPageForm = ({
               <Button
                 variant={"outline"}
                 className={cn(
-                  "justify-center text-base text-left font-normal outline-none lg:min-w-[20rem] min-w-[10rem] border-none ring-0 focus:outline-none shadow-none flex items-center gap-2 sm:gap-4 lg:gap-2 hover:bg-transparent pl-1 lg:pl-4"
+                  "justify-center text-base text-left font-normal outline-none lg:min-w-[20rem] min-w-[10rem] border-none ring-0 focus:outline-none shadow-none flex items-center gap-2 sm:gap-4 lg:gap-2 hover:bg-transparent pl-1 lg:pl-4",
+                  error && (!date?.from || !date?.to) ? "text-red-500" : ""
                 )}
               >
                 <Image
@@ -279,9 +289,14 @@ const MainPageForm = ({
             </PopoverContent>
           </Popover>
         </div>
-        <div className="flex items-center lg:px-4 pl-1 border-b lg:border-r lg:border-b-0 border-dashed py-6 lg:py-0 w-full lg:w-fit pl-4 lg:pl-0">
+        <div className="flex items-center lg:px-4 border-b lg:border-r lg:border-b-0 border-dashed py-6 lg:py-0 w-full lg:w-fit pl-4 lg:pl-0">
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center lg:gap-2 gap-2 w-[8rem] ring-0 focus:ring-0">
+            <DropdownMenuTrigger
+              className={cn(
+                "flex items-center lg:gap-2 gap-2 w-[8rem] ring-0 focus:ring-0",
+                error && !adults && !infants && "text-red-500"
+              )}
+            >
               <Image src={Person} alt="Person Icon" width={24} height={24} />
               {form.getValues("adults") + form.getValues("infants") > 0
                 ? `${form.getValues("adults") + form.getValues("infants")} ${
@@ -363,9 +378,14 @@ const MainPageForm = ({
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="flex items-center lg:px-4 py-4 lg:py-0 w-full lg:w-fit pl-1 border-b border-dashed lg:border-b-0 pl-4 lg:pl-0">
+        <div className="flex items-center lg:px-4 py-4 lg:py-0 w-full lg:w-fit border-b border-dashed lg:border-b-0 pl-4 lg:pl-0">
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-2 lg:gap-2 w-[8rem] ring-0 focus:ring-0 capitalize">
+            <DropdownMenuTrigger
+              className={cn(
+                "flex items-center gap-2 lg:gap-2 w-[8rem] ring-0 focus:ring-0 capitalize",
+                error && !purpose && "text-red-500"
+              )}
+            >
               <Image
                 src={PurposeIcon}
                 alt="Purpose Icon"

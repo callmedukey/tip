@@ -31,7 +31,7 @@
     "admin": "Admin"
   },
   "MainFirstForm": {
-    "city": "City (Start/-/End)",
+    "city": "City",
     "startDate": "From",
     "endDate": "To",
     "persons": "Persons",
@@ -182,6 +182,7 @@
   },
   "adminPlanner": {
     "downloadAsPDF": "Download as PDF",
+    "startCity": "Origin City",
     "totalPrice": "Total Amount",
     "planner": "Planner",
     "orderNo": "Order No.",

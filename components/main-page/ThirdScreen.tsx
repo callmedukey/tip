@@ -71,7 +71,7 @@ const ThirdScreen = ({
     if (loading) return;
 
     if (!data?.startCity) return;
-    
+
     setSavedInitialData(null);
 
     setLoading(true);
@@ -623,7 +623,7 @@ const ThirdScreen = ({
                 )}
               />
               <div className="col-start-3 row-start-1">
-                 <FormField
+                <FormField
                   control={form.control}
                   name="startCity"
                   render={({ field }) => (

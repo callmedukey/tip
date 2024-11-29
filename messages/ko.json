@@ -31,7 +31,7 @@
     "admin": "관리자"
   },
   "MainFirstForm": {
-    "city": "도시 (출발/-/도착)",
+    "city": "도시",
     "startDate": "출발일",
     "endDate": "종료일",
     "persons": "인원",
@@ -181,6 +181,7 @@
     "planner": "플래너"
   },
   "adminPlanner": {
+    "startCity": "출발 도시",
     "totalPrice": "총액",
     "downloadAsPDF": "PDF 다운로드",
     "planner": "플래너",
