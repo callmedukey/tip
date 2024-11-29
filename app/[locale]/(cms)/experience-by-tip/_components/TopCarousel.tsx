@@ -30,7 +30,7 @@ const TopCarousel = ({
   };
 
   return (
-    <ul className="py-24 max-w-screen-8xl mx-auto w-full px-4 lg:px-12">
+    <ul className="pt-24 pb-12 max-w-screen-8xl mx-auto w-full px-4 lg:px-12">
       <Splide options={splideOptions1}>
         {topCarousel.map((data, i) => (
           <SplideSlide key={i}>

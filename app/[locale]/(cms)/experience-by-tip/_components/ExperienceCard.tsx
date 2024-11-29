@@ -13,7 +13,7 @@ const ExperienceCard = async ({
   return (
     <li className="space-y-8 bg-white rounded-[2rem]">
       <Link href={`/experience-by-tip/${experience.slug}`} className="">
-        <div className="w-full max-h-[650px] aspect-square">
+        <div className="w-full max-h-[450px] max-w-[450px] aspect-square">
           <Image
             src={getImageUrl(experience.thumbnail.url)}
             alt={
@@ -27,7 +27,7 @@ const ExperienceCard = async ({
             className="w-full rounded-[2rem] h-full object-fill"
           />
         </div>
-        <p className="text-[1.5rem] font-normal min-h-16 mt-4">
+        <p className="text-[1.5rem] font-normal min-h-16 mt-4 max-w-[450px]">
           {locale === "en" ? experience.en_title : experience.kr_title}
         </p>
       </Link>

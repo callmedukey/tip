@@ -31,7 +31,7 @@ const BottomCarousel = ({
   };
 
   return (
-    <ul className="py-24 max-w-screen-8xl mx-auto w-full px-4 lg:px-12">
+    <ul className="pb-24 pt-12 max-w-screen-8xl mx-auto w-full px-4 lg:px-12">
       <Splide options={splideOptions1}>
         {bottomCarousel.map((data, i) => (
           <SplideSlide key={i}>
