@@ -93,6 +93,7 @@ model Request {
   extra       String?
 
   budget String?
+  startCity String?
 
   adminNotes String?
 

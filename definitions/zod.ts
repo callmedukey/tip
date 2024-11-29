@@ -24,6 +24,7 @@ export const FinalFormSchema = z.object({
   extra: z.string().optional(),
   code: z.string().optional(),
   budget: z.string().optional(),
+  startCity: z.string({message: "City is required"}).trim()
 });
 
 export const RequestFormSchema = z.object({

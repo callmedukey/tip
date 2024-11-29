@@ -61,7 +61,8 @@
     "languageAndTime": "Language and time to be confirmed",
     "otherRequests": "Let us know if you have any other requests.",
     "budget": "Budget",
-    "etc": "Kindly inform us of the city you have chosen for ETC."
+    "etc": "Kindly inform us of the city you have chosen for ETC.",
+    "startCity": "Origin City"
   },
   "myTravel": {
     "myTravel": "My Travel",

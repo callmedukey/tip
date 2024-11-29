@@ -121,6 +121,10 @@ const AdminPlannerPage = async ({
             : t("noOrderTravelStyle")}
         </div>
         <div className="flex gap-2 mt-4">
+          <div>{t("startCity")}:</div>
+          <div>{order?.startCity ?? "--"}</div>
+        </div>
+        <div className="flex gap-2 mt-4">
           <div>{t("city")}:</div>
           <div>{order.city.join(", ")}</div>
         </div>

@@ -63,11 +63,15 @@ const ThirdScreen = ({
       extra: "",
       code: "",
       budget: "",
+      startCity: "",
     },
   });
 
   const handleSubmit = async (data: z.infer<typeof FinalFormSchema>) => {
     if (loading) return;
+
+    if (!data?.startCity) return;
+    
     setSavedInitialData(null);
 
     setLoading(true);
@@ -177,6 +181,28 @@ const ThirdScreen = ({
                 )}
               />
               <div className="">
+                <FormField
+                  control={form.control}
+                  name="startCity"
+                  render={({ field }) => (
+                    <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
+                      <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
+                        {t("startCity")}
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
+                          placeholder={
+                            locale === "en"
+                              ? `Where do you start your trip? (CITY)`
+                              : `어디에서 출발하시나요? (도시)`
+                          }
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="extra"
@@ -597,6 +623,28 @@ const ThirdScreen = ({
                 )}
               />
               <div className="col-start-3 row-start-1">
+                 <FormField
+                  control={form.control}
+                  name="startCity"
+                  render={({ field }) => (
+                    <FormItem className="relative isolate flex flex-col items-start gap-2 mt-8">
+                      <FormLabel className="shrink-0 font-medium leading-[2.6rem]">
+                        {t("startCity")}
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="border-none shadow-none bg-white rounded-[1rem] resize-none p-8 "
+                          placeholder={
+                            locale === "en"
+                              ? `Where do you start your trip? (CITY)`
+                              : `어디에서 출발하시나요? (도시)`
+                          }
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="extra"

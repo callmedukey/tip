@@ -60,7 +60,6 @@ const MainPageForm = ({
   });
 
   const form = useForm<z.infer<typeof MainPageFormSchema>>({
-    resolver: zodResolver(MainPageFormSchema),
     defaultValues: {
       city: [],
       adults: 0,
