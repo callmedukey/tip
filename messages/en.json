@@ -31,7 +31,7 @@
     "admin": "Admin"
   },
   "MainFirstForm": {
-    "city": "City",
+    "city": "Destinations",
     "startDate": "From",
     "endDate": "To",
     "persons": "Persons",

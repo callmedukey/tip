@@ -31,7 +31,7 @@
     "admin": "관리자"
   },
   "MainFirstForm": {
-    "city": "도시",
+    "city": "도착 도시",
     "startDate": "출발일",
     "endDate": "종료일",
     "persons": "인원",
