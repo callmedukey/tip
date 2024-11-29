@@ -97,7 +97,7 @@ const MainPageForm = ({
   const purpose = form.watch("purpose");
 
   const onSubmit = async (data: z.infer<typeof MainPageFormSchema>) => {
-    if (!data.city) {
+    if (!data.city || !data.city.length) {
       setError(true);
       return;
     }
