@@ -42,7 +42,11 @@
     "business": "출장",
     "leisure": "여행",
     "getAQuote": "다음",
-    "cities": "도시"
+    "cities": "도시",
+    "noCity": "\"도시\"를 입력해주세요",
+    "noDates": "\"출발일 및 종료일\"을 입력해주세요",
+    "noPersons": "\"인원\"을 입력해주세요",
+    "noPurpose": "\"목적\"을 입력해주세요"
   },
   "MainSecondForm": {
     "allInclusive": "전체포함 패키지",

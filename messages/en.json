@@ -42,7 +42,11 @@
     "getAQuote": "Next",
     "business": "Business",
     "leisure": "Leisure",
-    "cities": "Cities"
+    "cities": "Cities",
+    "noCity": "Please enter a destination",
+    "noDates": "Please enter \"dates\"",
+    "noPersons": "Please enter \"persons\"",
+    "noPurpose": "Please enter a \"purpose\""
   },
   "MainSecondForm": {
     "allInclusive": "All inclusive package",

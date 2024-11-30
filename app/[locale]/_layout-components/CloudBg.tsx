@@ -10,11 +10,12 @@ const CloudBg = () => {
 
   if (
     pathname.includes("/about") ||
-    (pathname.includes("/experience-by-tip") && !params.slug) ||
-    (pathname.includes("/partner-hotels") && !params.slug)
+    (pathname.includes("/experience-by-tip")) ||
+    (pathname.includes("/partner-hotels"))
   ) {
     return null;
   }
+
 
   return (
     <Image
