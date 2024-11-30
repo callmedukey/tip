@@ -50,7 +50,11 @@ const BottomCarousel = ({
                   {locale === "en" ? data.en_subText : data.kr_subText}
                 </p>
                 <Link
-                  href={data.link}
+                  href={
+                    locale === "en" && data.link.includes("/en/")
+                      ? data.link
+                      : data.link.replace("/en/", `/${locale}/`)
+                  }
                   className="mt-8 text-murrey border w-fit border-murrey py-2 px-4 flex items-center gap-4 ml-0 mr-auto"
                 >
                   더보기 <ArrowRightIcon className="w-4 h-4" />

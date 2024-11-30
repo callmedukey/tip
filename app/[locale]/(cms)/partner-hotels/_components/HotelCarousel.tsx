@@ -80,7 +80,11 @@ const HotelCarousel = ({
                   {locale === "en" ? data.en_subText : data.kr_subText}
                 </span>
                 <Link
-                  href={data.link}
+                  href={
+                    locale === "en" && data.link.includes("/en/")
+                      ? data.link
+                      : data.link.replace("/en/", `/${locale}/`)
+                  }
                   className="text-[0.75rem] text-[#404040] border border-[#404040] font-normal py-2 px-4 rounded-full w-28 flex items-center justify-between"
                 >
                   {locale === "en" ? "See more" : "더 보기"}
