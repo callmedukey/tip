@@ -23,17 +23,12 @@ export const inclusiveOptions = [
     id: "car",
     label: "Car",
   },
-  { id: "budget", label: "Budget" },
 ] as const;
 
 export const customOptions = [
   {
     id: "translation services",
     label: "Translation services",
-  },
-  {
-    id: "business search",
-    label: "Business search",
   },
   {
     id: "aesthetic cafes",
@@ -81,7 +76,6 @@ export const packageOptionsKR = {
   "tour guide": "투어 가이드",
   car: "차량",
   "translation services": "통역 서비스",
-  "business search": "비즈니스 검색",
   "aesthetic cafes": "감성 카페",
   "michelin restaurants": "미쉐린 레스토랑",
   "patisserie/cooking classes": "제과/요리 수업",
