@@ -8,11 +8,6 @@ const prisma =
   global.prisma ||
   new PrismaClient({
     log: ["query", "info", "warn", "error"],
-    datasources: {
-      db: {
-        url: process.env.DATABASE_URL,
-      },
-    },
   });
 
 if (process.env.NODE_ENV === "development") {
