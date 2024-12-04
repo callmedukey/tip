@@ -33,18 +33,20 @@ const TravelCancelDialog = ({
   const handleCancel = async () => {
     try {
       const res = await cancelTrip(request.id, request.paid);
-      if (res.success && request.paid) {
-        handleRevalidate();
-        setCurrentMessage(t("paidTripCanceled"));
-        setSecondLine(t("secondLine"));
+      if (res.success) {
         setCanceled(true);
-      }
-
-      if (res.success && !request.paid) {
-        setCurrentMessage(t("tripCanceled"));
-        setCanceled(true);
-        setSecondLine("");
-        handleRevalidate(true);
+        if (request.paid) {
+          setCurrentMessage(t("paidTripCanceled"));
+          setSecondLine(t("secondLine"));
+        } else {
+          setCurrentMessage(t("tripCanceled"));
+          setSecondLine("");
+        }
+        
+        // Delay the revalidation by 1000ms
+        setTimeout(() => {
+          handleRevalidate(request.paid ? undefined : true);
+        }, 1000);
       } else {
         setCurrentMessage(res.message || "");
         setSecondLine("");

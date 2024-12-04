@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": " set DATABASE_URL=postgresql://postgres:postgres@localhost:5432/my-local-db && next dev",
+    "dev": "set DATABASE_URL=postgresql://postgres:redisPrismaNaver2024@localhost:5432/my-local-db && next dev",
     "build": "next build",
     "start": "next start -p 8443",
     "lint": "next lint"
