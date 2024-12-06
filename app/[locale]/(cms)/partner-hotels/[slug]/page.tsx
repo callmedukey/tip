@@ -69,7 +69,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
         <i className="italic">Your place to stay is the most important.</i>{" "}
         <br /> Our partner hotels are here to provide you with precious time.
       </h1>
-      <section className="py-16 lg:mt-[30rem] mt-[min(10rem,20vh)] sm:mt-[min(15rem,35vh)]">
+      <section className="py-16 lg:mt-[30rem] mt-[12rem] sm:mt-[min(15rem,35vh)]">
         <article className="rounded-md max-w-7xl mx-auto bg-gradient-to-b from-white/75 to-white/100 overflow-clip">
           <div className="rounded-md mt-8 whitespace-pre-wrap text-center">
             {locale === "en" ? (
