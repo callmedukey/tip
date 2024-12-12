@@ -92,7 +92,8 @@
     "shareYourTravelDescription": "여행 계획을 친구와 가족에게 공유하세요!",
     "copyShareLink": "공유 링크 복사",
     "disableSharing": "공유 비활성화",
-    "linkCopied": "링크 복사됨!"
+    "linkCopied": "링크 복사됨!",
+    "copyFailed": "복사 실패"
   },
   "QuoteInvoiceModal": {
     "totalAmount": "총금액",

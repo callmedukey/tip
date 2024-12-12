@@ -92,7 +92,8 @@
     "shareYourTravelDescription": "Share your travel plans with your friends and family!",
     "copyShareLink": "Copy Share Link",
     "disableSharing": "Disable Sharing",
-    "linkCopied": "Link Copied!"
+    "linkCopied": "Link Copied!",
+    "copyFailed": "Failed to copy"
   },
   "QuoteInvoiceModal": {
     "totalAmount": "Total amount",

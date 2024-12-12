@@ -22,21 +22,41 @@ const MyTravelListItemShareButton = ({
   const [copied, setCopied] = useState(false);
   const locale = useLocale();
   const t = useTranslations("MyTravelListItemShareButton");
+
   const handleCopyShareLink = async () => {
     if (!navigator) return;
-    const { sharedLink, success, message } = await generateSharedLink(
-      requestId
-    );
+    const {
+      sharedLink: newSharedLink,
+      success,
+      message,
+    } = await generateSharedLink(requestId);
 
-    if (success && sharedLink) {
-      navigator.clipboard.writeText(
-        `${
-          process.env.NODE_ENV === "development"
-            ? "http://localhost:3000"
-            : "https://travelinyourpocket.com"
-        }/${locale}/shared-link?id=${sharedLink}`
-      );
-      setCopied(true);
+    if (success && newSharedLink) {
+      const shareUrl = `${
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://travelinyourpocket.com"
+      }/${locale}/shared-link?id=${newSharedLink}`;
+
+      try {
+        // Try modern clipboard API first
+        await navigator.clipboard.writeText(shareUrl);
+        setCopied(true);
+      } catch (err) {
+        // Fallback for mobile devices
+        const textArea = document.createElement("textarea");
+        textArea.value = shareUrl;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand("copy");
+          setCopied(true);
+        } catch (err) {
+          console.error("Failed to copy:", err);
+          alert(t("copyFailed"));
+        }
+        document.body.removeChild(textArea);
+      }
     } else {
       alert(message);
     }
