@@ -12,6 +12,8 @@ import {
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
 const MyTravelListItemShareButton = ({
   requestId,
   sharedLink,
@@ -24,42 +26,20 @@ const MyTravelListItemShareButton = ({
   const t = useTranslations("MyTravelListItemShareButton");
 
   const handleCopyShareLink = async () => {
-    if (!navigator) return;
     const {
       sharedLink: newSharedLink,
       success,
       message,
     } = await generateSharedLink(requestId);
 
-    if (success && newSharedLink) {
-      const shareUrl = `${
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:3000"
-          : "https://travelinyourpocket.com"
-      }/${locale}/shared-link?id=${newSharedLink}`;
-
-      try {
-        // Try modern clipboard API first
-        await navigator.clipboard.writeText(shareUrl);
-        setCopied(true);
-      } catch (err) {
-        // Fallback for mobile devices
-        const textArea = document.createElement("textarea");
-        textArea.value = shareUrl;
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-          document.execCommand("copy");
-          setCopied(true);
-        } catch (err) {
-          console.error("Failed to copy:", err);
-          alert(t("copyFailed"));
-        }
-        document.body.removeChild(textArea);
-      }
-    } else {
+    if (!success || !newSharedLink) {
       alert(message);
+      return;
     }
+
+    setCopied(true);
+    // Reset the copied state after 2 seconds
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleDisableSharing = async () => {
@@ -86,13 +66,21 @@ const MyTravelListItemShareButton = ({
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-2 gap-4 my-8">
-          <button
-            className="text-formText text-base font-medium"
-            onClick={handleCopyShareLink}
-            type="button"
+          <CopyToClipboard
+            text={`${
+              process.env.NODE_ENV === "development"
+                ? "http://localhost:3000"
+                : "https://travelinyourpocket.com"
+            }/${locale}/shared-link?id=${sharedLink}`}
+            onCopy={() => setCopied(true)}
           >
-            {copied ? t("linkCopied") : t("copyShareLink")}
-          </button>
+            <button
+              className="text-formText text-base font-medium"
+              type="button"
+            >
+              {copied ? t("linkCopied") : t("copyShareLink")}
+            </button>
+          </CopyToClipboard>
           <button
             className="text-formText text-base font-medium text-red-500"
             onClick={handleDisableSharing}
